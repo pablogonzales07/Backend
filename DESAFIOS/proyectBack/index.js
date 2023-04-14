@@ -22,16 +22,17 @@ const context = async () => {
     thumbnail: "pictureLuis.png",
     code: 1234567,
     stock: 100,
-  }
-  
-  //testing methods
-  await productManager.addProducts(productA);
-  await productManager.addProducts(productB);
-  await productManager.getProductById(1);
-  await productManager.deleteProduct(1);
-  await productManager.updateProduct(0, "title", "T-shirt Nico Laprovittola");
+  };
 
-  const newProducts = await productManager.getProducts();
+  //testing methods
+
+  /*   await productManager.addProducts(productA); */
+  /*   await productManager.addProducts(productB); */
+  /*   await productManager.getProductById(1); */
+  /*   await productManager.deleteProduct(1); */
+  /*   await productManager.updateProduct(0, "title", "T-shirt Nico Laprovittola");
+   */
+    const newProducts = await productManager.getProducts();
   console.log(newProducts);
 };
 

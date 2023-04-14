@@ -7,5 +7,14 @@
 		"code": 123456,
 		"stock": 100,
 		"id": 0
+	},
+	{
+		"title": "T-shirt Luis Scola",
+		"description": "I present the original Luis Scola t-shirt",
+		"price": 15100,
+		"thumbnail": "pictureLuis.png",
+		"code": 1234567,
+		"stock": 100,
+		"id": 1
 	}
 ]
