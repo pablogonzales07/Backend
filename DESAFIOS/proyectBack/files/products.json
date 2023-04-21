@@ -1,20 +1,26 @@
 [
 	{
-		"title": "T-shirt Nico Laprovittola",
-		"description": "I present the original facu campazzo's t-shirt",
-		"price": 17850,
-		"thumbnail": "pictureFacu.png",
-		"code": 123456,
+		"title": "t-shirt harry",
+		"description": "I present the original Luis Scola t-shirt",
+		"price": 20000,
+		"thumbnail": "pictureLuis.png",
+		"code": 123456789,
 		"stock": 100,
+		"status": true,
+		"category": "Remera",
 		"id": 0
 	},
 	{
-		"title": "T-shirt Luis Scola",
-		"description": "I present the original Luis Scola t-shirt",
-		"price": 15100,
-		"thumbnail": "pictureLuis.png",
-		"code": 1234567,
+		"title": "t-shirt harry",
+		"description": "I present the original Facu Campazzo t-shirt",
+		"price": 20000,
+		"thumbnail": [
+			""
+		],
+		"code": 123456,
 		"stock": 100,
+		"status": true,
+		"category": "Remera",
 		"id": 1
 	}
 ]

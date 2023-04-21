@@ -1,27 +1,16 @@
 import express from "express";
-import ProductManager from "../products/ProductManager.js";
+import __dirname from "./utils.js";
+import productsRouter from "./routes/products.router.js";
+import cartsRouter from "./routes/carts.router.js";
 
 const app = express();
-const newProductManager = new ProductManager();
 
-//endpoint that returns the products according to the limit sent in the request
-app.get("/products", async (req, res) => {
-  const products = await newProductManager.getProducts();
-  const limitProducts = req.query.limit;
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(`${__dirname}/public`));
+app.use("/api/products", productsRouter);
+app.use("/api/carts", cartsRouter);
 
-  if (!limitProducts) return res.send(products);
-  const filterProducts = products.slice(0, limitProducts);
-  res.send(filterProducts);
-});
-
-//endpoint that returns the product according to the id entered by parameter
-app.get("/products/:pid", async (req, res) => {
-  const products = await newProductManager.getProducts();
-  const findProduct = products.find((item) => item.id == req.params.pid);
-  if (!findProduct)
-    return res.send("<h1>The id does not match any product</h1>");
-  res.send(findProduct);
-});
 app.listen(8080, () => {
   console.log("server listening on PORT 8080");
 });

@@ -21,45 +21,61 @@ export default class ProductManager {
     title,
     description,
     price,
-    thumbnail,
+    thumbnail = [""],
     code,
     stock,
+    status = false,
+    category,
   }) => {
-    //I obtain existing products
-    const products = await this.getProducts();
-    //valid if all fields are filled in
-    if (!title || !description || !price || !thumbnail || !code || !stock) {
-      console.log("please complete all fields");
-      return null;
-    }
-    //valid if the code already exists
-    let codeExist = products.find((item) => item.code == code);
-    if (codeExist) {
-      console.log("a product was found with the same code");
-      return null;
-    }
-    //I create the product
-    const product = {
-      title,
-      description,
-      price,
-      thumbnail,
-      code,
-      stock,
-    };
+    try {
+      //I obtain existing products
+      const products = await this.getProducts();
+      //valid if all fields are filled in
+      if (
+        !title ||
+        !description ||
+        !price ||
+        !code ||
+        !stock ||
+        !category ||
+        !status
+      ) {
+        console.log("please complete all fields");
+        return null;
+      }
+      //valid if the code already exists
+      let codeExist = products.find((item) => item.code == code);
+      if (codeExist) {
+        console.log("a product was found with the same code");
+        return null;
+      }
+      //I create the product
+      const product = {
+        title,
+        description,
+        price,
+        thumbnail,
+        code,
+        stock,
+        status,
+        category,
+      };
 
-    //I incorporate a dynamic id
-    if (products.length === 0) {
-      product.id = 0;
-    } else {
-      product.id = products[products.length - 1].id + 1;
+      //I incorporate a dynamic id
+      if (products.length === 0) {
+        product.id = 0;
+      } else {
+        product.id = products[products.length - 1].id + 1;
+      }
+      products.push(product);
+      await fs.promises.writeFile(
+        this.path,
+        JSON.stringify(products, null, "\t")
+      );
+      return product;
+    } catch (error) {
+      console.log(error);
     }
-    products.push(product);
-    await fs.promises.writeFile(
-      this.path,
-      JSON.stringify(products, null, "\t")
-    );
-    return product;
   };
 
   //return product by id
@@ -82,15 +98,23 @@ export default class ProductManager {
     if (productIndex === -1) {
       console.log("sorry we did not find any product with that id");
       return null;
-    } else {
-      const itemUpdate = products[productIndex];
-      itemUpdate[updateField] = value;
-      products[productIndex] = itemUpdate;
-      
-      await fs.promises.writeFile(this.path, JSON.stringify(products, null, "\t"));
-      console.log(`the ${updateField} field was correctly changed to ${value}`);
-      return itemUpdate;
     }
+
+    if (updateField.includes("id")) {
+      console.log("You can't change the field id");
+      return null;
+    }
+
+    const itemUpdate = products[productIndex];
+    itemUpdate[updateField] = value;
+    products[productIndex] = itemUpdate;
+
+    await fs.promises.writeFile(
+      this.path,
+      JSON.stringify(products, null, "\t")
+    );
+    console.log(`the ${updateField} field was correctly changed to ${value}`);
+    return itemUpdate;
   };
 
   //method to remove any product with the id
