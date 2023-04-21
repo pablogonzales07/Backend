@@ -16,7 +16,7 @@ export default class CartManager {
     }
   };
 
-  //methos to obtain the products in a especific cart(id)
+  //method to obtain the products in a especific cart(id)
   getProductsCart = async (cartId) => {
     const carts = await this.getCarts();
     const indexCart = carts.findIndex((cart) => cart.id === cartId);

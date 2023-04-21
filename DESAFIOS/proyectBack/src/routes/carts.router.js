@@ -1,6 +1,7 @@
 import { Router } from "express";
 import CartManager from "../../carts/CartManager.js";
 
+
 const router = Router();
 const newCartManager = new CartManager();
 
@@ -15,7 +16,7 @@ router.get("/:cid", async (req, res) => {
   res.send(request);
 });
 
-//endponit to post a new cart whit automatic id anda especific products
+//endponit to add a new cart whit automatic id anda especific products
 router.post("/", async (req, res) => {
   const request = await newCartManager.addCart();
   if (!request)

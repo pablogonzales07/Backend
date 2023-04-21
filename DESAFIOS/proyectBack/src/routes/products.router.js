@@ -20,7 +20,7 @@ router.get("/:pid", async (req, res) => {
   const products = await newProductManager.getProducts();
   const findProduct = products.find((item) => item.id == req.params.pid);
   if (!findProduct)
-    return res.send("<h1>The id does not match any product</h1>");
+    return res.status(400).send({status: "Error", error:"not finded none product whit this id"});
   res.send(findProduct);
 });
 
@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
   res.send({ status: "success", message: "Product added" });
 });
 
-//endopoint for change a field of the product
+//endopoint for change fields and your values
 
 router.put("/:pid", async (req, res) => {
   const fieldToChange = Object.keys(req.body);

@@ -4,7 +4,7 @@
 		"description": "I present the original Luis Scola t-shirt",
 		"price": 20000,
 		"thumbnail": "pictureLuis.png",
-		"code": 123456789,
+		"code": "123456789",
 		"stock": 100,
 		"status": true,
 		"category": "Remera",
@@ -17,7 +17,7 @@
 		"thumbnail": [
 			""
 		],
-		"code": 123456,
+		"code": "123456",
 		"stock": 100,
 		"status": true,
 		"category": "Remera",
