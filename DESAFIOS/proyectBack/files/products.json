@@ -1,9 +1,9 @@
 [
 	{
-		"title": "t-shirt harry",
+		"title": "t-shirt Luis Scola",
 		"description": "I present the original Luis Scola t-shirt",
 		"price": 20000,
-		"thumbnail": "pictureLuis.png",
+		"thumbnail": "../public/img/imagenProductos.jpg",
 		"code": "123456789",
 		"stock": 100,
 		"status": true,
@@ -11,7 +11,7 @@
 		"id": 0
 	},
 	{
-		"title": "t-shirt harry",
+		"title": "t-shirt Facu Campazzo",
 		"description": "I present the original Facu Campazzo t-shirt",
 		"price": 20000,
 		"thumbnail": [

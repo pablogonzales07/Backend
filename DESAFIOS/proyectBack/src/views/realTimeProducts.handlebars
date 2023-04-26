@@ -1,0 +1,39 @@
+<div>
+  {{#if products}}
+    <h1>Real Time Products</h1>
+    <section>
+      <article id="listProducts">
+        {{#each products}}
+          <div>
+            <b>{{this.code}}</b>
+            <div>
+              <h2>{{this.title}}</h2>
+              <p>{{this.description}}</p>
+              <b>{{this.price}}</b>
+            </div>
+            <button>Delete</button>
+          </div>
+        {{/each}}
+      </article>
+    </section>
+    <section>
+        <h2>Add a Product</h2>
+        <form action="" id="formAddProduct">
+            <input type="text" placeholder="Title of product">
+            <input type="text" placeholder="Price of product">
+            <input type="text" placeholder="Code of product">
+            <input type="text" placeholder="Thumnbail of product">
+            <input type="text" placeholder="Description of product">
+            <input type="text" placeholder="Stock of product">
+            <input type="text" placeholder="Status of product">
+            <input type="text" placeholder="Category of product">
+            <input type="submit">
+        </form>
+    </section>
+  {{else}}
+    <h1>We sorry, not finded any product</h1>
+  {{/if}}
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/realTimeProducts.js"></script>

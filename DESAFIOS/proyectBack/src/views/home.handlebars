@@ -1,0 +1,18 @@
+<section>
+  {{#if products}}
+    <h1>List of Products</h1>
+    <article>
+      {{#each products}}
+        <div>
+            <div>
+              <h2>{{this.title}}</h2>
+              <p>{{this.description}}</p>
+              <b>{{this.price}}</b>
+            </div>
+        </div>
+      {{/each}}
+    </article>
+  {{else}}
+    <h1>We sorry, not finded any product</h1>
+  {{/if}}
+</section>
