@@ -11,7 +11,7 @@
               <p>{{this.description}}</p>
               <b>{{this.price}}</b>
             </div>
-            <button>Delete</button>
+            <button id="{{this.id}}">Delete</button>
           </div>
         {{/each}}
       </article>
@@ -29,6 +29,13 @@
             <input type="text" placeholder="Category of product">
             <input type="submit">
         </form>
+    </section>
+    <section>
+      <h2>Delete a product</h2>
+      <form action="" id="formDeleteProduct">
+        <input type="text" placeholder="enter the id of the product you want to delete">
+        <input type="submit">
+      </form>
     </section>
   {{else}}
     <h1>We sorry, not finded any product</h1>

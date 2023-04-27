@@ -30,18 +30,17 @@ app.use("/", viewsRouter);
 const newProductManager = new ProductManager();
 
 io.on("connection", socket => {
+  console.log("new client coneccting");
   socket.on("message", async data => {
     const newProduct = await newProductManager.addProducts(data);
+    if(newProduct === null) return socket.emit("changeListProducts", "We didn't add the product")
     io.emit("changeListProducts", newProduct);
   })
-  socket.on("idMessage", async data => {
-    
-    const itemToDelete = await newProductManager.deleteProduct(parseInt(data));
-    if(itemToDelete === null) {
-      socket.emit("deleteProduct", { status: "error", error:"Not find product whit this id" })
-    }else {
-      io.emit("deleteProduct", itemToDelete)
-    }
-  })
+  socket.on("deleteProduct", async data => {
+    const findItemToDelete = await newProductManager.deleteProduct(parseInt(data))
+    if(findItemToDelete === null) return socket.emit("deleteProductConfirmed","Sorry we didn't delete the product selected");
+    const newListProducts = await newProductManager.getProducts();
+    io.emit("deleteProductConfirmed", newListProducts);
+  } )
 })
 

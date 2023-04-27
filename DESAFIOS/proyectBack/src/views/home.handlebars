@@ -1,14 +1,18 @@
 <section>
   {{#if products}}
-    <h1>List of Products</h1>
-    <article>
+    <h1>LIST OF PRODUCTS</h1>
+    <article class="cartsContainer">
       {{#each products}}
-        <div>
-            <div>
-              <h2>{{this.title}}</h2>
-              <p>{{this.description}}</p>
-              <b>{{this.price}}</b>
-            </div>
+        <div class="cartsStyle">
+          <div class="futureImg">
+            <p>Future img product</p>
+          </div>
+          <div class="cardsBody">
+            <h3>{{this.title}}</h3>
+            <p>{{this.description}}</p>
+            <b>{{this.price}}$</b>
+          </div>
+          <div class="codeCards"><b>#{{this.code}}</b></div>
         </div>
       {{/each}}
     </article>
