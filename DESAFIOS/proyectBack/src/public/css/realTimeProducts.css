@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow&display=swap');
+
+body {
+    background-color: #212A3E;
+}
+
+
+h1 {
+    font-size: 2em;
+    text-align: center;
+    color: #394867;
+}
+
+.productsContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+    .productsContainer .productsCart {
+        width: 250px;
+        height: 350px;
+        margin: 20px;
+    }
+
+        .productsContainer .productsCart .futureImage {
+            width: 100%;
+            height: 50%;
+            background-color: #F1F6F9;
+        }
+
+        .productsContainer .productsCart .cardsBody {
+            width: 100%;
+            height: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #9BA4B5;
+        }
+
+            .productsContainer .productsCart .cardsBody h3 {
+                font-size: 1.4em;
+                height: 10%;
+                text-align: center;
+                color: grey;
+                margin-top: 5px;
+                font-family: 'Sedgwick Ave Display', cursive;
+            }
+
+            .productsContainer .productsCart .cardsBody p {
+                font-size: 1.1em;
+                text-align: center;
+                padding: 10px;
+                font-family: 'Archivo Narrow', sans-serif;
+            }
+
+            .productsContainer .productsCart .cardsBody b {
+                font-size: 1.5em;
+            }
+
+    .productsContainer .productsCart button {
+        width: 100%;
+        background-color: black;
+        color: #fff;
+        padding: 10px;
+        font-size: 1.3em;
+        font-family: 'Archivo Narrow', sans-serif;
+    }
+
+    .productsContainer .productsCart button:hover {
+        opacity: 0.7;
+        cursor: pointer;
+    }

@@ -1,17 +1,17 @@
 <div>
   {{#if products}}
-    <h1>Real Time Products</h1>
+    <h1>REAL TIME PRODUCTS</h1>
     <section>
-      <article id="listProducts">
+      <article id="listProducts" class="productsContainer">
         {{#each products}}
-          <div>
-            <b>{{this.code}}</b>
-            <div>
-              <h2>{{this.title}}</h2>
+          <div class="productsCart">
+            <div class="futureImage"></div>
+            <div class="cardsBody">
+              <h3>{{this.title}}</h3>
               <p>{{this.description}}</p>
-              <b>{{this.price}}</b>
+              <b>{{this.price}}$</b>
             </div>
-            <button id="{{this.id}}">Delete</button>
+            <button id="{{this.id}}">ADD TO CART</button>
           </div>
         {{/each}}
       </article>
