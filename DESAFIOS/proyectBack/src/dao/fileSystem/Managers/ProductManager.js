@@ -30,25 +30,7 @@ export default class ProductManager {
     try {
       //I obtain existing products
       const products = await this.getProducts();
-      //valid if all fields are filled in
-      if (
-        !title ||
-        !description ||
-        !price ||
-        !code ||
-        !stock ||
-        !category ||
-        !status
-      ) {
-        console.log("please complete all fields");
-        return null;
-      }
-      //valid if the code already exists
-      let codeExist = products.find((item) => item.code == code);
-      if (codeExist) {
-        console.log("a product was found with the same code");
-        return null;
-      }
+
       //I create the product
       const product = {
         title,
@@ -95,16 +77,6 @@ export default class ProductManager {
   updateProduct = async (productId, updateField, value) => {
     const products = await this.getProducts();
     const productIndex = products.findIndex((item) => item.id === productId);
-    if (productIndex === -1) {
-      console.log("sorry we did not find any product with that id");
-      return null;
-    }
-
-    if (updateField.includes("id")) {
-      console.log("You can't change the field id");
-      return null;
-    }
-
     const itemUpdate = products[productIndex];
     itemUpdate[updateField] = value;
     products[productIndex] = itemUpdate;
@@ -121,16 +93,11 @@ export default class ProductManager {
   deleteProduct = async (productId) => {
     const products = await this.getProducts();
     const itemToDelete = products.find((item) => item.id === productId);
-    if (itemToDelete) {
-      const newItems = products.filter(
-        (products) => products.id != itemToDelete.id
-      );
-      fs.promises.writeFile(this.path, JSON.stringify(newItems, null, "\t"));
-      console.log(`you have deleted the product: "${itemToDelete.title}"`);
-      return itemToDelete;
-    } else {
-      console.log(`id ${productId} does not match with any product`);
-      return null;
-    }
+    const newItems = products.filter(
+      (products) => products.id != itemToDelete.id
+    );
+    fs.promises.writeFile(this.path, JSON.stringify(newItems, null, "\t"));
+    console.log(`you have deleted the product: "${itemToDelete.title}"`);
+    return itemToDelete;
   };
 }

@@ -1,45 +1,9 @@
 <div>
-  {{#if products}}
     <h1>REAL TIME PRODUCTS</h1>
     <section>
       <article id="listProducts" class="productsContainer">
-        {{#each products}}
-          <div class="productsCart">
-            <div class="futureImage"></div>
-            <div class="cardsBody">
-              <h3>{{this.title}}</h3>
-              <p>{{this.description}}</p>
-              <b>{{this.price}}$</b>
-            </div>
-            <button id="{{this.id}}">ADD TO CART</button>
-          </div>
-        {{/each}}
       </article>
     </section>
-    <section>
-        <h2>Add a Product</h2>
-        <form action="" id="formAddProduct">
-            <input type="text" placeholder="Title of product">
-            <input type="text" placeholder="Price of product">
-            <input type="text" placeholder="Code of product">
-            <input type="text" placeholder="Thumnbail of product">
-            <input type="text" placeholder="Description of product">
-            <input type="text" placeholder="Stock of product">
-            <input type="text" placeholder="Status of product">
-            <input type="text" placeholder="Category of product">
-            <input type="submit">
-        </form>
-    </section>
-    <section>
-      <h2>Delete a product</h2>
-      <form action="" id="formDeleteProduct">
-        <input type="text" placeholder="enter the id of the product you want to delete">
-        <input type="submit">
-      </form>
-    </section>
-  {{else}}
-    <h1>We sorry, not finded any product</h1>
-  {{/if}}
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

@@ -22,5 +22,38 @@
 		"status": true,
 		"category": "Remera",
 		"id": 1
+	},
+	{
+		"title": "T-shirt Nocioni",
+		"description": "I present the original nocioni t-shirt",
+		"price": 17850,
+		"thumbnail": "pictureFacu.png",
+		"code": "12345678910",
+		"stock": 100,
+		"status": true,
+		"category": "remera",
+		"id": 2
+	},
+	{
+		"title": "hola",
+		"description": "I present the original Lapro t-shirt",
+		"price": 17850,
+		"thumbnail": "pictureFacu.png",
+		"code": "12345678910111213123456",
+		"stock": 100,
+		"status": true,
+		"category": "remera",
+		"id": 3
+	},
+	{
+		"title": "T-shirt Caffaro",
+		"description": "I present the original nocioni Caffaro",
+		"price": 17850,
+		"thumbnail": "pictureFacu.png",
+		"code": "12345678910",
+		"stock": 100,
+		"status": true,
+		"category": "remera",
+		"id": 4
 	}
 ]
