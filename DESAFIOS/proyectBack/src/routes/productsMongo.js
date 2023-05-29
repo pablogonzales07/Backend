@@ -6,19 +6,48 @@ const productsService = new ProductsManager();
 
 router.get("/", async (req, res) => {
   try {
-    const products = await productsService.getProducts();
     const limitProducts = req.query.limit;
-    console.log(limitProducts);
+    const pageProducts = req.query.page;
+    const filterProducts = req.body;
+    let orderPrice = req.query.order;
 
-    if (!limitProducts)
-      return res.send({ status: "Succes", payload: products });
-    const filterProducts = products.slice(0, limitProducts);   
-    res.send({ status: "Succes", payload: filterProducts });
+    if (orderPrice === "asc") {
+      orderPrice = 1;
+    } else if (orderPrice === "desc") {
+      orderPrice = -1;
+    } else {
+      orderPrice = null;
+    }
+
+    const {
+      docs,
+      totalPages,
+      prevPage,
+      nextPage,
+      page,
+      hasNextPage,
+      hasPrevPage,
+    } = await productsService.getProducts(
+      filterProducts,
+      limitProducts,
+      pageProducts,
+      orderPrice
+    );
+
+    res.status(200).send({
+      status: "Success",
+      payload: docs,
+      totalPages: totalPages,
+      prevPage: prevPage,
+      nextPage: nextPage,
+      page: page,
+      hasPrevPage: hasPrevPage,
+      hasNextPage: hasNextPage,
+    });
   } catch (error) {
     res.status(500).send(`Sorry something went wrong: ${error}`);
   }
 });
-
 
 router.post("/", async (req, res) => {
   try {
@@ -74,12 +103,10 @@ router.get("/:pid", async (req, res) => {
       (product) => product.id === productId
     );
     if (!productSelected)
-      return res
-        .status(404)
-        .send({
-          status: "error",
-          error: "Sorry was not find any product whit that id",
-        });
+      return res.status(404).send({
+        status: "error",
+        error: "Sorry was not find any product whit that id",
+      });
     await productsService.getProductBy({ _id: productId });
     res.send({ status: "Succes", payload: productSelected });
   } catch (error) {
@@ -87,28 +114,32 @@ router.get("/:pid", async (req, res) => {
   }
 });
 
-router.put("/:pid", async (req,res) => {
-    const productId = req.params.pid;
-    const productUpdate = req.body;
-    const products = await productsService.getProducts();
+router.put("/:pid", async (req, res) => {
+  const productId = req.params.pid;
+  const productUpdate = req.body;
+  const products = await productsService.getProducts();
 
-    const productExist = products.find(product => product.id === productId);
-    if(!productExist) return res.status(404).send({status: "Error", error: "Not finded any product whit this id"});
-    await productsService.updateProduct(productId, productUpdate);
-    res.send({status:"Success", message:"The product was changed correctly"})
-})
-
-
+  const productExist = products.find((product) => product.id === productId);
+  if (!productExist)
+    return res
+      .status(404)
+      .send({ status: "Error", error: "Not finded any product whit this id" });
+  await productsService.updateProduct(productId, productUpdate);
+  res.send({ status: "Success", message: "The product was changed correctly" });
+});
 
 router.delete("/:pid", async (req, res) => {
-    const productId = req.params.pid;
-    const products = await productsService.getProducts();
+  const productId = req.params.pid;
+  const products = await productsService.getProducts();
 
-    const productExist = products.find(product => product.id === productId);
-    if(!productExist) return res.status(404).send({status: "Error", error: "Not finded any product whit this id"});
+  const productExist = products.find((product) => product.id === productId);
+  if (!productExist)
+    return res
+      .status(404)
+      .send({ status: "Error", error: "Not finded any product whit this id" });
 
-    await productsService.deleteProduct(productId);
-    res.send({status: "Succes", message: "The product was deleted correctly"})
+  await productsService.deleteProduct(productId);
+  res.send({ status: "Succes", message: "The product was deleted correctly" });
 });
 
 export default router;

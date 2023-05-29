@@ -1,8 +1,8 @@
 import productsModel from "../models/product.js";
 
 export default class ProductsManager {
-    getProducts = () => {
-        return productsModel.find();
+    getProducts = (filterProducts, limitProducts=10, pageProducts=1,orderPrice) => {
+        return productsModel.paginate(filterProducts,{limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true});
     }
 
     getProductBy = (param) => {

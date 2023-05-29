@@ -54,6 +54,55 @@ router.post("/:cid/product/:pid", async (req,res) => {
     
 })
 
+router.delete("/:cid/product/:pid", async (req,res) => {
+    const cartId = req.params.cid;
+    const productId = req.params.pid;
+    const carts = await cartsService.getCarts();
+
+    //i validate if the cart id selected is match whit any cart in the bd
+    const cartExist = carts.find(item => item.id === cartId);
+    if(!cartExist) return res.status(404).send({status: "Error", error: "Cart not found"});
+
+    //valid if the product id matches any product in the cart
+    const productsCart = await cartsService.getProductsCart({_id:cartId});
+    const productExist = productsCart.find(item => item.product === productId);
+    if(!productExist) return res.status(404).send({status: "Error", error: "Product not found in this cart"});
+
+    await cartsService.deleteProductCart(cartId, productId);
+    res.status(200).send({status: "Success", message: "Product was deleted correctly"})
+})
+
+router.put("/:cid/products/:pid", async (req,res) => {
+    const cartId = req.params.cid;
+    const productId = req.params.pid;
+    const newQuantity = req.body.quantity;
+    const carts = await cartsService.getCarts();
+
+    //i validate if the cart id selected is match whit any cart in the bd
+    const cartExist = carts.find(item => item.id === cartId);
+    if(!cartExist) return res.status(404).send({status: "Error", error: "Cart not found"});
+
+    //valid if the product id matches any product in the cart
+    const productsCart = await cartsService.getProductsCart({_id:cartId});
+    const productExist = productsCart.find(item => item.product === productId);
+    if(!productExist) return res.status(404).send({status: "Error", error: "Product not found in this cart"});
+
+    productExist.quantity = newQuantity;
+    cartExist.products = productsCart;
+    await cartsService.updateQuantityCart(cartId, cartExist);
+    res.status(200).send({status: "Success", message: "Product's quantity was changed correctly"})
+})
+
+router.delete("/:cid", async (req,res) => {
+    const cartId = req.params.cid;
+    const carts = await cartsService.getCarts();
+
+    const cartExist = carts.find(item => item.id === cartId);
+    if(!cartExist) return res.status(404).send({status: "Error", error: "Cart not found"});
+
+    await cartsService.deleteAllProductsCart(cartId);
+    res.status(200).send({status: "Success", message: "Product's were deleted correctly"})
+})
 
 
 

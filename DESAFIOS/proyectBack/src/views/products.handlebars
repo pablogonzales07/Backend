@@ -1,0 +1,27 @@
+<div>
+    <div>
+        {{#each products}}
+            <div class="cartStyle">
+                <div class="textCart">
+                    <h2>{{this.title}}</h2>
+                    <p>{{this.description}}</p>
+                    <b>{{this.price}}</b>
+                </div>
+                <button>Agregar al carrito</button>
+            </div>
+        {{/each}}
+    </div>
+    <div class="paginationStyle">
+        {{#if hasPrevPage}}
+            <a href="/?page={{prevPage}}">
+                <button>Previus Page</button>
+            </a>
+        {{/if}}
+        {{page}}
+        {{#if hasNextPage}}
+            <a href="/?page={{nextPage}}">
+                <button>Next page</button>
+            </a>
+        {{/if}}
+    </div>
+</div>

@@ -18,4 +18,16 @@ export default class CartsManager {
   addProductCart = (idCart, cart) => {
     return cartsModel.findByIdAndUpdate(idCart, {$set: cart})
   };
+
+  deleteProductCart = (idCart, idProduct) => {
+    return cartsModel.updateOne({_id: idCart}, {$pull: {"products": {"product": idProduct}}})
+  }
+
+  updateQuantityCart = (idCart, cart) => {
+    return cartsModel.findByIdAndUpdate(idCart, {$set: cart})
+  }
+
+  deleteAllProductsCart = (idCart) => {
+    return cartsModel.updateOne({_id: idCart}, {$set: {products: []}})
+  }
 }
