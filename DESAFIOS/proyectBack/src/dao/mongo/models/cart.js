@@ -9,12 +9,14 @@ const schema = new mongoose.Schema({
                 product:{
                     type:mongoose.SchemaTypes.ObjectId,
                     ref:'Products'
-                }
+                },
+                quantity: Number
             }
         ],
         default: []
     }
 })
+
 
 const cartsModel = mongoose.model(collection, schema);
 

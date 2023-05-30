@@ -1,10 +1,12 @@
 import { Router } from "express";
 import ProductManager from "../dao/fileSystem/Managers/ProductManager.js";
-import ManagerMongo from "../dao/mongo/Managers/Products.js"
+import ManagerProductsMongo from "../dao/mongo/Managers/Products.js";
+import ManagerCartsMongo from "../dao/mongo/Managers/Carts.js";
 
 const router = Router();
 const newProductManager = new ProductManager();
-const productsService = new ManagerMongo();
+const productsService = new ManagerProductsMongo();
+const cartsService = new ManagerCartsMongo();
 
 router.get("/", async (req, res) => {
   const products = await newProductManager.getProducts();
@@ -25,7 +27,8 @@ router.get("/chat", async (req,res) => {
 })
 
 router.get("/products", async (req,res) => {
-  const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, page} = await productsService.getProducts();
+  const { page = 1, limit = 2, order, filterProducts } = req.query;
+  const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, ...rest} = await productsService.getProducts(filterProducts, limit, page, order);
   const products = docs;
   res.render("products", {
     products,
@@ -33,11 +36,18 @@ router.get("/products", async (req,res) => {
     hasPrevPage,
     prevPage,
     nextPage,
-    page  
+    page: rest.page,
+    css: "products"  
   })
 
 })
 
+router.get("/carts/:cid", async (req,res) => {
+  const cartId = req.params.cid;
+  const cartSelected = await cartsService.getCartById(cartId).populate("products.product");
+  const productsCart = cartSelected.products
+  res.render("carts", {productsCart, css: "cart"})
+})
 export default router;
 
 
