@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+body{
+    background-color: #212A3E;
+}
+
+.formRegisterStyle {
+    width: 400px;
+    background-color: #24303c;
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
+    border-radius: 4px;
+    color: #fff;
+    box-shadow: 7px 13px 37px #000;
+}
+
+    .formRegisterStyle h2 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        font-family: 'Bebas Neue', sans-serif;
+        text-align: center;
+        letter-spacing: 2px;
+    }
+
+    .formRegisterStyle .controls {
+        width: 95%;
+        background-color: #24303c;
+        padding: 10px;
+        border-radius: 4px;
+        margin-bottom: 16px;
+        border: 1px solid #1f53c5;
+        font-size: 1.2em;
+        color: #fff;
+    }
+
+    .formRegisterStyle p{
+        height: 40px;
+        text-align: center;
+        font-size: 18px;
+        line-height: 40px;
+        font-family: 'Bebas Neue', sans-serif;
+
+    }
+
+    .formRegisterStyle a {
+        color: #fff;
+        text-decoration: none;
+        font-family: 'Bebas Neue', sans-serif;
+
+    }
+
+        .formRegisterStyle a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+    .formRegisterStyle .formButtonStyle {
+        width: 100%;
+        background-color: #1f53c5;
+        border: none;
+        padding: 12px;
+        margin: 16px 0;
+        font-size: 1.5em;
+        letter-spacing: 4px;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .formRegisterStyle .errorMessageStyle{
+        color: red;
+        font-size: 1.8em;
+        letter-spacing: 2px;
+    }

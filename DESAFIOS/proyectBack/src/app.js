@@ -1,7 +1,11 @@
+//external dependencies
 import express from "express";
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
+import session from "express-session";
+import MongoStore from "connect-mongo"
+
 import __dirname from "./utils.js";
 import ProductManager from "./dao/fileSystem/Managers/ProductManager.js";
 import productsMongoRouter from "./routes/productsMongo.js";
@@ -9,6 +13,7 @@ import cartsMongoRouter from "./routes/cartsMongo.js";
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
+import sessionsRouter from "./routes/sessions.router.js"
 import registerChatHandler from "./listeners/chatHandle.js";
 
 const app = express();
@@ -17,7 +22,9 @@ const server = app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
 const io = new Server(server);
-const connection = mongoose.connect("mongodb+srv://pabloTrebotich:12345678910@eccomercedatabase.qejn1vy.mongodb.net/EcommerceProyect?retryWrites=true&w=majority")
+const connection = mongoose.connect(
+  "mongodb+srv://pabloTrebotich:12345678910@eccomercedatabase.qejn1vy.mongodb.net/EcommerceProyect?retryWrites=true&w=majority"
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -27,6 +34,16 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(session({
+  store: new MongoStore({
+      mongoUrl:"mongodb+srv://pabloTrebotich:12345678910@eccomercedatabase.qejn1vy.mongodb.net/EcommerceProyect?retryWrites=true&w=majority",
+      ttl: 3600,
+  }),
+  secret:"sesion123456",
+  resave:false,
+  saveUninitialized:false
+}))
+
 app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "handlebars");
@@ -35,6 +52,7 @@ app.use("/api/fs/products", productsRouter);
 app.use("/api/fs/carts", cartsRouter);
 app.use("/api/products", productsMongoRouter);
 app.use("/api/carts", cartsMongoRouter);
+app.use("/api/sessions", sessionsRouter);
 app.use("/", viewsRouter);
 
 const newProductManager = new ProductManager();
@@ -44,5 +62,5 @@ io.on("connection", async (socket) => {
   console.log("new client coneccting");
   const products = await newProductManager.getProducts();
   socket.emit("changeListProducts", products);
-  registerChatHandler(io,socket);
+  registerChatHandler(io, socket);
 });

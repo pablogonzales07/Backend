@@ -1,8 +1,12 @@
 import productsModel from "../models/product.js";
 
 export default class ProductsManager {
-    getProducts = (filterProducts, limitProducts=10, pageProducts=1,orderPrice) => {
-        return productsModel.paginate(filterProducts,{limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true});
+    getProducts = (filterCategory, filterDisponibility, anyFilter, limitProducts=10, pageProducts=1,orderPrice) => {
+        if(filterCategory) return productsModel.paginate({category: filterCategory}, {limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true} )
+        if(filterDisponibility) return productsModel.paginate({status: filterDisponibility}, {limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true} )   
+        if(filterCategory && filterDisponibility) return productsModel.paginate({category: filterCategory, status: filterDisponibility}, {limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true} )
+        if(anyFilter) return productsModel.paginate(anyFilter,{limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true});
+        return productsModel.paginate({},{limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true});
     }
 
     getProductBy = (param) => {
@@ -13,8 +17,8 @@ export default class ProductsManager {
         return productsModel.create(product);
     }
 
-    updateProduct = (productId, company) => {
-        return productsModel.findByIdAndUpdate(productId, { $set: company })        
+    updateProduct = (productId, fieldsProduct) => {
+        return productsModel.findByIdAndUpdate(productId, { $set: fieldsProduct })        
     }
 
     deleteProduct = (productId) => {
