@@ -4,7 +4,8 @@ import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import session from "express-session";
-import MongoStore from "connect-mongo"
+import MongoStore from "connect-mongo";
+import passport from "passport";
 
 import __dirname from "./utils.js";
 import ProductManager from "./dao/fileSystem/Managers/ProductManager.js";
@@ -14,6 +15,7 @@ import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
 import sessionsRouter from "./routes/sessions.router.js"
+import initializePassportStrategies from './config/passport.config.js';
 import registerChatHandler from "./listeners/chatHandle.js";
 
 const app = express();
@@ -47,6 +49,9 @@ app.use(session({
 app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "handlebars");
+
+app.use(passport.initialize());
+initializePassportStrategies();
 
 app.use("/api/fs/products", productsRouter);
 app.use("/api/fs/carts", cartsRouter);

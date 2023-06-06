@@ -6,10 +6,6 @@ export default class UserManager{
         return userModel.create(user);
     }
 
-    logUser = (userEmail, userPassword) => {
-        return userModel.findOne(userEmail, userPassword)
-    }
-
     findUser = (fieldUser) => {
         return userModel.findOne(fieldUser)
     }

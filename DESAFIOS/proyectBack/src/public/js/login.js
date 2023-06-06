@@ -14,13 +14,12 @@ formLogin.addEventListener('submit', async (e) => {
     },
   });
   const responseData = await response.json();
-  console.log(responseData);
   if (responseData.status === 'Success') {
     window.location.replace('/products');
   }
   if(responseData.status === "Error") {
     errorMessage.innerHTML = "";
-    errorMessage.innerHTML = "Wrong password or username";
+    errorMessage.innerHTML = responseData.error;
   }
 });
 

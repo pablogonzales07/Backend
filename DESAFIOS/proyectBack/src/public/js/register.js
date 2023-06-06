@@ -13,6 +13,7 @@ formRegister.addEventListener("submit", async (e) => {
       "Content-Type": "application/json",
     },
   });
+
   const responseData = await response.json();
   if (responseData.status === "Success") {
     window.location.replace("/login");

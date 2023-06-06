@@ -11,7 +11,7 @@ const schema = new mongoose.Schema({
         default: "User"
     },
     password: String
-});
+},{timestamps: true});
 
 const userModel = mongoose.model(collection,schema);
 
