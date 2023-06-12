@@ -1,8 +1,10 @@
 import passport from "passport";
 import local from "passport-local";
+import GithubStrategy from "passport-github2";
 
 import UserManager from "../dao/mongo/Managers/users.js"
 import { createHash, validatePassword } from "../utils.js";
+
 
 
 const LocalStrategy = local.Strategy;
@@ -17,7 +19,7 @@ const initializePassportStrategies = () => {
         try {
           //i capture the user's fields
           const { first_name, last_name } = req.body;
-
+         
           //i valid if the all fields are complete
           if (!first_name || !last_name || !email || !password) return done(null, false, { message: "Incomplete Fields" });
 
@@ -41,9 +43,8 @@ const initializePassportStrategies = () => {
 
           //add the user
           const userAdded = await usersService.addUser(user);
-          done(null, userAdded, {message: "ggregergergwerg"});
+          done(null, userAdded);
         } catch (error) {
-          console.log(error);
           done(error);
         }
       }
@@ -55,7 +56,6 @@ const initializePassportStrategies = () => {
     new LocalStrategy(
       { usernameField: "email" },
       async (email, password, done) => {
-
         if (email === "admin@admin.com" && password === "123") {
           const user = {
             id: 0,
@@ -65,7 +65,6 @@ const initializePassportStrategies = () => {
           };
           return done(null, user);
         }
-
         let user;
 
         //I valid if the user exist
@@ -91,6 +90,33 @@ const initializePassportStrategies = () => {
       }
     )
   );
+
+  passport.use("github", new GithubStrategy({
+    clientID: "Iv1.f31caff0065cadfd",
+    clientSecret: "0954a3a7db8d99824618aac70d004f69c197f09e",
+    callbackURL: "http://localhost:8080/api/sessions/githubcallback"
+
+  }, async (accessToken,refreshToken, profile, done ) => {
+      try {
+          //I capture the user info I need
+          const {name, email} = profile._json;
+          
+          //if the user is not registered, I add it to the database; otherwise I create the session
+          const userExist = await usersService.findUser({email: email});
+          if(!userExist) {
+            const newUser = {
+              first_name: name,
+              email: email,
+              password: ""
+            }
+            const result = await usersService.addUser(newUser);
+            done(null, result)         
+          }
+          done(null, userExist)
+      } catch (error) {
+          done(error)
+      }
+  }))
 
   passport.serializeUser(function (user, done) {
     return done(null, user.id);

@@ -1,20 +1,19 @@
 import { Router } from "express";
 
-import ProductManager from "../dao/fileSystem/Managers/ProductManager.js";
 import ManagerProductsMongo from "../dao/mongo/Managers/Products.js";
 import ManagerCartsMongo from "../dao/mongo/Managers/Carts.js";
 import { privacy } from "../middlewares/auth.js";
 
 const router = Router();
-const newProductManager = new ProductManager();
 const productsService = new ManagerProductsMongo();
 const cartsService = new ManagerCartsMongo();
 
 router.get("/", async (req, res) => {
-  const products = await newProductManager.getProducts();
+  
   res.render("home", {
-    products,
-    css: "home"
+    css: "home",
+    img: "/img/logo.png",
+    gif: "/gifs/header.gif"
   });
 });
 

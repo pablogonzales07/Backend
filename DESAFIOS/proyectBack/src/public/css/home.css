@@ -1,80 +1,141 @@
 @import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-
-body {
-    background-color: #212A3E;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 
-h1 {
-    font-size: 2em;
-    text-align: center;
-    color: #394867;
-}
-
-.cartsContainer {
+.navStyle {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
     align-items: center;
-    padding: 15px;
+    background-color: #F1F6F9;
+    padding: 5px;
 }
 
-    .cartsContainer .cartsStyle {
-        width: 250px;
-        height: 350px;
-        margin: 20px;
-
+    .navStyle ul {
+        display: flex;
+        list-style: none;
+        width: 30%;
     }
 
-        .cartsContainer .cartsStyle .futureImg {
-            width: 100%;
-            height: 50%;
-            background-color: #F1F6F9;
-        }
-            .cartsContainer .cartsStyle .futureImg p {
-                text-align: center;
-            }
-
-        .cartsContainer .cartsStyle .cardsBody {
-            width: 100%;
-            height: 50%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: #9BA4B5;
+        .navStyle ul li a{
+            text-decoration: none;
+            font-size: 2em;
+            font-family: 'EB Garamond', serif;
+            margin-right: 15px;
+            margin-left: 15px;
+            color: #212A3E;
+            position: relative;
         }
 
-            .cartsContainer .cartsStyle .cardsBody h3 {
-                font-size: 1.4em;
-                height: 10%;
-                text-align: center;
-                color: grey;
-                margin-top: 5px;
-                font-family: 'Sedgwick Ave Display', cursive;
-            }
-
-            .cartsContainer .cartsStyle .cardsBody p {
-                font-size: 1.1em;
-                text-align: center;
-                padding: 10px;
-                font-family: 'Archivo Narrow', sans-serif;
-            }
-
-            .cartsContainer .cartsStyle .cardsBody b {
-                font-size: 1.5em;
-            }
-
-        .cartsContainer .cartsStyle .codeCards {
-            width: 100%;
-            background-color: #394867;
+        .navStyle ul li a::before,
+        .navStyle ul li a::after {
+            border-bottom: 2px solid #394867;
+            content: "";
+            position: absolute;
+            opacity: 0;
+            transition: 0.2s;
         }
 
-            .cartsContainer .cartsStyle .codeCards b {
-                display: flex;
-                justify-content: center;
-                font-size: 1.3em;
-                color: #fff;
-                padding: 10px;
-            }
+
+        .navStyle ul li a::before{
+            bottom: -5px;
+            width: 90%;
+            right: 0;
+        }
+
+        .navStyle ul li a:hover::before{
+            opacity: 1;
+            width: 70%;
+        }
+
+        .navStyle ul li a::after{
+            bottom: -10px;
+            width: 60%;
+            left: 0;
+        }
+
+        .navStyle ul li a:hover::after{
+            width: 40%;
+            opacity: 1;
+        }
+
+    .navStyle .logoStyle{
+        width: 25%;
+    }
+        .navStyle .logoStyle a img {
+            width: 70px;
+            height: 70px;
+            margin-right: 180px;
+        }
+    
+    .navStyle .buttonsContainer a button{
+        font-size: 1.2em;
+        margin-left: 7px;
+        margin-right: 7px;
+        padding: 4px;
+        width: 80px;
+        border-radius: 6px;
+        border: none;
+        background-color: #212A3E;
+        color: #fff;
+        font-family: 'EB Garamond', serif;
+    }
+
+    .navStyle .buttonsContainer button:hover {
+        opacity: 0.7;
+        cursor: pointer;
+    }
+
+
+.headerStyle img {
+    width: 100%;
+    height: 60vh;
+}
+
+
+.homePresent{
+    margin: 0 auto;
+}
+
+    .homePresent h2 {
+        text-align: center;
+        margin-top: 25px;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 4em;
+        letter-spacing: 6px;
+        margin-bottom: 50px;
+    }
+
+    .homePresent .presentsConteiner {
+        display: flex;
+        justify-content: space-evenly;
+    }
+
+    .presentOne
+    .presentTwo,
+    .presentThree{
+       text-align: center;
+    }
+
+
+
+
+
+
+
+    
+
+
+
+

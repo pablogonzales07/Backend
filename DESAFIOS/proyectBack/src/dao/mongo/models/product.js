@@ -15,6 +15,7 @@ const schema = new mongoose.Schema(
     },
     stock: Number,
     category: String,
+    img: String,
     thumbnails: [],
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }

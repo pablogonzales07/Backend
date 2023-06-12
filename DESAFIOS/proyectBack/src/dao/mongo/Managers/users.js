@@ -9,4 +9,8 @@ export default class UserManager{
     findUser = (fieldUser) => {
         return userModel.findOne(fieldUser)
     }
+
+    changePassword = (userEmail, userPass) => {
+        return userModel.updateOne({email : userEmail}, {$set: {password: userPass}})
+    }
 }

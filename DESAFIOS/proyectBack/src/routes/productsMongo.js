@@ -61,7 +61,7 @@ router.post("/", async (req, res) => {
   try {
     //I capture the product properties commanded by query params
     const newProduct = req.body;
-    const { title, description, code, price, status, stock, category } =
+    const { title, description, code, price, status, stock, category, img } =
       newProduct;
 
     //I valid if the all fields product are completed
@@ -72,7 +72,8 @@ router.post("/", async (req, res) => {
       !price ||
       !status ||
       !stock ||
-      !category
+      !category ||
+      !img
     ) {
       return res
         .status(400)
@@ -95,6 +96,7 @@ router.post("/", async (req, res) => {
       status,
       stock,
       category,
+      img
     };
     await productsService.addProduct(product);
 

@@ -1,8 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body{
     background-color: #212A3E;
 }
+
 
 .formRegisterStyle {
     width: 400px;
@@ -71,3 +78,5 @@ body{
         font-size: 1.8em;
         letter-spacing: 2px;
     }
+
+
