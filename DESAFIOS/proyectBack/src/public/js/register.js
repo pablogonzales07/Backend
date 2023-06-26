@@ -18,12 +18,13 @@ formRegister.addEventListener("submit", async (e) => {
       },
     });
     const responseData = await response.json();
+    console.log(responseData);
     if (responseData.status === "Success") {
       window.location.replace("/login");
     }
     if (responseData.status === "Error") {
       errorMessage.innerHTML = "";
-      errorMessage.innerHTML = responseData.error[responseData.error.length - 1]
+      errorMessage.innerHTML = responseData.error
     }
   }
 });

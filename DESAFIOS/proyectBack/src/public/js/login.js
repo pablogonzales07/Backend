@@ -23,7 +23,7 @@ formLogin.addEventListener("submit", async (e) => {
       },
     });
     const responseData = await response.json();
-    if (responseData.status === "Success") {
+     if (responseData.status === "Success") {
       window.location.replace("/products");
     }
     if (responseData.status === "Error") {
@@ -31,9 +31,8 @@ formLogin.addEventListener("submit", async (e) => {
         window.location.replace("/register");
       }
       errorMessage.innerHTML = "";
-      errorMessage.innerHTML =
-        responseData.error[responseData.error.length - 1];
-    }
+      errorMessage.innerHTML = responseData.error;
+    } 
   }
 });
 
@@ -66,7 +65,6 @@ formResetPass.addEventListener("submit", async (e) => {
       },
     });
     const responseData = await response.json();
-    console.log(responseData.error);
     if(responseData.status === "Success") {
       window.location.replace("/login")
     }

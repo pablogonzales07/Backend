@@ -1,132 +1,155 @@
-@import url('https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
-*{
+*
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Top box style */
 
-.navStyle {
-    display: flex;
-    justify-content: space-between;
+.topBox {
     width: 100%;
-    align-items: center;
-    background-color: #F1F6F9;
     padding: 5px;
+    background-color: #000000;
+    border-bottom: solid #9BABB8 1px;
 }
 
-    .navStyle ul {
+    .topBox .container {
+        width: 65%;
+        margin: 0 auto;
         display: flex;
-        list-style: none;
-        width: 30%;
+        justify-content: space-between;
+        align-items: center;
     }
 
-        .navStyle ul li a{
-            text-decoration: none;
-            font-size: 2em;
-            font-family: 'EB Garamond', serif;
-            margin-right: 15px;
-            margin-left: 15px;
-            color: #212A3E;
+        .topBox .container .networks svg{
+            color: #9BABB8;
+            margin-right: 10px;
+        }
+
+        .topBox .container .networks svg:hover {
+            opacity: 0.7;
+            cursor: pointer;
+        }
+        
+        .topBox .container .logo  img{
+            width: 60px;
+            height: 60px;
+        }
+
+        .topBox .container .cart {
+            border: white solid 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 40px;
+            padding: 5px;
             position: relative;
         }
 
-        .navStyle ul li a::before,
-        .navStyle ul li a::after {
-            border-bottom: 2px solid #394867;
-            content: "";
-            position: absolute;
-            opacity: 0;
-            transition: 0.2s;
-        }
+            .topBox .container .cart b{
+                color: #9BABB8;
+            }
 
+            .topBox .container .cart svg {
+                color: #9BABB8;
+            }
 
-        .navStyle ul li a::before{
-            bottom: -5px;
-            width: 90%;
-            right: 0;
-        }
+            .topBox .container .cart .cartCount{
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #B04759;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
-        .navStyle ul li a:hover::before{
-            opacity: 1;
-            width: 70%;
-        }
+                .topBox .container .cart .cartCount p {
+                    font-size: 1em;
+                }
 
-        .navStyle ul li a::after{
-            bottom: -10px;
-            width: 60%;
-            left: 0;
-        }
+/* nav style */
 
-        .navStyle ul li a:hover::after{
-            width: 40%;
-            opacity: 1;
-        }
-
-    .navStyle .logoStyle{
-        width: 25%;
-    }
-        .navStyle .logoStyle a img {
-            width: 70px;
-            height: 70px;
-            margin-right: 180px;
-        }
-    
-    .navStyle .buttonsContainer a button{
-        font-size: 1.2em;
-        margin-left: 7px;
-        margin-right: 7px;
-        padding: 4px;
-        width: 80px;
-        border-radius: 6px;
-        border: none;
-        background-color: #212A3E;
-        color: #fff;
-        font-family: 'EB Garamond', serif;
-    }
-
-    .navStyle .buttonsContainer button:hover {
-        opacity: 0.7;
-        cursor: pointer;
-    }
-
-
-.headerStyle img {
+nav {
+    background-color: #000000;
     width: 100%;
-    height: 60vh;
+    border-bottom: solid #9BABB8 1px;
 }
 
-
-.homePresent{
-    margin: 0 auto;
-}
-
-    .homePresent h2 {
-        text-align: center;
-        margin-top: 25px;
-        font-family: 'Bebas Neue', sans-serif;
-        font-size: 4em;
-        letter-spacing: 6px;
-        margin-bottom: 50px;
-    }
-
-    .homePresent .presentsConteiner {
+    nav .horizontalMenu {
+        width: 100%;
         display: flex;
-        justify-content: space-evenly;
+        align-items: center;
+        justify-content: center;
     }
 
-    .presentOne
-    .presentTwo,
-    .presentThree{
-       text-align: center;
-    }
+        nav .horizontalMenu li{
+            list-style: none;
+            padding: 10px;
+            width: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 25px;
+        }
+
+        nav .horizontalMenu li:hover{
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        nav .horizontalMenu li:hover a{
+           color: #000000;
+        }
+
+        nav .horizontalMenu li:hover svg{
+            color: #000000;
+         }
+
+            nav .horizontalMenu li a{
+                text-decoration: none;
+                font-size: 2em;
+                font-family: 'Bebas Neue', sans-serif;
+                color: #fff;
+            }
+
+            nav .horizontalMenu li svg{
+                color: #fff;
+            }
+
+
+/* header style */ 
+
+header img{
+    width: 100%;
+    height: 80vh
+}
+
+/* sales style */
+
+.salesContainer h1{
+    font-size: 3em;
+    font-family: 'Bebas Neue', sans-serif;
+    margin-top: 10px;
+    letter-spacing: 3px;
+    text-align: center;
+}
+
+
+
+
+
+
+
+            
+
 
 
 

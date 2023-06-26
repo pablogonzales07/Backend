@@ -3,9 +3,7 @@ import express from "express";
 import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
-import session from "express-session";
-import MongoStore from "connect-mongo";
-import passport from "passport";
+import cookieParser from "cookie-parser";
 
 import __dirname from "./utils.js";
 import ProductManager from "./dao/fileSystem/Managers/ProductManager.js";
@@ -14,9 +12,9 @@ import cartsMongoRouter from "./routes/cartsMongo.js";
 import productsRouter from "./routes/products.router.js";
 import cartsRouter from "./routes/carts.router.js";
 import viewsRouter from "./routes/views.router.js";
-import sessionsRouter from "./routes/sessions.router.js"
 import initializePassportStrategies from './config/passport.config.js';
 import registerChatHandler from "./listeners/chatHandle.js";
+import SessionsRouter from "./routes/sessions.router.js";
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -24,6 +22,7 @@ const server = app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
 const io = new Server(server);
+
 const connection = mongoose.connect(
   "mongodb+srv://pabloTrebotich:12345678910@eccomercedatabase.qejn1vy.mongodb.net/EcommerceProyect?retryWrites=true&w=majority"
 );
@@ -35,34 +34,25 @@ app.use((req, res, next) => {
   req.io = io;
   next();
 });
-
-app.use(session({
-  store: new MongoStore({
-      mongoUrl:"mongodb+srv://pabloTrebotich:12345678910@eccomercedatabase.qejn1vy.mongodb.net/EcommerceProyect?retryWrites=true&w=majority",
-      ttl: 3600,
-  }),
-  secret:"sesion123456",
-  resave:false,
-  saveUninitialized:false
-}))
+app.use(cookieParser());
 
 app.engine("handlebars", handlebars.engine());
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "handlebars");
 
-app.use(passport.initialize());
 initializePassportStrategies();
+
+const sessionsRouter = new SessionsRouter();
 
 app.use("/api/fs/products", productsRouter);
 app.use("/api/fs/carts", cartsRouter);
 app.use("/api/products", productsMongoRouter);
 app.use("/api/carts", cartsMongoRouter);
-app.use("/api/sessions", sessionsRouter);
+app.use("/api/sessions", sessionsRouter.getRouter());
 app.use("/", viewsRouter);
 
 const newProductManager = new ProductManager();
 
-//I connect whit the client
 io.on("connection", async (socket) => {
   console.log("new client coneccting");
   const products = await newProductManager.getProducts();
