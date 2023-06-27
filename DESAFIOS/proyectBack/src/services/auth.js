@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import passport from "passport";
+import jwt from "jsonwebtoken"
 
 export const createHash = async (password) => {
     const salts = await bcrypt.genSalt(10);
@@ -31,7 +32,7 @@ export const passportCall = (strategy, options= {}) => {
     };
   };
 
-  export const generateToken = (user) => {
-    const token = jwt.sign(user, "jwtUserSecret", { expiresIn: "24h" });
+export const generateToken = (user) => {
+  const token = jwt.sign(user, "jwtUserSecret", { expiresIn: "24h" });
     return token;
   };

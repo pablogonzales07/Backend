@@ -3,16 +3,13 @@ import { Router } from "express";
 import ManagerProductsMongo from "../dao/mongo/Managers/Products.js";
 import ManagerCartsMongo from "../dao/mongo/Managers/Carts.js";
 import { passportCall } from "../services/auth.js";
+import { privacy } from "../middlewares/auth.js";
 
 const router = Router();
 const productsService = new ManagerProductsMongo();
 const cartsService = new ManagerCartsMongo();
 
 router.get("/", async (req, res) => {
-  
-  const products = await productsService.getProducts();
- 
-
   res.render("home", {
     css: "home",
     logo: "/img/logo.png",
@@ -30,7 +27,7 @@ router.get("/chat", async (req,res) => {
   res.render("chat")
 })
 
-router.get("/products",passportCall("jwt", {redirect: "login"}), async (req,res) => {
+router.get("/products",passportCall("jwt", {strategyType: "jwt"}), privacy("PRIVATE"), async (req,res) => {
   const { page = 1, limit = 2, order, filterProducts, categoryFilter, statusFilter } = req.query;
   const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, ...rest} = await productsService.getProducts(categoryFilter, statusFilter, filterProducts, limit, page, order);
   const products = docs;

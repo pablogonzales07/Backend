@@ -18,10 +18,10 @@ const initializePassportStrategies = () => {
       async (req, email, password, done) => {
         try {
           //i capture the user's fields
-          const { first_name, last_name } = req.body;
+          const { first_name, last_name, age } = req.body;
 
           //i valid if the all fields are complete
-          if (!first_name || !last_name || !email || !password)
+          if (!first_name || !last_name || !email || !password || !age)
             return done(null, false, { message: "Incomplete Fields" });
 
           //i valid if the user's email is not exist in the database
@@ -38,6 +38,7 @@ const initializePassportStrategies = () => {
           const user = {
             first_name,
             last_name,
+            age,
             email,
             password: hashedPassword,
           };

@@ -10,7 +10,7 @@ export default class BaseRouter{
     init(){};
 
     getRouter = () => this.router;
-
+    
     get(path, policies, ...callbacks){
         this.router.get(path, passportCall("jwt", {strategyType: "jwt"}),this.handlePolicies(policies),this.generateCustomResponses,this.applyCallbacks(callbacks));
     }
@@ -49,7 +49,7 @@ export default class BaseRouter{
             if(policies[0] === "PUBLIC") return next();
         
             const user = req.user;
-            if(policies[0] === "NO_AUTH" && user) return res.status(401).send({status: "Error", error: "The user is not authorized for enter in this view"});
+            if(policies[0] === "NO_AUTH" && user) return res.status(401).send({status: "Error", error: req.error});
             if(policies[0] === "NO_AUTH" && !user) return next();
     
             if(!user) return res.status(401).send({status: "Error", error: req.error});

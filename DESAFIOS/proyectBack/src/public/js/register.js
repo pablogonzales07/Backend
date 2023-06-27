@@ -6,7 +6,7 @@ formRegister.addEventListener("submit", async (e) => {
   const data = new FormData(formRegister);
   const dataObject = {};
   data.forEach((value, key) => (dataObject[key] = value));
-  if(!dataObject.email || !dataObject.password || !dataObject.first_name || !dataObject.last_name) {
+  if(!dataObject.email || !dataObject.password || !dataObject.first_name || !dataObject.last_name || !dataObject.age) {
     errorMessage.innerHTML = "";
     errorMessage.innerHTML = "Incomplete fields"
   } else {

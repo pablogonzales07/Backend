@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken";
+/* import jwt from "jsonwebtoken";
 
 export const authToken = (req, res, next) => {
   const authHeader = req.headers.authorization;
@@ -15,4 +15,4 @@ export const authToken = (req, res, next) => {
     req.user = credentials.user;
     next();
   });
-};
+}; */
