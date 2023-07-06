@@ -1,67 +1,94 @@
-import { Router } from "express";
-
 import ManagerProductsMongo from "../dao/mongo/Managers/Products.js";
 import ManagerCartsMongo from "../dao/mongo/Managers/Carts.js";
-import { passportCall } from "../services/auth.js";
-import { privacy } from "../middlewares/auth.js";
 
-const router = Router();
+import { privacy } from "../middlewares/auth.js";
+import BaseRouter from "./router.js";
+
 const productsService = new ManagerProductsMongo();
 const cartsService = new ManagerCartsMongo();
 
-router.get("/", async (req, res) => {
-  res.render("home", {
-    css: "home",
-    logo: "/img/logo.png",
-    header: "/img/header.jpg"
-  });
-});
+export default class ViewsRouter extends BaseRouter {
+  init() {
+    this.get("/", ["NO_AUTH"], async (req, res) => {
+      //I bring the products
+      const productsSale = await productsService.getProducts();
+      const listProducts = productsSale.docs;
 
-router.get("/realTimeProducts", async (req,res) => {
-  res.render("realTimeProducts", {
-    css: "realTimeProducts"
-  })
-})
+      res.render("home", {
+        css: "home",
+        title:
+          "Fitness-WORLD-shopONLINE-Your first motivation for start training-HOME",
+        logo: "/img/logo.png",
+        header: "/img/header.jpg",
+        headerTwo: "/img/header-dos.jpg",
+        headerThree: "/img/header-tres.jpg",
+        headerFour: "/img/header-cuatro.jpg",
+        pictureOne: "/img/about-us-one.jpg",
+        pictureTwo: "/img/about-us-two.jpg",
+        products: listProducts,
+      });
+    });
 
-router.get("/chat", async (req,res) => {
-  res.render("chat")
-})
+    this.get("/", ["NO_AUTH"], async (req, res) => {
+      res.render("realTimeProducts", {
+        css: "realTimeProducts",
+      });
+    });
 
-router.get("/products",passportCall("jwt", {strategyType: "jwt"}), privacy("PRIVATE"), async (req,res) => {
-  const { page = 1, limit = 2, order, filterProducts, categoryFilter, statusFilter } = req.query;
-  const {docs, hasPrevPage, hasNextPage, prevPage, nextPage, ...rest} = await productsService.getProducts(categoryFilter, statusFilter, filterProducts, limit, page, order);
-  const products = docs;
-  res.render("products", {
-    products,
-    hasNextPage,
-    hasPrevPage,
-    prevPage,
-    nextPage,
-    page: rest.page,
-    css: "products",
-    user:req.user  
-  })
+    this.get("/chat", ["NO_AUTH"], async (req, res) => {
+      res.render("chat");
+    });
 
-})
+    this.get("/products", ["NO_AUTH"], privacy("PRIVATE"), async (req, res) => {
+      const {
+        page = 1,
+        limit = 2,
+        order,
+        filterProducts,
+        categoryFilter,
+        statusFilter,
+      } = req.query;
+      const { docs, hasPrevPage, hasNextPage, prevPage, nextPage, ...rest } =
+        await productsService.getProducts(
+          categoryFilter,
+          statusFilter,
+          filterProducts,
+          limit,
+          page,
+          order
+        );
+      const products = docs;
+      res.render("products", {
+        products,
+        hasNextPage,
+        hasPrevPage,
+        prevPage,
+        nextPage,
+        page: rest.page,
+        css: "products",
+        user: req.user,
+      });
+    });
 
-router.get("/carts/:cid", async (req,res) => {
-  const cartId = req.params.cid;
-  const cartSelected = await cartsService.getCartById(cartId).populate("products.product");
-  const productsCart = cartSelected.products
-  res.render("carts", {productsCart, css: "cart"})
-})
+    this.get("/carts/:cid", ["NO_AUTH"],async (req,res) => {
+      const cartId = req.params.cid;
+      const cartSelected = await cartsService.getCartById(cartId).populate("products.product");
+      const productsCart = cartSelected.products
+      res.render("carts", {productsCart, css: "cart"})
+    })
 
-router.get("/register"/* , privacy("NO_AUTHENTICATED") */, async (req,res) => {
-  res.render("register", {
-    css: "register"
-  });
-})
+    this.get("/register" , ["NO_AUTH"], async (req,res) => {
+      res.render("register", {
+        css: "register"
+      });
+    })
+    
+    this.get("/login", ["NO_AUTH"], async (req,res) => {
+      res.render("login", {
+        css: "login"
+      })
+    })
 
-router.get("/login",/* privacy("NO_AUTHENTICATED"), */ async (req,res) => {
-  res.render("login", {
-    css: "login"
-  })
-})
-export default router;
-
+  }
+}
 

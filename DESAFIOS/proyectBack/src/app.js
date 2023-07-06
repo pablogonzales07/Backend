@@ -7,25 +7,22 @@ import cookieParser from "cookie-parser";
 
 import __dirname from "./utils.js";
 import ProductManager from "./dao/fileSystem/Managers/ProductManager.js";
-import productsMongoRouter from "./routes/productsMongo.js";
-import cartsMongoRouter from "./routes/cartsMongo.js";
-import productsRouter from "./routes/products.router.js";
-import cartsRouter from "./routes/carts.router.js";
-import viewsRouter from "./routes/views.router.js";
 import initializePassportStrategies from './config/passport.config.js';
 import registerChatHandler from "./listeners/chatHandle.js";
 import SessionsRouter from "./routes/sessions.router.js";
+import ProductsRouter from "./routes/productsMongo.js";
+import  CartsRouter  from "./routes/cartsMongo.js";
+import  ViewsRouter  from "./routes/views.router.js";
+import config from  './config.js';
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = config.app.PORT;
 const server = app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
 });
 const io = new Server(server);
 
-const connection = mongoose.connect(
-  "mongodb+srv://pabloTrebotich:12345678910@eccomercedatabase.qejn1vy.mongodb.net/EcommerceProyect?retryWrites=true&w=majority"
-);
+const connection = mongoose.connect(config.mongo.URL);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,13 +40,14 @@ app.set("view engine", "handlebars");
 initializePassportStrategies();
 
 const sessionsRouter = new SessionsRouter();
+const productsRouter = new ProductsRouter();
+const cartsRouter = new CartsRouter();
+const viewsRouter = new ViewsRouter()
 
-app.use("/api/fs/products", productsRouter);
-app.use("/api/fs/carts", cartsRouter);
-app.use("/api/products", productsMongoRouter);
-app.use("/api/carts", cartsMongoRouter);
+app.use("/api/products", productsRouter.getRouter());
+app.use("/api/carts", cartsRouter.getRouter());
 app.use("/api/sessions", sessionsRouter.getRouter());
-app.use("/", viewsRouter);
+app.use("/", viewsRouter.getRouter());
 
 const newProductManager = new ProductManager();
 

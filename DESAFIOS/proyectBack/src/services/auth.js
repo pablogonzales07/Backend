@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import passport from "passport";
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
 export const createHash = async (password) => {
     const salts = await bcrypt.genSalt(10);

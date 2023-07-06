@@ -6,6 +6,7 @@ import { Strategy, ExtractJwt } from "passport-jwt";
 import UserManager from "../dao/mongo/Managers/users.js";
 import { createHash, validatePassword } from "../services/auth.js";
 import { coockieExtractor } from "../utils.js";
+import config from "../config.js";
 
 const LocalStrategy = local.Strategy;
 const usersService = new UserManager();
@@ -58,7 +59,7 @@ const initializePassportStrategies = () => {
     new LocalStrategy(
       { usernameField: "email" },
       async (email, password, done) => {
-        if (email === "admin@admin.com" && password === "123") {
+        if (email === config.admin.EMAIL && password === config.admin.PASSWORD) {
           const user = {
             id: 0,
             name: `Admin`,
