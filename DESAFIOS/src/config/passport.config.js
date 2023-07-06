@@ -59,7 +59,8 @@ const initializePassportStrategies = () => {
     new LocalStrategy(
       { usernameField: "email" },
       async (email, password, done) => {
-        if (email === config.admin.EMAIL && password === config.admin.PASSWORD) {
+        console.log(config.admin.EMAIL, config.admin.PASSWORD);
+        if (email === config.admin.EMAIL && password == config.admin.PASSWORD) {
           const user = {
             id: 0,
             name: `Admin`,
@@ -69,7 +70,6 @@ const initializePassportStrategies = () => {
           return done(null, user);
         }
         let user;
-
         //I valid if the user exist
         user = await usersService.findUser({ email: email });
         if (!user)
@@ -108,7 +108,7 @@ const initializePassportStrategies = () => {
         try {
           //I capture the user info I need
           const { name, email } = profile._json;
-
+  
           //if the user is not registered, I add it to the database; otherwise I create the session
           const userExist = await usersService.findUser({ email: email });
           if (!userExist) {

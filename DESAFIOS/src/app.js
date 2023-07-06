@@ -24,6 +24,7 @@ const io = new Server(server);
 
 const connection = mongoose.connect(config.mongo.URL);
 
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));

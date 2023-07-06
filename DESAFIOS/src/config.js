@@ -4,7 +4,6 @@ import { Command } from 'commander';
 const program = new Command();
 program.option("-m, --mode <mode>", "mode to ejecution", "dev" );
 program.parse();
-console.log(program.opts());
 
 dotenv.config({
     path:program.opts().mode==="dev"?'./.env.dev':'./.env.prod'
