@@ -94,12 +94,7 @@ nav {
 
         nav .horizontalMenu li{
             list-style: none;
-            width: 10%;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            
+            width: 10%;  
         }
 
         nav .horizontalMenu li:hover{
@@ -111,17 +106,41 @@ nav {
            color: #000000;
         }
 
+        nav .horizontalMenu li:hover .verticalMenu{
+            display: block;
+        }
+
             nav .horizontalMenu li a{
                 text-align: center;
                 text-decoration: none;
                 font-size: 2em;
                 font-family: 'Bebas Neue', sans-serif;
                 color: #F1F6F9;
+                display: block;
+                padding: 20px;
             }
 
             nav .horizontalMenu li svg{
                 color: #fff;
             }
+
+    nav .verticalMenu {
+        position: absolute;
+        display: none;
+        width: 10%;
+        background-color: #fff;
+    }
+
+        nav .verticalMenu li a:hover {
+            text-decoration: underline;
+            letter-spacing: 3px;
+        }
+    
+        nav .verticalMenu li a:hover {
+            text-decoration: underline;
+        }
+    
+        
 
 /* diseño del header */ 
 
