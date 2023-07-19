@@ -1,6 +1,6 @@
-import MessagesManager from "../dao/mongo/Managers/Messagges.js";
+import { messagesService } from "../services/repositories.js";
 
-const messagesService = new MessagesManager();
+
 
 const registerChatHandler = (io,socket) =>{
 

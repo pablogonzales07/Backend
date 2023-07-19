@@ -3,13 +3,14 @@ import local from "passport-local";
 import GithubStrategy from "passport-github2";
 import { Strategy, ExtractJwt } from "passport-jwt";
 
-import UserManager from "../dao/mongo/Managers/users.js";
+import { cartsService, usersService } from "../services/repositories.js";
 import { createHash, validatePassword } from "../services/auth.js";
 import { coockieExtractor } from "../utils.js";
 import config from "../config.js";
 
+
 const LocalStrategy = local.Strategy;
-const usersService = new UserManager();
+
 
 const initializePassportStrategies = () => {
   passport.use(
@@ -19,14 +20,14 @@ const initializePassportStrategies = () => {
       async (req, email, password, done) => {
         try {
           //i capture the user's fields
-          const { first_name, last_name, age } = req.body;
+          const { first_name, last_name, age, confirmPassword } = req.body;
 
           //i valid if the all fields are complete
-          if (!first_name || !last_name || !email || !password || !age)
+          if (!first_name || !last_name || !email || !password || !age || !confirmPassword)
             return done(null, false, { message: "Incomplete Fields" });
 
           //i valid if the user's email is not exist in the database
-          const userExist = await usersService.findUser({ email: email });
+          const userExist = await usersService.getUserBy({ email: email });
           if (userExist)
             return done(null, false, {
               message: "There is already a user with that email",
@@ -35,6 +36,10 @@ const initializePassportStrategies = () => {
           //I hashed the password
           const hashedPassword = await createHash(password);
 
+          //I create a cart user
+
+          const cartUser = await cartsService.addCart();
+
           //I create the user
           const user = {
             first_name,
@@ -42,6 +47,7 @@ const initializePassportStrategies = () => {
             age,
             email,
             password: hashedPassword,
+            cart: cartUser._id
           };
 
           //add the user
@@ -59,19 +65,18 @@ const initializePassportStrategies = () => {
     new LocalStrategy(
       { usernameField: "email" },
       async (email, password, done) => {
-        console.log(config.admin.EMAIL, config.admin.PASSWORD);
-        if (email === config.admin.EMAIL && password == config.admin.PASSWORD) {
+        if (email === config.admin.EMAIL && password === config.admin.PASSWORD) {
           const user = {
             id: 0,
             name: `Admin`,
             role: "admin",
             email: "...",
           };
-          return done(null, user);
+          return done(null, user);     
         }
         let user;
         //I valid if the user exist
-        user = await usersService.findUser({ email: email });
+        user = await usersService.getUserBy({ email: email });
         if (!user)
           return done(null, false, {
             message: "there is not user registered with that email",
@@ -90,6 +95,7 @@ const initializePassportStrategies = () => {
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
           role: user.role,
+          cartId: user.cart
         };
         return done(null, user);
       }
@@ -110,7 +116,7 @@ const initializePassportStrategies = () => {
           const { name, email } = profile._json;
   
           //if the user is not registered, I add it to the database; otherwise I create the session
-          const userExist = await usersService.findUser({ email: email });
+          const userExist = await usersService.getUserBy({ email: email });
           if (!userExist) {
             const newUser = {
               first_name: name,

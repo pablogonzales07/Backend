@@ -1,7 +1,9 @@
 import productsModel from "../models/product.js";
 
 export default class ProductsManager {
-    getProducts = (filterCategory, filterDisponibility, anyFilter, limitProducts=10, pageProducts=1,orderPrice) => {
+
+    //Method to get all products
+    get = (filterCategory, filterDisponibility, anyFilter, limitProducts=10, pageProducts=1,orderPrice) => {
         if(filterCategory) return productsModel.paginate({category: filterCategory}, {limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true} )
         if(filterDisponibility) return productsModel.paginate({status: filterDisponibility}, {limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true} )   
         if(filterCategory && filterDisponibility) return productsModel.paginate({category: filterCategory, status: filterDisponibility}, {limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true} )
@@ -9,19 +11,23 @@ export default class ProductsManager {
         return productsModel.paginate({},{limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true});
     }
 
-    getProductBy = (param) => {
+    //Method to obtain a product according to the sent parameter
+    getBy = (param) => {
         return productsModel.findOne(param)
     }
-
-    addProduct = (product) => {
+    
+    //Method to add a new product
+    add = (product) => {
         return productsModel.create(product);
     }
 
-    updateProduct = (productId, fieldsProduct) => {
+    //Method to change selected product´s any fields 
+    update = (productId, fieldsProduct) => {
         return productsModel.findByIdAndUpdate(productId, { $set: fieldsProduct })        
     }
 
-    deleteProduct = (productId) => {
+    //Method to delete a product
+    delete = (productId) => {
         return productsModel.findByIdAndDelete(productId)
     }   
 }

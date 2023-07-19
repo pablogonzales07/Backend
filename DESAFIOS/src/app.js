@@ -6,7 +6,7 @@ import { Server } from "socket.io";
 import cookieParser from "cookie-parser";
 
 import __dirname from "./utils.js";
-import ProductManager from "./dao/fileSystem/Managers/ProductManager.js";
+import { productsService } from "./services/repositories.js";
 import initializePassportStrategies from './config/passport.config.js';
 import registerChatHandler from "./listeners/chatHandle.js";
 import SessionsRouter from "./routes/sessions.router.js";
@@ -14,6 +14,7 @@ import ProductsRouter from "./routes/productsMongo.js";
 import  CartsRouter  from "./routes/cartsMongo.js";
 import  ViewsRouter  from "./routes/views.router.js";
 import config from  './config.js';
+import TicketsRouter from "./routes/tickets.router.js";
 
 const app = express();
 const PORT = config.app.PORT;
@@ -43,18 +44,21 @@ initializePassportStrategies();
 const sessionsRouter = new SessionsRouter();
 const productsRouter = new ProductsRouter();
 const cartsRouter = new CartsRouter();
-const viewsRouter = new ViewsRouter()
+const viewsRouter = new ViewsRouter();
+const ticketsRouter = new TicketsRouter()
+
 
 app.use("/api/products", productsRouter.getRouter());
 app.use("/api/carts", cartsRouter.getRouter());
 app.use("/api/sessions", sessionsRouter.getRouter());
+app.use("/api/tickets", ticketsRouter.getRouter());
 app.use("/", viewsRouter.getRouter());
 
-const newProductManager = new ProductManager();
+
 
 io.on("connection", async (socket) => {
   console.log("new client coneccting");
-  const products = await newProductManager.getProducts();
+  const products = await productsService.getProducts();
   socket.emit("changeListProducts", products);
   registerChatHandler(io, socket);
 });

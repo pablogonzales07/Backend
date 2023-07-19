@@ -6,9 +6,12 @@ formRegister.addEventListener("submit", async (e) => {
   const data = new FormData(formRegister);
   const dataObject = {};
   data.forEach((value, key) => (dataObject[key] = value));
-  if(!dataObject.email || !dataObject.password || !dataObject.first_name || !dataObject.last_name || !dataObject.age) {
+  if(!dataObject.email || !dataObject.password || !dataObject.first_name || !dataObject.last_name || !dataObject.age || !dataObject.confirmPassword) {
     errorMessage.innerHTML = "";
     errorMessage.innerHTML = "Incomplete fields"
+  } else if(dataObject.password != dataObject.confirmPassword ){
+    errorMessage.innerHTML = "";
+    errorMessage.innerHTML = "Passwords not match";
   } else {
     const response = await fetch("/api/sessions/register", {
       method: "POST",
@@ -18,7 +21,6 @@ formRegister.addEventListener("submit", async (e) => {
       },
     });
     const responseData = await response.json();
-    console.log(responseData);
     if (responseData.status === "Success") {
       window.location.replace("/login");
     }

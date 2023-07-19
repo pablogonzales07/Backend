@@ -7,13 +7,13 @@ export default class ProductsRouter extends BaseRouter {
     this.get("/", ["NO_AUTH"], productsController.getProducts);
 
     //Route to add a product
-    this.post("/", ["NO_AUTH"], productsController.addProduct);
+    this.post("/", ["ADMIN"], productsController.addProduct);
 
     //Route to change product´s fields
-    this.put("/:pid", ["NO_AUTH"], productsController.changeFieldProduct);
+    this.put("/:pid", ["ADMIN"], productsController.changeFieldProduct);
 
     //Route to delete a product
-    this.delete("/:pid", ["NO_AUTH"], productsController.deleteProduct);
+    this.delete("/:pid", ["ADMIN"], productsController.deleteProduct);
   }
 }
 

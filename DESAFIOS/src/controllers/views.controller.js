@@ -1,14 +1,24 @@
-import ManagerProductsMongo from "../dao/mongo/Managers/Products.js";
-import ManagerCartsMongo from "../dao/mongo/Managers/Carts.js";
-
-const productsService = new ManagerProductsMongo();
-const cartsService = new ManagerCartsMongo();
+import { cartsService, productsService } from "../services/repositories.js";
 
 const viewHome = async (req, res) => {
   //I bring the products
-  const productsSale = await productsService.getProducts();
+  const productsSale = await productsService.getAllProducts();
   const listProducts = productsSale.docs;
 
+  //I bring all the products in the cart selected
+  const getProductsCart = await cartsService.getCartById({_id: req.user.cart}).populate("products.product");
+  const listProductsCart = getProductsCart.products
+  
+  //I add the total number of products in the cart
+  const countProductsCart = listProductsCart.reduce((acc, currentValue) => {
+    return acc +=currentValue.quantity
+  }, 0)
+  
+  //I add the total price in the cart
+   const totalPrice = listProductsCart.reduce((acc, currentValue) => {
+    return acc +=currentValue.product.price * currentValue.quantity
+  },0);
+  
   res.render("home", {
     css: "home",
     title:"THE WORLD FITNESS-The site where you find everything from the gym world",
@@ -20,6 +30,8 @@ const viewHome = async (req, res) => {
     pictureOne: "/img/about-us-one.jpg",
     pictureTwo: "/img/about-us-two.jpg",
     products: listProducts,
+    countCart: countProductsCart,
+    totalPrice: totalPrice
   });
 };
 
@@ -41,7 +53,7 @@ const viewProducts = async (req, res) => {
     statusFilter,
   } = req.query;
   const { docs, hasPrevPage, hasNextPage, prevPage, nextPage, ...rest } =
-    await productsService.getProducts(
+    await productsService.getAllProducts(
       categoryFilter,
       statusFilter,
       filterProducts,
@@ -62,11 +74,36 @@ const viewProducts = async (req, res) => {
   });
 };
 
+//controller to display the user's cart view
 const viewCart = async (req,res) => {
-    const cartId = req.params.cid;
-    const cartSelected = await cartsService.getCartById(cartId).populate("products.product");
-    const productsCart = cartSelected.products
-    res.render("carts", {productsCart, css: "cart"})
+  //I capture the params
+  const cartId = req.params.cid;
+
+  //I bring all the products in the cart selected
+  const getProductsCart = await cartsService.getCartById({_id: req.user.cart}).populate("products.product");
+  const listProductsCart = getProductsCart.products
+  
+  //I add the total number of products in the cart
+  const countProductsCart = listProductsCart.reduce((acc, currentValue) => {
+    return acc +=currentValue.quantity
+  }, 0)
+  
+  //I add the total price in the cart
+   const totalPrice = listProductsCart.reduce((acc, currentValue) => {
+    return acc +=currentValue.product.price * currentValue.quantity
+  },0);
+
+
+  //I bring the products in the cart along with their properties
+  const productsCart = await cartsService.propertiesProductsCart(cartId);
+  const listProducts = productsCart.products;
+  res.render("carts", {
+    logo: "/img/logo.png",
+    css: "cart",
+    products: listProducts,
+    totalPrice: totalPrice,
+    countProductsCart: countProductsCart
+  })
 }
 
 const viewRegist = async (req, res) => {
@@ -81,6 +118,56 @@ const viewLogin = async (req, res) => {
       })
 }
 
+//controller to display the product details view
+const viewDetailProduct = async (req, res) => {
+  //I capture the productID sent by parameter 
+  const productId = req.params.pid;
+
+  //I bring the products
+  const allProducts = await productsService.getAllProducts();
+  const listProducts = allProducts.docs
+  
+  //I bring the products related to the chosen one
+  const selectedProduct = await productsService.getProductBy({_id: productId});
+  const similarProducts = listProducts.filter(items => items.category === selectedProduct.category);
+
+  //I bring all the products in the cart selected
+  const getProductsCart = await cartsService.getCartById({_id: req.user.cart}).populate("products.product");
+  const listProductsCart = getProductsCart.products
+
+  //I add the total number of products in the cart
+  const countProductsCart = listProductsCart.reduce((acc, currentValue) => {
+    return acc +=currentValue.quantity
+  }, 0)
+
+  //I add the total price in the cart
+  const totalPrice = listProductsCart.reduce((acc, currentValue) => {
+    return acc +=currentValue.product.price * currentValue.quantity
+  },0);
+
+  
+
+  //I do destructuring the product selected for show later in the view
+  const {title, description, code, img, stock, price, _id, cart} = await productsService.getProductBy({_id: productId});
+ 
+  //Render the view whit the properties
+  res.render("detailProduct", {
+    css: "detailProduct",
+    title,
+    description,
+    code,
+    img,
+    stock,
+    price,
+    id: _id,
+    cartId: cart,
+    logo: "/img/logo.png",
+    countProductsCart: countProductsCart,
+    totalCartPrice: totalPrice,
+    similarProducts
+  })
+}
+
 export default {
   viewHome,
   viewProductsRealTime,
@@ -88,5 +175,6 @@ export default {
   viewProducts,
   viewCart,
   viewRegist,
-  viewLogin
+  viewLogin,
+  viewDetailProduct
 };

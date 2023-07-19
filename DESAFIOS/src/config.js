@@ -18,6 +18,6 @@ export default {
     },
     admin:{
         EMAIL:process.env.ADMIN_EMAIL,
-        PASSWORD:process.env.ADMIN_PASS
+        PASSWORD:process.env.ADMIN_PWD
     }
 }

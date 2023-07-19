@@ -1,6 +1,6 @@
-import CartManager from "../dao/mongo/Managers/Carts.js";
+import { cartsService, productsService } from "../services/repositories.js";
 
-const cartsService = new CartManager();
+
 
 //Controller for add a cart
 const addCart = async (req, res) => {
@@ -21,7 +21,7 @@ const getProductsCart = async (req, res) => {
   try {
     //i capture the product's id and i valid if the cart whit this id exist in the database
     const cartId = req.params.cid;
-    const carts = await cartsService.getCarts();
+    const carts = await cartsService.getAllCarts();
     const cartExist = carts.find((cart) => cart.id === cartId);
     if (!cartExist)
       return res.status(404).send({ status: "Error", error: "Cart not found" });
@@ -43,7 +43,7 @@ const addProductsCart = async (req, res) => {
     const quantity = req.body.quantity || 1;
 
     //valid if the cart id matches any cart in the database
-    const carts = await cartsService.getCarts();
+    const carts = await cartsService.getAllCarts();
     const cartExist = carts.find((cart) => cart.id === cartId);
     if (!cartExist)
       return res.status(404).send({ status: "Error", error: "cart not found" });
@@ -65,7 +65,7 @@ const addProductsCart = async (req, res) => {
     cartExist.products = products;
 
     //i add the products in the cart
-    await cartsService.addProductCart(cartId, cartExist);
+    await cartsService.addProductsCart(cartId, cartExist);
     res.send({
       status: "Success",
       message: "Products were added correctly",
@@ -83,7 +83,7 @@ const deleteProductCart = async (req, res) => {
     const productId = req.params.pid;
 
     //i validate if the cart id selected is match whit any cart in the bd
-    const carts = await cartsService.getCarts();
+    const carts = await cartsService.getAllCarts();
     const cartExist = carts.find((item) => item.id === cartId);
     if (!cartExist)
       return res.status(404).send({ status: "Error", error: "Cart not found" });
@@ -116,7 +116,7 @@ const changeProductsCart = async (req, res) => {
     const cartId = req.params.cid;
     const productsIngresed = req.body;
     //i validate if the cart id selected is match whit any cart in the bd
-    const carts = await cartsService.getCarts();
+    const carts = await cartsService.getAllCarts();
     const cartExist = carts.find((item) => item.id === cartId);
     if (!cartExist)
       return res.status(404).send({ status: "Error", error: "Cart not found" });
@@ -141,7 +141,7 @@ const changeQuantityProductCart = async (req, res) => {
     const newQuantity = req.body.quantity;
 
     //i validate if the cart id selected is match whit any cart in the bd
-    const carts = await cartsService.getCarts();
+    const carts = await cartsService.getAllCarts();
     const cartExist = carts.find((item) => item.id === cartId);
     if (!cartExist)
       return res.status(404).send({ status: "Error", error: "Cart not found" });
@@ -159,7 +159,7 @@ const changeQuantityProductCart = async (req, res) => {
     //I change the quantity of the product for the one sent
     productExist.quantity = newQuantity;
     cartExist.products = productsCart;
-    await cartsService.updateQuantityCart(cartId, cartExist);
+    await cartsService.updateQuntityProductsCart(cartId, cartExist);
     res.status(200).send({
       status: "Success",
       message: "Product's quantity was changed correctly",
@@ -169,20 +169,20 @@ const changeQuantityProductCart = async (req, res) => {
   }
 };
 
-//Controller for delete a cart selected
-const deleteCart = async (req, res) => {
+//Controller for delete a cart products selected
+const deleteCartProducts = async (req, res) => {
   try {
     //i capture the required data
     const cartId = req.params.cid;
 
     //i validate if the cart id selected is match whit any cart in the bd
-    const carts = await cartsService.getCarts();
+    const carts = await cartsService.getAllCarts();
     const cartExist = carts.find((item) => item.id === cartId);
     if (!cartExist)
       return res.status(404).send({ status: "Error", error: "Cart not found" });
 
     //i delete all products in the cart
-    await cartsService.deleteAllProductsCart(cartId);
+    await cartsService.deleteProductsCart(cartId);
     res.status(200).send({
       status: "Success",
       message: "Product's were deleted correctly",
@@ -192,6 +192,77 @@ const deleteCart = async (req, res) => {
   }
 };
 
+//Controller for obtein all the product´s properties from the cart
+const obteinPropertiesProducts = async (req, res) => {
+  try {
+      //I obtein the required data
+      const cartId = req.params.cid;
+      const allCarts = await cartsService.getAllCarts();
+
+      //I verify if the cartId it match whit any cart in the database
+      const cartExist = allCarts.find(item => item.id === cartId);
+      if(!cartExist) return res.errorUser("Cart not found")
+
+      //I bring the product´s properties and then I send them
+      const products = await cartsService.propertiesProductsCart(cartId);
+      res.sendPayload(products)
+  } catch (error) {
+      res.errorServer(error)
+  }
+}
+
+//Controller to change products in the cart before checkout
+const purchaseCart = async (req, res) => {
+  try {
+    //I obtein the required data
+    const cartId = req.params.cid;
+    const allCarts = await cartsService.getAllCarts();
+
+    //I verify if the cartId it match whit any cart in the database
+    const cartExist = allCarts.find(item => item.id === cartId);
+    if(!cartExist) return res.errorUser("Cart not found");
+
+    //I bring the product properties and then I change them.
+    const productsCart = await cartsService.propertiesProductsCart(cartId);
+    const productsCartList = productsCart.products;
+
+    //I separate the products that are in stock from those that are out of stock.
+    const quantityNotAvailable = [];
+    const quantityAvailable = [];
+    for(let i=0; i<productsCartList.length; i++){
+        const productSelected = productsCartList[i];
+        if(productSelected.quantity > productSelected.product.stock) {
+            quantityNotAvailable.push(productSelected)
+        } else {
+            quantityAvailable.push(productSelected)
+            const newStock = productSelected.product.stock - productSelected.quantity;
+            productSelected.product.stock = newStock;
+            //I change the stock of purchased products
+            await productsService.updateProduct(productSelected.product._id, productSelected.product)
+        }
+    }
+
+    //I update the cart products whit the new stock
+    await cartsService.updateCart(cartId, quantityNotAvailable);
+
+    //I calculate the total price of the products purchased.
+    const totalPrice = quantityAvailable.reduce((acc, currentValue) => {
+      return acc+= currentValue.quantity*currentValue.product.price
+    }, 0)
+
+    //I generate a pre-ticket to notify the user of out-of-stock products.
+    const prePurchase = {
+      totalPrice: totalPrice,
+      productsAvailable: quantityAvailable,
+      productsNotAvailable: quantityNotAvailable
+    }
+    
+    res.sendPayload(prePurchase)
+  } catch (error) {
+    res.errorServer(error)
+  }
+}
+
 export default {
   addCart,
   getProductsCart,
@@ -199,5 +270,7 @@ export default {
   deleteProductCart,
   changeProductsCart,
   changeQuantityProductCart,
-  deleteCart
+  deleteCartProducts,
+  obteinPropertiesProducts,
+  purchaseCart
 };

@@ -23,8 +23,9 @@ formLogin.addEventListener("submit", async (e) => {
       },
     });
     const responseData = await response.json();
+    console.log(responseData);
      if (responseData.status === "Success") {
-      window.location.replace("/products");
+      window.location.replace("/");
     }
     if (responseData.status === "Error") {
       if (responseData.error === "too many tries") {

@@ -6,7 +6,7 @@ import viewsController from "../controllers/views.controller.js";
 
 export default class ViewsRouter extends BaseRouter {
   init() {
-    this.get("/", ["NO_AUTH"], viewsController.viewHome);
+    this.get("/", ["AUTH"], viewsController.viewHome);
 
     this.get("/", ["NO_AUTH"], viewsController.viewProductsRealTime);
 
@@ -14,11 +14,13 @@ export default class ViewsRouter extends BaseRouter {
 
     this.get("/products", ["PUBLIC"], privacy("PRIVATE"), viewsController.viewProducts);
 
-    this.get("/carts/:cid", ["NO_AUTH"], viewsController.viewCart)
+    this.get("/carts/:cid", ["AUTH"], viewsController.viewCart);
 
-    this.get("/register" , ["NO_AUTH"], viewsController.viewRegist)
+    this.get("/register" , ["NO_AUTH"] ,viewsController.viewRegist);
     
-    this.get("/login", ["NO_AUTH"], viewsController.viewLogin)
+    this.get("/login", ["NO_AUTH"], viewsController.viewLogin);
+
+    this.get("/detail/:pid", ["AUTH"], viewsController.viewDetailProduct);
 
   }
 }

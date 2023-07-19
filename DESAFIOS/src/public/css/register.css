@@ -7,23 +7,25 @@
 }
 
 body{
-    background-color: #212A3E;
+    background-image: url("/img/fondo-register.jpg");
 }
 
 
 .formRegisterStyle {
     width: 400px;
-    background-color: #24303c;
+    background-color: #000000;
     padding: 30px;
     margin: auto;
     margin-top: 100px;
     border-radius: 4px;
+    border: solid 2px #9BA4B5;
     color: #fff;
     box-shadow: 7px 13px 37px #000;
 }
 
     .formRegisterStyle h2 {
         font-size: 1.5em;
+        letter-spacing: 3px;
         margin-bottom: 20px;
         font-family: 'Bebas Neue', sans-serif;
         text-align: center;
@@ -36,7 +38,7 @@ body{
         padding: 10px;
         border-radius: 4px;
         margin-bottom: 16px;
-        border: 1px solid #1f53c5;
+        border: 1px solid #fff;
         font-size: 1.2em;
         color: #fff;
     }
@@ -64,13 +66,19 @@ body{
 
     .formRegisterStyle .formButtonStyle {
         width: 100%;
-        background-color: #1f53c5;
+        background-color: #9BA4B5;
+        font-weight: 900;
         border: none;
         padding: 12px;
         margin: 16px 0;
         font-size: 1.5em;
         letter-spacing: 4px;
         font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .formRegisterStyle .formButtonStyle:hover{
+        opacity: 0.7;
+        cursor: pointer;
     }
 
     .formRegisterStyle .errorMessageStyle{

@@ -12,9 +12,9 @@ const schema = new mongoose.Schema({
         default: "User"
     },
     password: String,
-    cartId:{
-        type: String,
-        default: ""
+    cart:{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Carts",
     }
 },{timestamps: true});
 

@@ -1,6 +1,6 @@
-import ProductsManager from "../dao/mongo/Managers/Products.js"
+import { productsService } from "../services/repositories.js";
 
-const productsService = new ProductsManager();
+
 
 //Controller for send the products
 const getProducts = async (req, res) => {
@@ -31,7 +31,7 @@ const getProducts = async (req, res) => {
       page,
       hasNextPage,
       hasPrevPage,
-    } = await productsService.getProducts(
+    } = await productsService.getAllProducts(
       categoryFilter,
       statusFilter,
       filterProducts,
@@ -52,7 +52,7 @@ const getProducts = async (req, res) => {
       hasNextPage: hasNextPage,
     });
   } catch (error) {
-    return res.status(500).send(`Sorry something went wrong: ${error}`);
+    return res.errorServer(`Sorry something went wrong: ${error}`);
   }
 };
 
@@ -75,18 +75,12 @@ const addProduct = async (req, res) => {
       !category ||
       !img
     ) {
-      return res
-        .status(400)
-        .send({ status: "Error", error: "You didn't complete all fields" });
+      return res.badRequest("You didn't complete all fields");
     }
 
     //i valid if the the code not match whit any product in the database
     const codeExist = await productsService.getProductBy({ code: code });
-    if (codeExist)
-      return res.status(404).send({
-        status: "Error",
-        error: "Exist a product whit the same code",
-      });
+    if (codeExist) return res.badRequest("Exist a product whit the same code");
 
     //i build the product and adding in the database
     const product = {
@@ -101,12 +95,9 @@ const addProduct = async (req, res) => {
     };
     await productsService.addProduct(product);
 
-    res.status(200).send({
-      status: "Success",
-      message: "The product was added successfully",
-    });
+    res.sendSuccess("The product was added successfully");
   } catch (error) {
-    return res.status(500).send(`Sorry we didn't add the product: ${error}`);
+    return res.errorServer(`Sorry we didn't add the product: ${error}`);
   }
 };
 
@@ -118,28 +109,19 @@ const changeFieldProduct = async (req, res) => {
     const productUpdate = req.body;
 
     //i valid if the product's id it's match whit something product in the database
-    const products = await productsService.getProducts();
+    const products = await productsService.getAllProducts();
     const productsList = products.docs;
     const productExist = productsList.find(
       (product) => product.id === productId
     );
     if (!productExist)
-      return res.status(404).send({
-        status: "Error",
-        error: "Not finded any product whit this id",
-      });
+      return res.notFounded("Not finded any product whit this id");
 
     //i change the product's fields and i send the response
     await productsService.updateProduct(productId, productUpdate);
-    res.send({
-      status: "Success",
-      message: "The product was changed correctly",
-    });
+    res.sendSuccess("The product was changed correctly");
   } catch (error) {
-    res.status(500).send({
-      status: "Error",
-      error: `error to change the product's fields: ${error}`,
-    });
+    res.errorServer(`error to change the product's fields: ${error}`);
   }
 };
 
@@ -148,28 +130,18 @@ const deleteProduct = async (req, res) => {
   try {
     //i capture the product's id and i valid if match whit something product in the database
     const productId = req.params.pid;
-    const products = await productsService.getProducts();
+    const products = await productsService.getAllProducts();
     const productsList = products.docs;
     const productExist = productsList.find(
       (product) => product.id === productId
     );
-    if (!productExist)
-      return res.status(404).send({
-        status: "Error",
-        error: "Not finded any product whit this id",
-      });
+    if (!productExist) return res.notFounded("Not finded any product whit this id");
 
     //i delete the product in the database
     await productsService.deleteProduct(productId);
-    res.send({
-      status: "Succes",
-      message: "The product was deleted correctly",
-    });
+    res.sendSuccess("The product was deleted correctly")
   } catch (error) {
-    res.status(500).send({
-      status: "Error",
-      error: `Sorry we don't delete the product: ${error}`,
-    });
+    res.errorServer(`Sorry we don't delete the product: ${error}`);
   }
 };
 
@@ -177,5 +149,5 @@ export default {
   getProducts,
   addProduct,
   changeFieldProduct,
-  deleteProduct
+  deleteProduct,
 };
