@@ -9,7 +9,7 @@ export default class CartsRouter extends BaseRouter {
     this.post("/", ["NO_AUTH"], cartsController.addCart);
 
     //Route to obtein the cart´s products
-    this.get("/:cid", ["AUTH"], cartsController.getProductsCart);
+    this.get("/:cid", ["NO_AUTH"], cartsController.getProductsCart);
 
     //Route for add products in the cart selected
     this.post("/:cid/product/:pid", ["AUTH"], cartsController.addProductsCart);

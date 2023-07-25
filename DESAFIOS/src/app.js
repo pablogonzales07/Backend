@@ -15,6 +15,8 @@ import  CartsRouter  from "./routes/cartsMongo.js";
 import  ViewsRouter  from "./routes/views.router.js";
 import config from  './config.js';
 import TicketsRouter from "./routes/tickets.router.js";
+import MockingRouter from "./routes/mocking.router.js";
+import errorHandler from "./middlewares/error.js"
 
 const app = express();
 const PORT = config.app.PORT;
@@ -45,7 +47,8 @@ const sessionsRouter = new SessionsRouter();
 const productsRouter = new ProductsRouter();
 const cartsRouter = new CartsRouter();
 const viewsRouter = new ViewsRouter();
-const ticketsRouter = new TicketsRouter()
+const ticketsRouter = new TicketsRouter();
+const mocksRouter = new MockingRouter()
 
 
 app.use("/api/products", productsRouter.getRouter());
@@ -53,7 +56,9 @@ app.use("/api/carts", cartsRouter.getRouter());
 app.use("/api/sessions", sessionsRouter.getRouter());
 app.use("/api/tickets", ticketsRouter.getRouter());
 app.use("/", viewsRouter.getRouter());
+app.use("/mockingproducts", mocksRouter.getRouter());
 
+app.use(errorHandler);
 
 
 io.on("connection", async (socket) => {
@@ -62,3 +67,5 @@ io.on("connection", async (socket) => {
   socket.emit("changeListProducts", products);
   registerChatHandler(io, socket);
 });
+
+

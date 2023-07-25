@@ -42,6 +42,7 @@ const loginGitHub = (req, res) => {
       email: req.user.email,
       cart: req.user.cartId
     };
+    console.log(user);
     const accessToken = generateToken(user);
     res
       .cookie("userCookie", accessToken, {

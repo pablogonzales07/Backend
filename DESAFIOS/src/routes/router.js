@@ -61,7 +61,6 @@ export default class BaseRouter{
             if(!policies.includes(user.role.toUpperCase())) return res.status(403).send({status:"Error", error: "The user is not authorized for enter in this view"})
             next();
         }
-
     }
 
     applyCallbacks = (callbacks) => {
