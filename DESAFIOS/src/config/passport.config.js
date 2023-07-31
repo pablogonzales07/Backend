@@ -40,6 +40,10 @@ const initializePassportStrategies = () => {
 
           const cartUser = await cartsService.addCart();
 
+          //If the user is new, i create a discount code
+          const codeDiscount = Math.round(Math.random()*999999);
+
+
           //I create the user
           const user = {
             first_name,
@@ -47,7 +51,8 @@ const initializePassportStrategies = () => {
             age,
             email,
             password: hashedPassword,
-            cart: cartUser._id
+            cart: cartUser._id,
+            discountCode: codeDiscount
           };
 
           //add the user
@@ -95,7 +100,8 @@ const initializePassportStrategies = () => {
           name: `${user.first_name} ${user.last_name}`,
           email: user.email,
           role: user.role,
-          cartId: user.cart
+          cartId: user.cart,
+          discountCode: user.discountCode
         };
         return done(null, user);
       }

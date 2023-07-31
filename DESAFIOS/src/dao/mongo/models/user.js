@@ -12,6 +12,10 @@ const schema = new mongoose.Schema({
         default: "User"
     },
     password: String,
+    discountCode: {
+        type: Number,
+        default: null
+    },
     cart:{
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Carts",

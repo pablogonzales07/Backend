@@ -15,9 +15,12 @@ const viewHome = async (req, res) => {
   }, 0)
   
   //I add the total price in the cart
-   const totalPrice = listProductsCart.reduce((acc, currentValue) => {
+  const totalPrice = listProductsCart.reduce((acc, currentValue) => {
     return acc +=currentValue.product.price * currentValue.quantity
   },0);
+  
+  //I bring the user
+  const user = req.user;
   
   res.render("home", {
     css: "home",
@@ -31,7 +34,8 @@ const viewHome = async (req, res) => {
     pictureTwo: "/img/about-us-two.jpg",
     products: listProducts,
     countCart: countProductsCart,
-    totalPrice: totalPrice
+    totalPrice: totalPrice,
+    user: user
   });
 };
 

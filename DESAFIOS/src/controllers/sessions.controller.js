@@ -1,5 +1,6 @@
 import { usersService } from "../services/repositories.js";
 import { validatePassword, createHash, generateToken } from "../services/auth.js";
+import TokenDTO from "../dtos/user/tokenDTO.js";
 
 
 const registUser = (req, res) => {
@@ -12,13 +13,8 @@ const registUser = (req, res) => {
 
 const loginUser = (req, res) => {
   try {
-    const user = {
-      name: req.user.name,
-      role: req.user.role,
-      id: req.user.id,
-      email: req.user.email,
-      cart: req.user.cartId
-    };
+    const userDTO = new TokenDTO(req.user)
+    const user = {... userDTO}
     const accessToken = generateToken(user);
     res
       .cookie("userCookie", accessToken, {
@@ -42,7 +38,6 @@ const loginGitHub = (req, res) => {
       email: req.user.email,
       cart: req.user.cartId
     };
-    console.log(user);
     const accessToken = generateToken(user);
     res
       .cookie("userCookie", accessToken, {

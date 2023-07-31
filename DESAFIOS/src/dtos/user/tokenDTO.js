@@ -1,5 +1,4 @@
 
-
 export default class TokenDTO {
     constructor(user) {
         this.name = user.name,

@@ -12,6 +12,7 @@ dotenv.config({
 export default {
     app:{
         PORT:process.env.PORT||8080,
+        AROUND:process.env.AROUND
     },
     mongo:{
         URL:process.env.MONGO_URL||'localhost:27017'

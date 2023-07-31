@@ -33,3 +33,17 @@ window.addEventListener("load", function() {
         dots: '.carouselIndicators',
       });
 })
+
+document.getElementById("toggleButton").addEventListener("click", function() {
+    let sidebar = document.getElementById("sidebar");
+    if (sidebar.style.right === "-400px") { 
+      sidebar.style.right = "0"; 
+    } else {
+      sidebar.style.right = "-400px"; 
+    }
+  });
+
+  document.getElementById("closeButton").addEventListener("click", function() {
+    let sidebar = document.getElementById("sidebar");
+    sidebar.style.right = "-400px";
+  });

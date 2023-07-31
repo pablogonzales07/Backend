@@ -9,9 +9,8 @@ const totalCountTop = document.getElementById("totalCountCart");
 const buttonFinishPurchase = document.getElementById("buttonFinishPurchase");
                    
 let productsCart = JSON.parse(localStorage.getItem("cart")) || [];
-
-if(productsCart) {
-    
+console.log(productsCart);
+if(productsCart.length >= 1) {
     productsCart.map(item => {
         const boxCart = document.createElement("div");
         boxCart.className = "cartItem";
@@ -168,6 +167,10 @@ if(productsCart) {
         }     
     })
     
+} else {
+    cartListProduct.innerHTML = `
+                                    <h4>the cart is empty</h4> 
+                                `;
 }
 
 
