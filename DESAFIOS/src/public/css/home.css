@@ -8,8 +8,6 @@
     box-sizing: border-box;
 }
 
-
-
 /* Top box style */
 
 .topBox {
@@ -148,12 +146,155 @@ nav {
 .sideBar{
     width: 400px;
     height: 100vh;
-    background-color: #333;
+    background-color: #000000;
     position: fixed;
     top: 0;
     right: -400px; 
     transition: right 0.3s ease;
+    z-index: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;    
 }
+    .sideBar .perfilUser{
+        width: 100%;
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .perfilUser svg {
+            color: #fff;
+        }
+
+        .perfilUser b {
+            color: #B04759;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5em;
+            margin-left: 10px;
+            letter-spacing: 3px;
+        }
+
+    .sideBar .infoUser {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+        .sideBar .infoUser h5{
+            font-size: 2.3em;
+            color: #9BA4B5;
+            font-family: 'Bebas Neue', sans-serif;
+            margin-bottom: 15px;
+        }
+
+        .sideBar .infoUser span {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+            .sideBar .infoUser span b{
+                font-size: 1.5em;
+                color: #9BA4B5;
+                font-family: 'Bebas Neue', sans-serif;
+                margin-right: 15px;
+            }
+
+            .sideBar .infoUser span p{
+                font-size: 1.2em;
+                color: #B04759;
+                font-family: 'Poppins', sans-serif;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+    .sideBar .userPurchases {
+        margin-top: 50px;
+    }
+
+            .sideBar .userPurchases h5 {
+                font-size: 2.3em;
+                color: #9BA4B5;
+                font-family: 'Bebas Neue', sans-serif;
+                margin-bottom: 15px;
+            }
+
+            .sideBar .userPurchases span{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                margin-bottom: 10px;
+                padding-left: 10px;
+            }
+
+                .sideBar .userPurchases span p {
+                    color: #B04759;
+                    font-size: 1.1em;
+                }
+
+                    .sideBar .userPurchases span p b{
+                        font-size: 1.1em;
+                        color: #9BA4B5;
+                    }
+
+            .sideBar .userPurchases .notPurchases {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+                .sideBar .userPurchases .notPurchases p {
+                    font-family: 'Poppins', sans-serif;
+                    color: #F1F6F9;
+                    font-size: 1.4em;
+                }
+
+                .sideBar .userPurchases .notPurchases button {
+                    width: 70%;
+                    margin: 0 auto;
+                    border-radius: 4px;
+                    background-color: #9BA4B5;
+                    margin-top: 10px;
+                }
+
+                .sideBar .userPurchases .notPurchases button a {
+                    text-decoration: none;
+                    color: #000000;
+                    font-size: 1.8em;
+                    font-family: 'Bebas Neue', sans-serif;
+
+                }
+
+
+
+                .sideBar .userPurchases .notPurchases button:hover {
+                    cursor: pointer;
+                    opacity: 0.7;
+                }
+
+    .sideBar .buttonLogout {
+        width: 70%;
+        margin: 0 auto;
+        border-radius: 4px;
+        background-color: #B04759;
+        color: #000000;
+        font-size: 1.8em;
+        font-family: 'Bebas Neue', sans-serif;
+        margin-top: 10px;
+        bottom: 0;
+    }
+
+    .sideBar .buttonLogout:hover{
+        cursor: pointer;
+         opacity: 0.7;
+    }
+
+    
 
 /* diseño del header */ 
 
@@ -392,6 +533,7 @@ nav {
             }
 
 
+
 /* diseño box nosotros */
 
 .aboutUsHome {
@@ -473,6 +615,7 @@ nav {
         background-color: #000000;
         pointer-events: none;
     }
+
 
 
 /* diseño carousel companies */

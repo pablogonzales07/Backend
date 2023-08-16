@@ -6,7 +6,7 @@ import { Strategy, ExtractJwt } from "passport-jwt";
 import { cartsService, usersService } from "../services/repositories.js";
 import { createHash, validatePassword } from "../services/auth.js";
 import { coockieExtractor } from "../utils.js";
-import config from "../config.js";
+import config from "../config/config.js";
 
 
 const LocalStrategy = local.Strategy;
@@ -39,7 +39,7 @@ const initializePassportStrategies = () => {
           //I create a cart user
 
           const cartUser = await cartsService.addCart();
-
+          
           //If the user is new, i create a discount code
           const codeDiscount = Math.round(Math.random()*999999);
 
@@ -132,7 +132,15 @@ const initializePassportStrategies = () => {
             const result = await usersService.addUser(newUser);
             done(null, result);
           }
-          done(null, userExist);
+          const user = {
+            id: userExist._id,
+            name: `${userExist.first_name} ${userExist.last_name}`,
+            email: userExist.email,
+            role: userExist.role,
+            cartId: userExist.cart,
+            discountCode: userExist.discountCode
+          };    
+          done(null, user);
         } catch (error) {
           done(error);
         }

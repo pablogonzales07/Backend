@@ -1,5 +1,7 @@
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import fs from "fs";
+import Handlebars from "handlebars";
 
 export const coockieExtractor = (req) => {
   let token = null;
@@ -9,6 +11,15 @@ export const coockieExtractor = (req) => {
   return token;
 };
 
+export const generateMailTemplate = async (template, payload) => {
+  const content = await fs.promises.readFile(
+    `${__dirname}/templates/${template}.handlebars`,
+    "utf-8"
+  );
+  const precompiledContent = Handlebars.compile(content);
+  const compiledContent = precompiledContent({ ...payload });
+  return compiledContent;
+};
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

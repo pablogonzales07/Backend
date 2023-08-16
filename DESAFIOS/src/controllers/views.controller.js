@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import { cartsService, productsService } from "../services/repositories.js";
 
 const viewHome = async (req, res) => {
@@ -13,7 +14,7 @@ const viewHome = async (req, res) => {
   const countProductsCart = listProductsCart.reduce((acc, currentValue) => {
     return acc +=currentValue.quantity
   }, 0)
-  
+
   //I add the total price in the cart
   const totalPrice = listProductsCart.reduce((acc, currentValue) => {
     return acc +=currentValue.product.price * currentValue.quantity
@@ -21,7 +22,7 @@ const viewHome = async (req, res) => {
   
   //I bring the user
   const user = req.user;
-  
+
   res.render("home", {
     css: "home",
     title:"THE WORLD FITNESS-The site where you find everything from the gym world",
@@ -172,6 +173,17 @@ const viewDetailProduct = async (req, res) => {
   })
 }
 
+const viewRestorePassword = (req, res) => {
+  const { token } = req.query;
+  try {
+    const validToken = jwt.verify(token, "jwtUserSecret");
+    res.render("restorePassword")
+  } catch (error) {
+      return res.render("invalidToken")
+  }
+  res.render("restorePassword")
+}
+
 export default {
   viewHome,
   viewProductsRealTime,
@@ -180,5 +192,6 @@ export default {
   viewCart,
   viewRegist,
   viewLogin,
-  viewDetailProduct
+  viewDetailProduct,
+  viewRestorePassword
 };

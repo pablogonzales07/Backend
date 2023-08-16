@@ -5,10 +5,14 @@ export default class TicketRepository {
     }
 
     getAllTickets = () => {
-        return this.dao.get()
+        return this.dao.getAll()
     }
 
-    getTicketBy = (param) => {
+    getOneTicket = (ticketField) => {
+        return this.dao.getOne(ticketField)
+    }
+
+    getTicketsBy = (param) => {
         return this.dao.getBy(param)
     }
 

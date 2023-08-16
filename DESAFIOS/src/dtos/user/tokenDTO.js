@@ -5,6 +5,7 @@ export default class TokenDTO {
         this.role = user.role,
         this.email = user.email,
         this.cart = user.cartId,
-        this.id = user.id 
+        this.id = user.id,
+        this.dicountCode = user.discountCode
     }
 }

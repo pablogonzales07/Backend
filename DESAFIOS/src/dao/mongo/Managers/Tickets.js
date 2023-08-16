@@ -1,15 +1,21 @@
 import ticketModel from "../models/ticket.js";
 
 export default class TicketsManager {
-    get = () => {
+    getAll = () => {
         return ticketModel.find()
     }
 
-    getBy = (param) => {
+    getOne = (param) => {
         return ticketModel.findOne(param)
+    }
+
+    getBy = (param) => {
+        return ticketModel.find(param)
     }
 
     add = (ticket) => {
         return ticketModel.create(ticket)
     }
+
+
 }

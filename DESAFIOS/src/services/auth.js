@@ -32,7 +32,7 @@ export const passportCall = (strategy, options= {}) => {
     };
   };
 
-export const generateToken = (user) => {
-  const token = jwt.sign(user, "jwtUserSecret", { expiresIn: "24h" });
+export const generateToken = (user, expireIn="1d") => {
+  const token = jwt.sign(user, "jwtUserSecret", { expiresIn: expireIn });
     return token;
   };

@@ -1,21 +1,31 @@
+import jwt from "jsonwebtoken";
 import { usersService } from "../services/repositories.js";
-import { validatePassword, createHash, generateToken } from "../services/auth.js";
+import {validatePassword,createHash,generateToken,} from "../services/auth.js";
 import TokenDTO from "../dtos/user/tokenDTO.js";
+import RestoreTokenDTO from "../dtos/user/restoreTokenDTO.js"
+import MailingService from "../services/mailingService.js";
+import DTemplates from "../constants/DTemplates.js";
 
 
-const registUser = (req, res) => {
-  try {
-    res.sendSuccess("User registered correctly");
-  } catch (error) {
-    res.errorServer(error);
-  }
+
+
+//Controller for regist a new user
+const registUser = async (req, res) => {
+  res.sendSuccess("User registered correctly");
 };
 
+//Controller to log in the entered user
 const loginUser = (req, res) => {
   try {
-    const userDTO = new TokenDTO(req.user)
-    const user = {... userDTO}
+    //I make a data object transfer of the user
+    const userDTO = new TokenDTO(req.user);
+    const user = { ...userDTO };
+
+    //Generate a token whit de user Data
     const accessToken = generateToken(user);
+    console.log(accessToken);
+
+    //Send the customer a cookie with the user token and a message
     res
       .cookie("userCookie", accessToken, {
         maxAge: 1000 * 60 * 60 * 24,
@@ -27,18 +37,20 @@ const loginUser = (req, res) => {
   }
 };
 
+//Controller for call the gitHub callback
 const callGitHubRoute = (req, res) => {};
 
+//Controller to log in the user whit gitHub
 const loginGitHub = (req, res) => {
   try {
-    const user = {
-      name: req.user.name,
-      role: req.user.role,
-      id: req.user.id,
-      email: req.user.email,
-      cart: req.user.cartId
-    };
+    //I make a data object transfer of the user
+    const userDTO = new TokenDTO(req.user);
+    const user = { ...userDTO };
+
+    //Generate a token whit de user Data
     const accessToken = generateToken(user);
+
+    //Send the customer a cookie with the user token and a message
     res
       .cookie("userCookie", accessToken, {
         maxAge: 1000 * 60 * 60 * 24,
@@ -50,45 +62,103 @@ const loginGitHub = (req, res) => {
   }
 };
 
-const restorePass = async (req, res) => {
+//Controller to send the password change request by email
+const restoreRequest = async (req, res) => {
   try {
-    //i capture the user's data
-    const { email, password } = req.body;
+    //i capture the user's email
+    const { email } = req.body;
 
-    //i control if the user's email exist in the database
+    //I control if the user's email exist in the database
     const userExist = await usersService.getUserBy({ email: email });
-    if (!userExist) return res.errorNotUser("User not found");
+    if (!userExist) return res.badRequest("User not found");
 
-    //I check if the user's password is the same as the one I had
-    const userPassword = await validatePassword(password, userExist.password);
-    if (userPassword)
-      return res.errorNotUser("the password is the same as above");
+    //I generate a new token to have control over the user 
+    const restoreToken = generateToken(RestoreTokenDTO.getFrom(userExist), "1h");
 
-    //i hashed the new password
-    const newPassword = await createHash(password);
-
-    //i change the passsword
-    await usersService.changeUserPassword(email, newPassword);
-    res.sendSuccess("Password changed correctly");
+    //I build de email and then i send it
+    const mailingService = new MailingService();
+    const result = await mailingService.sendMail(userExist.email, DTemplates.RESTORE, {restoreToken})
+    res.sendSuccess("Email sent successfully");
   } catch (error) {
-     res.status(500).send(error)
+    res.errorServer(error);
   }
 };
 
-const getUser = (req, res) => {
+//Controller for change the user´s password
+const restorePassword = async (req,res) => {
+  //I capture the user's data
+  const {password, token} = req.body;
   try {
-    const user = req.user;
-    res.sendPayload(user);
+    //I check if the token is valid
+    const tokenUser = jwt.verify(token, "jwtUserSecret");
+
+    //I bring the user of the database
+    const user = await usersService.getUserBy({email: tokenUser.email});
+
+    //I verify if the new password is not match whit the before password
+    const userPassword = await validatePassword(password, user.password);
+    if (userPassword) return res.errorNotUser("The password is the same as above");
+
+    //I hashed the new password
+    const newPassword = await createHash(password);
+    
+    //I change the passsword
+    await usersService.changeUserPassword(user.email, newPassword);  
+    res.sendSuccess("The password was changed correctly")
   } catch (error) {
       res.errorServer(error)
   }
+
 }
+//Controller fot logout user
+const logoutUser = (req, res) => {
+  res.cookie("userCookie", "", { expires: new Date(0), httpOnly: true });
+  res.sendSuccess("Sesión cerrada");
+};
+
+//Controller for obtein the user's data
+const getUser = (req, res) => {
+  try {
+    //I send the user
+    const user = req.user;
+    res.sendPayload(user);
+  } catch (error) {
+    res.errorServer(error);
+  }
+};
+
+//Controller for change the user role
+const changeRoleUser = async (req, res) => {
+  try {
+    //I capture the required data
+    const uid = req.params.uid;
+    const users = await usersService.getAllUsers();
+    const userExist = users.find((user) => user.id === uid);
+
+    //Valid if the user already exists
+    if (!userExist) return res.errorUser("The user isn't exist");
+
+    //Valid if the user is already a premium user
+    if (userExist.role === "Premium")
+      return res.errorUser("The user is already premium");
+
+    //I change the user role
+    userExist.role = "Premium";
+    const updateUserRole = await usersService.updateUser(uid, userExist);
+    res.sendSuccess("the user's role was changed correctly");
+  } catch (error) {
+    return res.errorServer(error);
+  }
+};
 
 export default {
   registUser,
   loginUser,
   callGitHubRoute,
   loginGitHub,
-  restorePass,
-  getUser
+  restoreRequest,
+  restorePassword,
+  getUser,
+  logoutUser,
+  changeRoleUser,
 };

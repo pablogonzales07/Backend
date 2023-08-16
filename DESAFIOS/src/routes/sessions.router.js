@@ -17,11 +17,19 @@ export default class SessionsRouter extends BaseRouter {
     //Route for login whit github
     this.get("/githubcallback", ["NO_AUTH"], passportCall("github", {strategyType: "locals"}), sessionsController.loginGitHub)
 
+    //Route for logout user
+    this.post("/userLogout", ["AUTH"], sessionsController.logoutUser)
+
     //Route for restore the password
-    this.post("/restorePassword", ["NO_AUTH"], sessionsController.restorePass);
+    this.post("/restoreRequest", ["NO_AUTH"], sessionsController.restoreRequest);
+
+    this.post("/restorePassword", ["NO_AUTH"], sessionsController.restorePassword);
 
     //Route for obtein the user data
     this.get("/userProfile", ["AUTH"], sessionsController.getUser)
+
+    //Path to modify the user role
+    this.put("/premium/:uid", ["AUTH"], sessionsController.changeRoleUser)
   }
 }
 

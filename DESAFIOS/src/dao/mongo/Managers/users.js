@@ -11,7 +11,7 @@ export default class UserManager{
     getBy = (fieldUser) => {
         return userModel.findOne(fieldUser)
     }
-
+    
     //Method to add a new user
     add = (user) => {
         return userModel.create(user);

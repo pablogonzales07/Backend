@@ -1,9 +1,11 @@
-import { productsService } from "../services/repositories.js";
+import { productsService, usersService } from "../services/repositories.js";
 import ErrorService from "../services/errorService.js";
-import {  productsErrorCodeExist, productsErrorIdNotFound, productsErrorIncompleteData } from "../constants/ProductsErrors.js";
+import {
+  productsErrorCodeExist,
+  productsErrorIdNotFound,
+  productsErrorIncompleteData,
+} from "../constants/ProductsErrors.js";
 import EErrors from "../constants/EErrors.js";
-
-
 
 //Controller for send the products
 const getProducts = async (req, res) => {
@@ -64,8 +66,17 @@ const addProduct = async (req, res) => {
   try {
     //I capture the product properties commanded by query params
     const newProduct = req.body;
-    const { title, description, code, price, status, stock, category, img } =
-      newProduct;
+    const {
+      title,
+      description,
+      code,
+      price,
+      status,
+      stock,
+      category,
+      img,
+      owner,
+    } = newProduct;
 
     //I valid if the all fields product are completed
     if (
@@ -79,15 +90,24 @@ const addProduct = async (req, res) => {
       !img
     ) {
       //Shot a error
-       ErrorService.createError({
+      ErrorService.createError({
         name: "Incomplete product fields",
-        cause: productsErrorIncompleteData({title, description, code, price, status, stock, category, img}),
+        cause: productsErrorIncompleteData({
+          title,
+          description,
+          code,
+          price,
+          status,
+          stock,
+          category,
+          img,
+        }),
         message: "Incomplete fields",
         code: EErrors.ICOMPLETE_DATA_REQUIRED,
-        status: 400
-      })
+        status: 400,
+      });
     }
-
+    
     //i valid if the the code not match whit any product in the database
     const codeExist = await productsService.getProductBy({ code: code });
     if (codeExist) {
@@ -97,27 +117,50 @@ const addProduct = async (req, res) => {
         cause: productsErrorCodeExist(code),
         message: "The product code entered matches one in the database",
         code: EErrors.INCORRECT_DATA,
-        status: 401
-      })
+        status: 401,
+      });
     }
 
-    //i build the product and adding in the database
-    const product = {
-      title,
-      description,
-      code,
-      price,
-      status,
-      stock,
-      category,
-      img,
-    };
-    await productsService.addProduct(product);
 
-    res.sendSuccess("The product was added successfully");
+    //I check if the user is allowed to add a product
+    const user = req.user;
+    if (user.role.toUpperCase() !== "PREMIUM" && user.role.toUpperCase() !== "ADMIN") return res.errorUser("The user cannot create a product");
+    if (user.role.toUpperCase() === "PREMIUM" && !owner) return res.errorUser("The client did not send the owner")
+    //I add the product depending on whether the user entered the owner
+    if (owner) {
+      const userEmail = owner;
+      const user = await usersService.getUserBy({ email: userEmail });
+      if(!user) return res.errorUser("the email entered does not match the user")
+      const product = {
+        title,
+        description,
+        code,
+        price,
+        status,
+        stock,
+        category,
+        img,
+        owner,
+      };
+      await productsService.addProduct(product);
+      res.sendSuccess("The product was added successfully");
+    } else {
+      const product = {
+        title,
+        description,
+        code,
+        price,
+        status,
+        stock,
+        category,
+        img,
+      };
+      await productsService.addProduct(product);
+      res.sendSuccess("The product was added successfully");
+    }
   } catch (error) {
-    if(error.code === 1) return res.badRequest(error.name);
-    if(error.code === 2) return res.errorUser(error.name);
+    if (error.code === 1) return res.badRequest(error.name);
+    if (error.code === 2) return res.errorUser(error.name);
   }
 };
 
@@ -127,6 +170,7 @@ const changeFieldProduct = async (req, res) => {
     //i capture the product's id and fields to change by parameter
     const productId = req.params.pid;
     const productUpdate = req.body;
+    const user = req.user;
 
     //i valid if the product's id it's match whit something product in the database
     const products = await productsService.getAllProducts();
@@ -141,15 +185,29 @@ const changeFieldProduct = async (req, res) => {
         cause: productsErrorIdNotFound(productId),
         message: "The product id entered matches one in the database",
         code: EErrors.NOT_FIND_DATA,
-        status: 404
-      })
+        status: 404,
+      });
     }
-      
+
+    if (
+      user.role.toUpperCase() !== "PREMIUM" &&
+      user.role.toUpperCase() !== "ADMIN"
+    )
+      return res.errorUser("The user cannot modify the product");
+    if (user.role.toUpperCase() === "ADMIN") {
+      await productsService.updateProduct(productId, productUpdate);
+      res.sendSuccess("The product was changed correctly");
+    }
+    if (user.email !== productExist.owner)
+      return res.errorUser(
+        "The user cannot modify a product that was not created by the user"
+      );
+
     //i change the product's fields and i send the response
     await productsService.updateProduct(productId, productUpdate);
     res.sendSuccess("The product was changed correctly");
   } catch (error) {
-    if(error.code === 3) return res.notFounded(error.name);
+    if (error.code === 3) return res.notFounded(error.name);
   }
 };
 
@@ -163,6 +221,7 @@ const deleteProduct = async (req, res) => {
     const productExist = productsList.find(
       (product) => product.id === productId
     );
+
     if (!productExist) {
       //Shot a error
       ErrorService.createError({
@@ -170,15 +229,31 @@ const deleteProduct = async (req, res) => {
         cause: productsErrorIdNotFound(productId),
         message: "The product id entered matches one in the database",
         code: EErrors.NOT_FIND_DATA,
-        status: 404
-      })
+        status: 404,
+      });
     }
+
+    const user = req.user;
+    if (
+      user.role.toUpperCase() !== "PREMIUM" &&
+      user.role.toUpperCase() !== "ADMIN"
+    )
+      return res.errorUser("The user cannot delete the product");
+    if (user.role.toUpperCase() === "ADMIN") {
+      //i delete the product in the database
+      await productsService.deleteProduct(productId);
+      res.sendSuccess("The product was deleted correctly");
+    }
+    if (user.email !== productExist.owner)
+      return res.errorUser(
+        "The user cannot delete a product that was not created by the user"
+      );
 
     //i delete the product in the database
     await productsService.deleteProduct(productId);
-    res.sendSuccess("The product was deleted correctly")
+    res.sendSuccess("The product was deleted correctly");
   } catch (error) {
-    if(error.code === 3) return res.notFounded(error.name);
+    if (error.code === 3) return res.notFounded(error.name);
   }
 };
 

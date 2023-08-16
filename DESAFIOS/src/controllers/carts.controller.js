@@ -1,7 +1,5 @@
 import { cartsService, productsService } from "../services/repositories.js";
 
-
-
 //Controller for add a cart
 const addCart = async (req, res) => {
   try {
@@ -10,9 +8,7 @@ const addCart = async (req, res) => {
     const request = await cartsService.addCart(cart);
     res.send({ status: "Succes", payload: request });
   } catch (error) {
-    res
-      .status(500)
-      .send({ status: "Error", error: `Mistake in the BD : ${error}` });
+    res.status(500).send({ status: "Error", error: `Mistake in the BD : ${error}` });
   }
 };
 
@@ -41,17 +37,22 @@ const addProductsCart = async (req, res) => {
     const cartId = req.params.cid;
     const productId = req.params.pid;
     const quantity = req.body.quantity || 1;
-
+    const user = req.user;
+   
     //valid if the cart id matches any cart in the database
     const carts = await cartsService.getAllCarts();
     const cartExist = carts.find((cart) => cart.id === cartId);
     if (!cartExist)
       return res.status(404).send({ status: "Error", error: "cart not found" });
 
+    //I bring the product that the customer wants to add;
+    const product = await productsService.getProductBy({_id:productId});
+    if(user.email === product.owner) return res.errorUser("The user cannot add a product that belongs to him/her")
+    
     //I bring the products and check if the product exists in the database
     const products = await cartsService.getProductsCart({ _id: cartId });
     const productExist = products.find((item) => item.product == productId);
-
+  
     //if the product does not exist, the quantity of the product is one; otherwise, I add it to the existing amount
     if (productExist) {
       productExist.quantity += quantity;
@@ -195,21 +196,21 @@ const deleteCartProducts = async (req, res) => {
 //Controller for obtein all the product´s properties from the cart
 const obteinPropertiesProducts = async (req, res) => {
   try {
-      //I obtein the required data
-      const cartId = req.params.cid;
-      const allCarts = await cartsService.getAllCarts();
+    //I obtein the required data
+    const cartId = req.params.cid;
+    const allCarts = await cartsService.getAllCarts();
 
-      //I verify if the cartId it match whit any cart in the database
-      const cartExist = allCarts.find(item => item.id === cartId);
-      if(!cartExist) return res.errorUser("Cart not found")
+    //I verify if the cartId it match whit any cart in the database
+    const cartExist = allCarts.find((item) => item.id === cartId);
+    if (!cartExist) return res.errorUser("Cart not found");
 
-      //I bring the product´s properties and then I send them
-      const products = await cartsService.propertiesProductsCart(cartId);
-      res.sendPayload(products)
+    //I bring the product´s properties and then I send them
+    const products = await cartsService.propertiesProductsCart(cartId);
+    res.sendPayload(products);
   } catch (error) {
-      res.errorServer(error)
+    res.errorServer(error);
   }
-}
+};
 
 //Controller to change products in the cart before checkout
 const purchaseCart = async (req, res) => {
@@ -219,8 +220,8 @@ const purchaseCart = async (req, res) => {
     const allCarts = await cartsService.getAllCarts();
 
     //I verify if the cartId it match whit any cart in the database
-    const cartExist = allCarts.find(item => item.id === cartId);
-    if(!cartExist) return res.errorUser("Cart not found");
+    const cartExist = allCarts.find((item) => item.id === cartId);
+    if (!cartExist) return res.errorUser("Cart not found");
 
     //I bring the product properties and then I change them.
     const productsCart = await cartsService.propertiesProductsCart(cartId);
@@ -229,17 +230,21 @@ const purchaseCart = async (req, res) => {
     //I separate the products that are in stock from those that are out of stock.
     const quantityNotAvailable = [];
     const quantityAvailable = [];
-    for(let i=0; i<productsCartList.length; i++){
-        const productSelected = productsCartList[i];
-        if(productSelected.quantity > productSelected.product.stock) {
-            quantityNotAvailable.push(productSelected)
-        } else {
-            quantityAvailable.push(productSelected)
-            const newStock = productSelected.product.stock - productSelected.quantity;
-            productSelected.product.stock = newStock;
-            //I change the stock of purchased products
-            await productsService.updateProduct(productSelected.product._id, productSelected.product)
-        }
+    for (let i = 0; i < productsCartList.length; i++) {
+      const productSelected = productsCartList[i];
+      if (productSelected.quantity > productSelected.product.stock) {
+        quantityNotAvailable.push(productSelected);
+      } else {
+        quantityAvailable.push(productSelected);
+        const newStock =
+          productSelected.product.stock - productSelected.quantity;
+        productSelected.product.stock = newStock;
+        //I change the stock of purchased products
+        await productsService.updateProduct(
+          productSelected.product._id,
+          productSelected.product
+        );
+      }
     }
 
     //I update the cart products whit the new stock
@@ -247,21 +252,20 @@ const purchaseCart = async (req, res) => {
 
     //I calculate the total price of the products purchased.
     const totalPrice = quantityAvailable.reduce((acc, currentValue) => {
-      return acc+= currentValue.quantity*currentValue.product.price
-    }, 0)
+      return (acc += currentValue.quantity * currentValue.product.price);
+    }, 0);
 
     //I generate a pre-ticket to notify the user of out-of-stock products.
     const prePurchase = {
       totalPrice: totalPrice,
       productsAvailable: quantityAvailable,
-      productsNotAvailable: quantityNotAvailable
-    }
-    
-    res.sendPayload(prePurchase)
+      productsNotAvailable: quantityNotAvailable,
+    };
+    res.sendPayload(prePurchase);
   } catch (error) {
-    res.errorServer(error)
+    res.errorServer(error);
   }
-}
+};
 
 export default {
   addCart,
@@ -272,5 +276,5 @@ export default {
   changeQuantityProductCart,
   deleteCartProducts,
   obteinPropertiesProducts,
-  purchaseCart
+  purchaseCart,
 };

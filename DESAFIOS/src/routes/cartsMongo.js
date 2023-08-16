@@ -1,8 +1,6 @@
 import BaseRouter from "./router.js";
 import cartsController from "../controllers/carts.controller.js";
 
-
-
 export default class CartsRouter extends BaseRouter {
   init() {
     //Route to create a cart
@@ -28,8 +26,7 @@ export default class CartsRouter extends BaseRouter {
 
     //Route for obtein all the product´s properties from the cart
     this.get("/propertiesProducts/:cid", ["AUTH"], cartsController.obteinPropertiesProducts);
-
-
+    
     this.put("/:cid/purchase", ["AUTH"], cartsController.purchaseCart)
 
   }

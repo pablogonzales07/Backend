@@ -23,7 +23,6 @@ formLogin.addEventListener("submit", async (e) => {
       },
     });
     const responseData = await response.json();
-    console.log(responseData);
      if (responseData.status === "Success") {
       window.location.replace("/");
     }
@@ -53,12 +52,11 @@ formResetPass.addEventListener("submit", async (e) => {
   const data = new FormData(formResetPass);
   const objData = {};
   data.forEach((value, key) => (objData[key] = value));
-  console.log(objData);
-  if (!objData.email || !objData.password) {
+  if (!objData.email) {
     errorResetPass.innerHTML = "";
     errorResetPass.innerHTML = "Complete all fields";
   } else {
-    const response = await fetch("/api/sessions/restorePassword", {
+    const response = await fetch("/api/sessions/restoreRequest", {
       method: "POST",
       body: JSON.stringify(objData),
       headers: {
@@ -67,7 +65,8 @@ formResetPass.addEventListener("submit", async (e) => {
     });
     const responseData = await response.json();
     if(responseData.status === "Success") {
-      window.location.replace("/login")
+      errorResetPass.innerHTML = "";
+      errorResetPass.innerHTML = "A verification email has been sent to you"
     }
     if(responseData.status === "Error") {
       errorResetPass.innerHTML = "";

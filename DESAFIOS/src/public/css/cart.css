@@ -285,20 +285,48 @@ nav {
                 background-color: #B04759;
                 transition: 1s;
             }
-
-        .cartContainer .buttomBox button {
-            font-size: 2em;
-            padding: 5px;
-            font-family: 'Bebas Neue', sans-serif;
-            border-radius: 4px;
-            background-color: #A2FF86;
+        
+        .cartContainer .buttomBox {
+            display: flex;
+            justify-content: flex-end;
         }
 
-        .cartContainer .buttomBox button:hover{
-            opacity: 0.7;
-            cursor: pointer;
-        }
+            .cartContainer .buttomBox button {
+                font-size: 2em;
+                padding: 5px;
+                font-family: 'Bebas Neue', sans-serif;
+                border-radius: 4px;
+                background-color: #A2FF86;
+            }
 
+            .cartContainer .buttomBox button:hover{
+                opacity: 0.7;
+                cursor: pointer;
+            }
+
+
+/* diseño purchase finish */
+
+.modalDiscount {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+    .modalDiscount .modalDiscountContent {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        text-align: center;
+    }
         
 
 

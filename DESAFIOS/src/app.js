@@ -8,18 +8,17 @@ import cookieParser from "cookie-parser";
 //My dependencies
 import __dirname from "./utils.js";
 import { productsService } from "./services/repositories.js";
-import initializePassportStrategies from './config/passport.config.js';
+import initializePassportStrategies from "./config/passport.config.js";
 import registerChatHandler from "./listeners/chatHandle.js";
 import SessionsRouter from "./routes/sessions.router.js";
 import ProductsRouter from "./routes/productsMongo.js";
-import  CartsRouter  from "./routes/cartsMongo.js";
-import  ViewsRouter  from "./routes/views.router.js";
+import CartsRouter from "./routes/cartsMongo.js";
+import ViewsRouter from "./routes/views.router.js";
 import TicketsRouter from "./routes/tickets.router.js";
 import MockingRouter from "./routes/mocking.router.js";
-import config from  './config.js';
+import config from "./config/config.js";
 import errorHandler from "./middlewares/error.js";
 import attachLogger from "./middlewares/logger.js";
-
 
 //I start the server and make it listen for changes in the selected port according to the environment.
 const app = express();
@@ -32,14 +31,11 @@ const io = new Server(server);
 //I connect my server whit the database(mongoDB)
 const connection = mongoose.connect(config.mongo.URL);
 
-
 //I define classic middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(`${__dirname}/public`));
 app.use(cookieParser());
-
-
 app.use((req, res, next) => {
   req.io = io;
   next();
@@ -53,6 +49,7 @@ app.set("view engine", "handlebars");
 //I start the strategies of passport
 initializePassportStrategies();
 
+//I generate a logs middleware for using in my routes
 app.use(attachLogger);
 
 //Config the routes
@@ -61,7 +58,7 @@ const productsRouter = new ProductsRouter();
 const cartsRouter = new CartsRouter();
 const viewsRouter = new ViewsRouter();
 const ticketsRouter = new TicketsRouter();
-const mocksRouter = new MockingRouter()
+const mocksRouter = new MockingRouter();
 
 app.use("/api/products", productsRouter.getRouter());
 app.use("/api/carts", cartsRouter.getRouter());
@@ -73,18 +70,6 @@ app.use("/mockingproducts", mocksRouter.getRouter());
 //I capture any errors that occur
 app.use(errorHandler);
 
-app.get("/loggerTest", (req,res) => {
-    req.logger.fatal("fatal");
-    req.logger.error("error");
-    req.logger.warning("warning");
-    req.logger.info("info");
-    req.logger.http("http");
-    req.logger.debug("debug");
-    res.send("LOGGER TEST")
-})
-
-
-
 //Message config
 io.on("connection", async (socket) => {
   console.log("new client coneccting");
@@ -92,5 +77,3 @@ io.on("connection", async (socket) => {
   socket.emit("changeListProducts", products);
   registerChatHandler(io, socket);
 });
-
-

@@ -4,16 +4,16 @@ import productsController from "../controllers/products.controller.js";
 export default class ProductsRouter extends BaseRouter {
   init() {
     //Route to obtein the Products
-    this.get("/", ["NO_AUTH"], productsController.getProducts);
+    this.get("/", ["AUTH"], productsController.getProducts);
 
     //Route to add a product
-    this.post("/", ["NO_AUTH"], productsController.addProduct);
+    this.post("/", ["AUTH"], productsController.addProduct);
 
     //Route to change product´s fields
-    this.put("/:pid", ["NO_AUTH"], productsController.changeFieldProduct);
+    this.put("/:pid", ["AUTH"], productsController.changeFieldProduct);
 
     //Route to delete a product
-    this.delete("/:pid", ["NO_AUTH"], productsController.deleteProduct);
+    this.delete("/:pid", ["AUTH"], productsController.deleteProduct);
   }
 }
 
