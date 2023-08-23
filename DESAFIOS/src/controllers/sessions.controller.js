@@ -1,10 +1,12 @@
 import jwt from "jsonwebtoken";
+import config from "../config/config.js";
 import { usersService } from "../services/repositories.js";
 import {validatePassword,createHash,generateToken,} from "../services/auth.js";
 import TokenDTO from "../dtos/user/tokenDTO.js";
 import RestoreTokenDTO from "../dtos/user/restoreTokenDTO.js"
 import MailingService from "../services/mailingService.js";
 import DTemplates from "../constants/DTemplates.js";
+
 
 
 
@@ -27,7 +29,7 @@ const loginUser = (req, res) => {
 
     //Send the customer a cookie with the user token and a message
     res
-      .cookie("userCookie", accessToken, {
+      .cookie(config.cookie.SIGNATURE, accessToken, {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
       })
@@ -52,7 +54,7 @@ const loginGitHub = (req, res) => {
 
     //Send the customer a cookie with the user token and a message
     res
-      .cookie("userCookie", accessToken, {
+      .cookie(config.cookie.SIGNATURE, accessToken, {
         maxAge: 1000 * 60 * 60 * 24,
         httpOnly: true,
       })
@@ -90,7 +92,7 @@ const restorePassword = async (req,res) => {
   const {password, token} = req.body;
   try {
     //I check if the token is valid
-    const tokenUser = jwt.verify(token, "jwtUserSecret");
+    const tokenUser = jwt.verify(token, config.token.SECRET);
 
     //I bring the user of the database
     const user = await usersService.getUserBy({email: tokenUser.email});
@@ -112,7 +114,7 @@ const restorePassword = async (req,res) => {
 }
 //Controller fot logout user
 const logoutUser = (req, res) => {
-  res.cookie("userCookie", "", { expires: new Date(0), httpOnly: true });
+  res.cookie(config.cookie.SIGNATURE , "", { expires: new Date(0), httpOnly: true });
   res.sendSuccess("Sesión cerrada");
 };
 
@@ -134,6 +136,7 @@ const changeRoleUser = async (req, res) => {
     const uid = req.params.uid;
     const users = await usersService.getAllUsers();
     const userExist = users.find((user) => user.id === uid);
+
 
     //Valid if the user already exists
     if (!userExist) return res.errorUser("The user isn't exist");

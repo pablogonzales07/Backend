@@ -24,6 +24,12 @@ export default {
     mailer:{
         USER: process.env.MAILER_USER,
         PASSWORD: process.env.MAILER_PASSWORD
+    },
+    cookie:{
+        SIGNATURE: process.env.SIGNATURE_COOKIE
+    },
+    token:{
+        SECRET: process.env.TOKEN_SECRET
     }
 }
 

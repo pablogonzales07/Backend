@@ -25,3 +25,32 @@ export const productsErrorIdNotFound = (productId) => {
             *The product id sent is ${productId}
             `
 }
+
+//Error when the user role is not authorized to create a product
+export const productsErrorRoleUser = (roleUser) => {
+    return `The user role "${roleUser}" is not allowed to add, delete or modify a product
+            The roles that allow this action are:
+            *PREMIUM
+            *ADMIN
+            `
+}
+
+//User error when creating product
+export const userProductNotMatch = (fieldUser) => {
+    return `the email ${fieldUser} does not match the user of the session`
+}
+
+//Error when the user is not allowed to perform an action
+export const notProductUser = (emailUser, emailProduct) => {
+    return `The user is not allowed to modify or delete a product that does not belong to him
+            The user email is ${emailUser};
+            The product owner is ${emailProduct}
+           `
+}
+
+//error when the user did not send the email when creating a product
+export const notProductEmail = (emailUser) => {
+    return `the user did not send the email in the product
+            the user was expected to enter the email in the "owner" field of the product: ${emailUser}
+           `
+}

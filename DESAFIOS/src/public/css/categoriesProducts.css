@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* top text style */
+.topText{
+    width: 100%;
+    padding: 4px;
+    background-color: #000000;
+}
+
+    .topText p {
+        text-align: center;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1.4em;
+        color: #B04759;
+        letter-spacing: 4px;
+        font-weight: 600;
+    }
+
+
+/* Top box style */
+
+.topBox {
+    width: 100%;
+    padding: 5px;
+    background-color: #000000;
+    border-bottom: solid #9BABB8 1px;
+    display: flex;
+}
+
+    .topBox .container {
+        width: 65%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .topBox .container .networks svg{
+            color: #9BABB8;
+            margin-right: 10px;
+        }
+
+        .topBox .container .networks svg:hover {
+            opacity: 0.7;
+            cursor: pointer;
+        }
+        
+        .topBox .container .logo  img{
+            width: 60px;
+            height: 60px;
+        }
+
+        .topBox .container .cart {
+            border: white solid 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 40px;
+            padding: 5px;
+            position: relative;
+        }
+
+            .topBox .container .cart b{
+                color: #9BABB8;
+            }
+
+            .topBox .container .cart svg {
+                color: #9BABB8;
+            }
+
+            .topBox .container .cart .cartCount{
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #B04759;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .topBox .container .cart .cartCount p {
+                    font-size: 1em;
+                    color: #000000;
+                }
+/* nav style */
+
+nav {
+    background-color: #000000;
+    width: 100%;
+    border-bottom: solid #9BABB8 1px;
+}
+
+    nav .horizontalMenu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        nav .horizontalMenu li{
+            list-style: none;
+            width: 10%;  
+        }
+
+        nav .horizontalMenu li:hover{
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        nav .horizontalMenu li:hover a{
+           color: #000000;
+        }
+
+        nav .horizontalMenu li:hover .verticalMenu{
+            display: block;
+        }
+
+            nav .horizontalMenu li a{
+                text-align: center;
+                text-decoration: none;
+                font-size: 2em;
+                font-family: 'Bebas Neue', sans-serif;
+                color: #F1F6F9;
+                display: block;
+                padding: 20px;
+            }
+
+            nav .horizontalMenu li svg{
+                color: #fff;
+            }
+
+    nav .verticalMenu {
+        position: absolute;
+        display: none;
+        width: 10%;
+        background-color: #fff;
+    }
+
+        nav .verticalMenu li a:hover {
+            text-decoration: underline;
+            letter-spacing: 3px;
+        }
+    
+        nav .verticalMenu li a:hover {
+            text-decoration: underline;
+        }

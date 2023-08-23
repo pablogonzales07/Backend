@@ -47,7 +47,6 @@ const categoriesProducts = [
   },
 ];
 
-
 //I scroll through my array and insert each item in a div to display it in the view.
 categoriesProducts.forEach((category) => {
   const boxCategory = document.createElement("div");
@@ -108,7 +107,7 @@ buttonLogout.addEventListener("click", async () => {
 });
 
 //I bring user tickets for show in the view
-const getTickets = async () => {
+const getInfoUser = async () => {
   //I bring the user Data
   const responseUser = await fetch("/api/sessions/userProfile", {
     method: "GET",
@@ -129,7 +128,7 @@ const getTickets = async () => {
   const responseDataTickets = await responseTickets.json();
   const tickets = responseDataTickets.payload;
 
-  if (tickets.length >0) {
+  if (tickets.length > 0) {
     tickets.forEach((item) => {
       const span = document.createElement("span");
       span.innerHTML = `<p>#${item.code} <b>TOTAL: ${item.amount}&pound;</b></p>`;
@@ -142,5 +141,42 @@ const getTickets = async () => {
                                   </div
                                   `;
   }
+
+  const premiumUser = document.getElementById("premiumUser");
+
+  if (responseDataUser.payload.role === "User") {
+    premiumUser.innerHTML = `
+                              <h4>Become a premium user and get many benefits:</h4>
+                              <div class="buttonPremiumContainer">
+                                <button id="goPremium">Make me premium</button>
+                              </div>
+                            `;
+
+    const buttonPremiumUser = document.getElementById("goPremium");
+    buttonPremiumUser.addEventListener("click", async () => {
+      const responsePremiumUser = await fetch(
+        `/api/sessions/premium/${userId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const responseDataPremium = await responsePremiumUser.json();
+      if (responseDataPremium.status === "Success") {
+        const responseLogOut = await fetch("/api/sessions/userLogout", {
+          method: "POST",
+          credentials: "same-origin",
+        });
+        const dataLogOut = await responseLogOut.json();
+        if (dataLogOut.status === "Success") {
+          alert("Now you are a premium user, please login again");
+          window.location.replace("/login");
+        }
+      }
+    });
+  }
 };
-getTickets();
+
+getInfoUser();

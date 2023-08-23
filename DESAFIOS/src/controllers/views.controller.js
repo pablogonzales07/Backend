@@ -5,7 +5,8 @@ const viewHome = async (req, res) => {
   //I bring the products
   const productsSale = await productsService.getAllProducts();
   const listProducts = productsSale.docs;
-
+  const onlyAdminProducts = listProducts.filter(products => products.owner === "Admin");
+  
   //I bring all the products in the cart selected
   const getProductsCart = await cartsService.getCartById({_id: req.user.cart}).populate("products.product");
   const listProductsCart = getProductsCart.products
@@ -33,7 +34,7 @@ const viewHome = async (req, res) => {
     headerFour: "/img/header-cuatro.jpg",
     pictureOne: "/img/about-us-one.jpg",
     pictureTwo: "/img/about-us-two.jpg",
-    products: listProducts,
+    products: onlyAdminProducts,
     countCart: countProductsCart,
     totalPrice: totalPrice,
     user: user
@@ -184,6 +185,40 @@ const viewRestorePassword = (req, res) => {
   res.render("restorePassword")
 }
 
+const viewCategoryProducts = async (req, res) => {
+  const categoryProducts = req.params.category;
+  const user = req.user;
+  const products = await productsService.getAllProducts();
+  const listProducts = products.docs;
+  
+  const productsSelected = listProducts.filter(products => products.category == categoryProducts);
+  
+  //I bring all the products in the cart selected
+  const getProductsCart = await cartsService.getCartById({_id: req.user.cart}).populate("products.product");
+  const listProductsCart = getProductsCart.products
+
+  
+  //I add the total number of products in the cart
+  const countProductsCart = listProductsCart.reduce((acc, currentValue) => {
+    return acc +=currentValue.quantity
+  }, 0)
+  
+    //I add the total price in the cart
+  const totalPrice = listProductsCart.reduce((acc, currentValue) => {
+    return acc +=currentValue.product.price * currentValue.quantity
+  },0);
+  
+
+  res.render("categoryProducts", {
+    css: "categoriesProducts",
+    products: productsSelected,
+    logo: "/img/logo.png",
+    countProductsCart: countProductsCart,
+    totalCartPrice: totalPrice,
+    user: user
+  })
+}
+
 export default {
   viewHome,
   viewProductsRealTime,
@@ -193,5 +228,6 @@ export default {
   viewRegist,
   viewLogin,
   viewDetailProduct,
-  viewRestorePassword
+  viewRestorePassword,
+  viewCategoryProducts
 };

@@ -21,7 +21,7 @@ const initializePassportStrategies = () => {
         try {
           //i capture the user's fields
           const { first_name, last_name, age, confirmPassword } = req.body;
-
+          
           //i valid if the all fields are complete
           if (!first_name || !last_name || !email || !password || !age || !confirmPassword)
             return done(null, false, { message: "Incomplete Fields" });

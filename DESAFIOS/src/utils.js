@@ -1,12 +1,13 @@
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import config from "./config/config.js";
 import fs from "fs";
 import Handlebars from "handlebars";
 
 export const coockieExtractor = (req) => {
   let token = null;
   if (req && req.cookies) {
-    token = req.cookies["userCookie"];
+    token = req.cookies[config.cookie.SIGNATURE];
   }
   return token;
 };

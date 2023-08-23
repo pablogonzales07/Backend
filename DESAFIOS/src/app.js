@@ -4,6 +4,8 @@ import handlebars from "express-handlebars";
 import mongoose from "mongoose";
 import { Server } from "socket.io";
 import cookieParser from "cookie-parser";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUiExpress from "swagger-ui-express";
 
 //My dependencies
 import __dirname from "./utils.js";
@@ -30,6 +32,22 @@ const io = new Server(server);
 
 //I connect my server whit the database(mongoDB)
 const connection = mongoose.connect(config.mongo.URL);
+
+//Documentation
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.1",
+    info: {
+      title: "The world of the gym-online store",
+      description: "API documentation: the world of the gym",
+    },
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`],
+};
+
+const specs = swaggerJSDoc(swaggerOptions);
+
+app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 //I define classic middleware
 app.use(express.json());

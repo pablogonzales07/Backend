@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import config from "../config/config.js"
 import passport from "passport";
 import jwt from "jsonwebtoken";
 
@@ -23,7 +24,7 @@ export const passportCall = (strategy, options= {}) => {
             req.error = info.message?info.message:info.toString();
             return next();
           case "locals":
-            return res.errorNotUser(info.message?info.message:info.toString())
+            return res.notFounded(info.message?info.message:info.toString())
          }
         }
         req.user = user;
@@ -33,6 +34,6 @@ export const passportCall = (strategy, options= {}) => {
   };
 
 export const generateToken = (user, expireIn="1d") => {
-  const token = jwt.sign(user, "jwtUserSecret", { expiresIn: expireIn });
+  const token = jwt.sign(user, config.token.SECRET , { expiresIn: expireIn });
     return token;
   };

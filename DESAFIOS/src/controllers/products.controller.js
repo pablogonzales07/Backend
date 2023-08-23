@@ -1,9 +1,13 @@
 import { productsService, usersService } from "../services/repositories.js";
 import ErrorService from "../services/errorService.js";
 import {
+  notProductEmail,
+  notProductUser,
   productsErrorCodeExist,
   productsErrorIdNotFound,
   productsErrorIncompleteData,
+  productsErrorRoleUser,
+  userProductNotMatch,
 } from "../constants/ProductsErrors.js";
 import EErrors from "../constants/EErrors.js";
 
@@ -107,7 +111,7 @@ const addProduct = async (req, res) => {
         status: 400,
       });
     }
-    
+
     //i valid if the the code not match whit any product in the database
     const codeExist = await productsService.getProductBy({ code: code });
     if (codeExist) {
@@ -117,20 +121,49 @@ const addProduct = async (req, res) => {
         cause: productsErrorCodeExist(code),
         message: "The product code entered matches one in the database",
         code: EErrors.INCORRECT_DATA,
-        status: 401,
+        status: 400,
       });
     }
 
-
     //I check if the user is allowed to add a product
     const user = req.user;
-    if (user.role.toUpperCase() !== "PREMIUM" && user.role.toUpperCase() !== "ADMIN") return res.errorUser("The user cannot create a product");
-    if (user.role.toUpperCase() === "PREMIUM" && !owner) return res.errorUser("The client did not send the owner")
+    if (
+      user.role.toUpperCase() !== "PREMIUM" &&
+      user.role.toUpperCase() !== "ADMIN"
+    ) {
+      //Shot a error
+      ErrorService.createError({
+        name: "User is not allowed to create a product",
+        cause: productsErrorRoleUser(user.role),
+        message: "The user role is not authorized to create a product",
+        code: EErrors.ROLE_USER_NOT_AUTHORIZED,
+        status: 403,
+      });
+    }
+    if (user.role.toUpperCase() === "PREMIUM" && !owner) {
+      //Shot a error
+      ErrorService.createError({
+        name: "The client did not send the owner",
+        cause: notProductEmail(user.email),
+        message: "Being a premium user, you must send the owner of the product",
+        code: EErrors.INCORRECT_DATA,
+        status: 400,
+      });
+    }
+
     //I add the product depending on whether the user entered the owner
     if (owner) {
       const userEmail = owner;
       const user = await usersService.getUserBy({ email: userEmail });
-      if(!user) return res.errorUser("the email entered does not match the user")
+      if (!user) {
+        ErrorService.createError({
+          name: "Invalid email",
+          cause: userProductNotMatch(userEmail),
+          message: "The email entered does not match the user",
+          code: EErrors.INCORRECT_DATA,
+          status: 400,
+        });
+      }
       const product = {
         title,
         description,
@@ -159,8 +192,10 @@ const addProduct = async (req, res) => {
       res.sendSuccess("The product was added successfully");
     }
   } catch (error) {
+    console.log(error);
     if (error.code === 1) return res.badRequest(error.name);
-    if (error.code === 2) return res.errorUser(error.name);
+    if (error.code === 2) return res.badRequest(error.name);
+    if (error.code === 4) return res.forbidden(error.name);
   }
 };
 
@@ -192,22 +227,39 @@ const changeFieldProduct = async (req, res) => {
     if (
       user.role.toUpperCase() !== "PREMIUM" &&
       user.role.toUpperCase() !== "ADMIN"
-    )
-      return res.errorUser("The user cannot modify the product");
+    ) {
+      //Shot a error
+      ErrorService.createError({
+        name: "User is not allowed to modify a product",
+        cause: productsErrorRoleUser(user.role),
+        message: "The user role is not authorized to modify a product",
+        code: EErrors.ROLE_USER_NOT_AUTHORIZED,
+        status: 403,
+      });
+    }
+
     if (user.role.toUpperCase() === "ADMIN") {
       await productsService.updateProduct(productId, productUpdate);
       res.sendSuccess("The product was changed correctly");
     }
-    if (user.email !== productExist.owner)
-      return res.errorUser(
-        "The user cannot modify a product that was not created by the user"
-      );
-
+    if (user.email !== productExist.owner) {
+      //Shot a error
+      ErrorService.createError({
+        name: "The user is not allowed to modify a product that does not belong to him",
+        cause: notProductUser(user.email, productExist.owner),
+        message:"The user is not allowed to modify a product which does not belong to him, check that the user's email and the product's email match",
+        code: EErrors.PRODUCT_NOT_BELONG_USER,
+        status: 403,
+      });
+    }
     //i change the product's fields and i send the response
     await productsService.updateProduct(productId, productUpdate);
     res.sendSuccess("The product was changed correctly");
   } catch (error) {
+    console.log(error);
     if (error.code === 3) return res.notFounded(error.name);
+    if (error.code === 4) return res.forbidden(error.name);
+    if (error.code === 5) return res.forbidden(error.name);
   }
 };
 
@@ -237,23 +289,41 @@ const deleteProduct = async (req, res) => {
     if (
       user.role.toUpperCase() !== "PREMIUM" &&
       user.role.toUpperCase() !== "ADMIN"
-    )
-      return res.errorUser("The user cannot delete the product");
+    ) {
+      //Shot a error
+      ErrorService.createError({
+        name: "The user cannot delete the product",
+        cause: productsErrorRoleUser(user.role),
+        message: "The user role is not authorized to delete a product",
+        code: EErrors.ROLE_USER_NOT_AUTHORIZED,
+        status: 403,
+      });
+    }
+    /* return res.errorUser("The user cannot delete the product"); */
     if (user.role.toUpperCase() === "ADMIN") {
       //i delete the product in the database
       await productsService.deleteProduct(productId);
       res.sendSuccess("The product was deleted correctly");
     }
-    if (user.email !== productExist.owner)
-      return res.errorUser(
-        "The user cannot delete a product that was not created by the user"
-      );
-
+    if (user.email !== productExist.owner) {
+      //Shot a error
+      ErrorService.createError({
+        name: "The user is not allowed to delete a product that does not belong to him",
+        cause: notProductUser(user.email, productExist.owner),
+        message:"The user is not allowed to delete a product which does not belong to him, check that the user's email and the product's email match",
+        code: EErrors.PRODUCT_NOT_BELONG_USER,
+        status: 403,
+      });
+    }
+    
     //i delete the product in the database
     await productsService.deleteProduct(productId);
     res.sendSuccess("The product was deleted correctly");
   } catch (error) {
+    console.log(error);
     if (error.code === 3) return res.notFounded(error.name);
+    if (error.code === 4) return res.forbidden(error.name);
+    if (error.code === 5) return res.forbidden(error.name)
   }
 };
 

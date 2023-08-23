@@ -32,17 +32,16 @@ export default class BaseRouter{
 
 
     generateCustomResponses = (req, res, next) => {
-        //satisfactory request responses:               
+        //Satisfactory request responses:               
         res.sendSuccess = message => res.send({status: "Success", message});
         res.sendPayload = payload => res.send({status: "Success", payload});
 
-        //error responses to requests:
+        //Error responses to requests:
         res.errorServer = error => res.status(500).send({status: "Error", error});
         res.badRequest = error => res.status(400).send({status: "Error", error});
+        res.authentication = error => res.status(401).send({status: "Error", error});
+        res.forbidden = error => res.status(403).send({status: "Error", error});
         res.notFounded = error => res.status(404).send({status: "Error", error})
-        res.errorUser = error =>  res.status(401).send({status: "Error", error});
-        res.errorNotUser = error => res.status(403).send({status: "Error", error})
-        res.errorAuthorization = error => res.status(400).send({status: "Error", error})
         next();
     }
 

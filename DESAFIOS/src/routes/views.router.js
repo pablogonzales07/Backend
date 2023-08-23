@@ -22,7 +22,9 @@ export default class ViewsRouter extends BaseRouter {
 
     this.get("/detail/:pid", ["AUTH"], viewsController.viewDetailProduct);
 
-    this.get("/restorePassword", ["NO_AUTH"], viewsController.viewRestorePassword)
+    this.get("/restorePassword", ["NO_AUTH"], viewsController.viewRestorePassword);
+
+    this.get("/categories/:category", ["AUTH"], viewsController.viewCategoryProducts)
 
   }
 }
