@@ -8,7 +8,22 @@
     box-sizing: border-box;
 }
 
+/* top text style */
 
+.topText{
+    width: 100%;
+    padding: 4px;
+    background-color: #ff9900;
+}
+
+    .topText p {
+        text-align: center;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1.4em;
+        color: #000000;
+        letter-spacing: 4px;
+        font-weight: 600;
+    }
 
 /* Top box style */
 
@@ -27,15 +42,19 @@
         align-items: center;
     }
 
-        .topBox .container .networks svg{
-            color: #9BABB8;
-            margin-right: 10px;
+        .topBox .container .networks a{
+            text-decoration: none;
         }
 
-        .topBox .container .networks svg:hover {
-            opacity: 0.7;
-            cursor: pointer;
-        }
+            .topBox .container .networks a svg{
+                color: #9BABB8;
+                margin-right: 10px;
+            }
+
+            .topBox .container .networks a svg:hover {
+                opacity: 0.7;
+                cursor: pointer;
+            }
         
         .topBox .container .logo  img{
             width: 60px;
@@ -142,18 +161,236 @@ nav {
             text-decoration: underline;
         }
 
+/* diseño modal user */
+
+.sideBar{
+    width: 400px;
+    height: 100vh;
+    background-color: #000000;
+    position: fixed;
+    top: 0;
+    right: -400px; 
+    transition: right 0.3s ease;
+    z-index: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;    
+}
+    .sideBar .perfilUser{
+        width: 100%;
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .perfilUser svg {
+            color: #fff;
+        }
+
+        .perfilUser b {
+            color: #B04759;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5em;
+            margin-left: 10px;
+            letter-spacing: 3px;
+        }
+
+    .sideBar .infoUser {
+        margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+
+        .sideBar .infoUser h5{
+            font-size: 2.3em;
+            color: #9BA4B5;
+            font-family: 'Bebas Neue', sans-serif;
+            margin-bottom: 15px;
+        }
+
+        .sideBar .infoUser span {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+            .sideBar .infoUser span b{
+                font-size: 1.5em;
+                color: #9BA4B5;
+                font-family: 'Bebas Neue', sans-serif;
+                margin-right: 15px;
+            }
+
+            .sideBar .infoUser span p{
+                font-size: 1.2em;
+                color: #B04759;
+                font-family: 'Poppins', sans-serif;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+    .sideBar .premiumUser {
+        margin-top: 40px;
+    }
+
+        .sideBar .premiumUser h4 {
+            font-size: 1.4em;
+            color: #9BA4B5;
+            font-family: 'Bebas Neue', sans-serif;
+            margin-bottom: 15px;
+        }
+
+        .sideBar .premiumUser .buttonPremiumContainer {
+            width: 70%;
+            margin: 0 auto;
+        }
+
+            .sideBar .premiumUser .buttonPremiumContainer button {
+                width: 100%;
+                border-radius: 4px;
+                font-size: 1.1em;
+                font-family: 'Bebas Neue', sans-serif;
+                letter-spacing: 3px;
+                background-color: aquamarine;
+                padding: 5px;
+                cursor: pointer;
+                overflow: hidden;
+                position: relative;
+                transition: transform 0.3s, box-shadow 0.3s;
+            }
+
+            .sideBar .premiumUser .buttonPremiumContainer button::before{
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.2);
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                transition: left 0.3s;
+            }
+
+            .sideBar .premiumUser .buttonPremiumContainer button:hover::before {
+                left: 100%;
+            }
+
+            .sideBar .premiumUser .buttonPremiumContainer button:hover {
+                transform: translateX(5px);
+                box-shadow: 10px 0 15px rgba(0, 0, 0, 0.3);
+            }
+
+    .sideBar .userPurchases {
+        margin-top: 50px;
+    }
+
+            .sideBar .userPurchases h5 {
+                font-size: 2.3em;
+                color: #9BA4B5;
+                font-family: 'Bebas Neue', sans-serif;
+                margin-bottom: 15px;
+            }
+
+            .sideBar .userPurchases span{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                margin-bottom: 10px;
+                padding-left: 10px;
+            }
+
+                .sideBar .userPurchases span p {
+                    color: #B04759;
+                    font-size: 1.1em;
+                }
+
+                    .sideBar .userPurchases span p b{
+                        font-size: 1.1em;
+                        color: #9BA4B5;
+                    }
+
+            .sideBar .userPurchases .notPurchases {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+                .sideBar .userPurchases .notPurchases p {
+                    font-family: 'Poppins', sans-serif;
+                    color: #F1F6F9;
+                    font-size: 1.4em;
+                }
+
+                .sideBar .userPurchases .notPurchases button {
+                    width: 70%;
+                    margin: 0 auto;
+                    border-radius: 4px;
+                    background-color: #9BA4B5;
+                    margin-top: 10px;
+                }
+
+                .sideBar .userPurchases .notPurchases button a {
+                    text-decoration: none;
+                    color: #000000;
+                    font-size: 1.8em;
+                    font-family: 'Bebas Neue', sans-serif;
+
+                }
+
+                .sideBar .userPurchases .notPurchases button:hover {
+                    cursor: pointer;
+                    opacity: 0.7;
+                }
+
+    .sideBar .buttonLogout {
+        width: 70%;
+        margin: 0 auto;
+        border-radius: 4px;
+        background-color: #B04759;
+        color: #000000;
+        font-size: 1.8em;
+        font-family: 'Bebas Neue', sans-serif;
+        margin-top: 10px;
+        bottom: 0;
+    }
+
+    .sideBar .buttonLogout:hover{
+        cursor: pointer;
+         opacity: 0.7;
+    }
+
+    #closeButton {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        color: #fff;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+
+
+
+
 /* detail style */
 
 .detailContainer {
-    width: 65%;
-    margin: 0 auto;
-    margin-top: 70px;
+    width: 100%;
+    height: 90vh;
     display: flex;
+    justify-content: center;
+    padding: 10px;
 }
 
     .detailContainer .imagesDetailProduct .primaryImage{
-        width: 550px;
-        height: 450px;
+        width: 80%;
+        height: 100%;
+        margin-right: 25px;
     }
 
         .detailContainer .imagesDetailProduct .primaryImage img{
@@ -162,43 +399,78 @@ nav {
         }
 
     .detailContainer .bodyDetailProduct {
-        padding: 15px;
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 25px;
     }
 
     .detailContainer .bodyDetailProduct h1{
-        font-size: 4em;
+        font-size: 2.5em;
         font-family: 'Bebas Neue', sans-serif;
-        letter-spacing: 3px;
-        margin-top: 10px;
     }
 
-    .detailContainer .bodyDetailProduct .boxPrice{
-        display: flex;
-        align-items: center;
+    .detailContainer .bodyDetailProduct b{
+        font-size: 2em;
+        font-family: 'Bebas Neue', sans-serif;
     }
 
-        .detailContainer .bodyDetailProduct .boxPrice b{
-            font-size: 2.3em;
+    .detailContainer .bodyDetailProduct .separator {
+        width: 70%;
+        border-bottom: #9BABB8 solid 1px;
+        opacity: 0.7;
+        margin: 10px 0;
+    }
+
+    .detailContainer .bodyDetailProduct p{ 
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2em;
+    }
+
+    .detailContainer .sizesContainer {
+       margin-top: 7px;
+    }
+
+        .detailContainer h3{
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.5em;
+            text-decoration: underline;
         }
 
-    .detailContainer .bodyDetailProduct p{
-        font-size: 1.9em;
-        font-family: 'Poppins', sans-serif;
-        margin-top: 15px;
-        letter-spacing: 2px;
-    }
+
+        .detailContainer .sizesContainer .buttonSize {
+            width: 35px;
+            height: 40px;
+            margin-top: 7px;
+            margin-bottom: 7px;
+            margin-right: 5px;
+            background-color: white;
+            font-size: 0.7em;
+            border: solid 1px #9BA4B5;
+        }
+        
+        .detailContainer .sizesContainer .buttonSize.clicked {
+            background-color: #B04759;
+        } 
+
+        .detailContainer .sizesContainer .buttonSize:hover {
+            background-color: #000000;
+            cursor: pointer;
+        }
+
+        .detailContainer .sizesContainer .buttonSize:hover b{
+            color: #fff;
+        }
 
     .detailContainer .bodyDetailProduct .countDetail{
         display: flex;
         align-items: center;
-        justify-content: center;
-        margin-top: 15px;
+        margin-top: 10px;
     }
 
         .detailContainer .bodyDetailProduct .countDetail button{
             width: 40px;
             height: 40px;
-            border-radius: 50%;
             background-color: #000000;
             color: #fff;
             font-size: 1.5em;
@@ -216,17 +488,17 @@ nav {
         }
 
     .detailContainer .bodyDetailProduct .buttonDetailContainer {
-        width: 250px;
-        margin: 0 auto;
+        width: 100%;
     }
 
         .detailContainer .bodyDetailProduct .buttonDetailContainer .addToCartButton {
             width: 100%;
-            margin-top: 30px;
-            font-size: 2em;
+            margin-top: 15px;
+            padding: 5px;
+            font-size: 1.6em;
             font-family: 'Bebas Neue', sans-serif;
-            background-color: #9BABB8;
-            color: #000000;
+            background-color: #000000;
+            color: #9BA4B5;
         }
 
         .detailContainer .bodyDetailProduct .buttonDetailContainer .addToCartButton:hover {
@@ -253,18 +525,17 @@ nav {
 
 
 
-/* diseño de productos similares */
+/* similar productsStyle */
 
 .similarProducts{ 
     width: 100%;
     margin-top: 50px;
-    background-image: url("https://img.freepik.com/foto-gratis/fondo-textura-hormigon-liso-negro_53876-160644.jpg");
     padding: 25px 0;
 }
 
     .similarProducts h2{
         text-align: center;
-        color: #9BA4B5;
+        color: #000000;
         font-size: 3.7em;
         letter-spacing: 4px;
         font-family: 'Bebas Neue', sans-serif;
@@ -282,14 +553,12 @@ nav {
             margin-top: 25px;
             margin-right: 20px;
             border-radius: 4px;
-            border: #F1F6F9 solid 1px;
+            border: #000000 solid 1px;
             display: flex;
             align-items: center;
             flex-direction: column;
             justify-content: space-between;
             box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.50);
-            background-color: #F1F6F9;
-
         }
 
             .similarProducts .similarProductsContainer .cartProduct img{
@@ -327,6 +596,7 @@ nav {
                 width: 100%;
                 background-color: #9BA4B5;
                 border: none;
+                border-top: solid 2px #000000;
                 font-size: 1.7em;
                 letter-spacing: 4px;
                 padding: 5px;

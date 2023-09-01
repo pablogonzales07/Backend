@@ -36,7 +36,7 @@ if (productsCart.length >= 1) {
     const deleteProductCart = document.getElementById(item.id);
     deleteProductCart.addEventListener("click", async () => {
       //First i bring the user data for obtein your cartId
-      const responseUser = await fetch("/api/sessions/userProfile", {
+      const responseUser = await fetch("/api/users/userProfile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -71,13 +71,14 @@ if (productsCart.length >= 1) {
           0
         );
         totalPrice.innerHTML = newPrice;
+        totalPriceTop.innerHTML = newPrice;
       }
     });
   });
 
   buttonClearCart.addEventListener("click", async () => {
     //First i bring the user data for obtein your cartId
-    const responseUser = await fetch("/api/sessions/userProfile", {
+    const responseUser = await fetch("/api/users/userProfile", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -110,8 +111,17 @@ if (productsCart.length >= 1) {
   });
 
   buttonFinishPurchase.addEventListener("click", async () => {
+    const purchasesInSession = JSON.parse(localStorage.getItem("active")) || {
+      status: "Desactive",
+    };
+    if (purchasesInSession.status === "Active") {
+      return alert(
+        "To be able to make another purchase you have to log in again"
+      );
+    }
+
     //I get the user data
-    const responseUser = await fetch("/api/sessions/userProfile", {
+    const responseUser = await fetch("/api/users/userProfile", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -179,7 +189,7 @@ if (productsCart.length >= 1) {
           ticket = {
             code,
             date,
-            finalPrice:totalPricePurchase,
+            finalPrice: totalPricePurchase,
             emailUser,
           };
           const responseTicket = await fetch("/api/tickets", {
@@ -202,7 +212,7 @@ if (productsCart.length >= 1) {
               };
             });
             localStorage.setItem("cart", JSON.stringify(listProductsCart));
-            location.reload()
+            location.reload();
           }
         });
 
@@ -213,20 +223,34 @@ if (productsCart.length >= 1) {
           const objDiscountCode = {};
           discountCode.forEach((value, key) => (objDiscountCode[key] = value));
 
-          const responseUser = await fetch("/api/sessions/userProfile", {
+          const responseUser = await fetch("/api/users/userProfile", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
           });
           const responseDataUser = await responseUser.json();
-          const dicountCodeUser = responseDataUser.payload.dicountCode;
+          const dicountCodeUser = responseDataUser.payload.discountCode;
           const discountCodeEntered = parseInt(objDiscountCode.discountCode);
-
           if (dicountCodeUser != discountCodeEntered) {
             alert("Incorrect code");
           } else {
-            alert("Applied code");
+            alert("Code apllied");
+            //I make a request to inform that the code was applied
+            const responseCode = await fetch("/api/users/codeUserAplicated", {
+              method: "PUT",
+              body: JSON.stringify(objDiscountCode),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            const responseCodeData = await responseCode.json();
+            if (responseCodeData.status === "Success") {
+              localStorage.setItem(
+                "active",
+                JSON.stringify({ status: "Active" })
+              );
+            }
             const priceTicket = document.getElementById("ticketTotalPrice");
             const price = totalPricePurchase;
             const discount = 15;
@@ -249,7 +273,7 @@ if (productsCart.length >= 1) {
             });
             const responseDataTicket = await responseTicket.json();
             if (responseDataTicket.status === "Success") {
-              alert("ticket generado");
+              alert("thank you for your purchase");
               const listProductsCart = productsNotAvailable.map((item) => {
                 return {
                   title: item.product.title,
@@ -260,7 +284,7 @@ if (productsCart.length >= 1) {
                 };
               });
               localStorage.setItem("cart", JSON.stringify(listProductsCart));
-              location.reload()
+              location.reload();
             }
           }
         });
@@ -290,7 +314,7 @@ if (productsCart.length >= 1) {
           ticket = {
             code,
             date,
-            finalPrice:totalPricePurchase,
+            finalPrice: totalPricePurchase,
             emailUser,
           };
           const responseTicket = await fetch("/api/tickets", {
@@ -313,7 +337,7 @@ if (productsCart.length >= 1) {
               };
             });
             localStorage.setItem("cart", JSON.stringify(listProductsCart));
-            location.reload()
+            location.reload();
           }
         });
 
@@ -324,20 +348,35 @@ if (productsCart.length >= 1) {
           const objDiscountCode = {};
           discountCode.forEach((value, key) => (objDiscountCode[key] = value));
 
-          const responseUser = await fetch("/api/sessions/userProfile", {
+          const responseUser = await fetch("/api/users/userProfile", {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
             },
           });
           const responseDataUser = await responseUser.json();
-          const dicountCodeUser = responseDataUser.payload.dicountCode;
+          const dicountCodeUser = responseDataUser.payload.discountCode;
           const discountCodeEntered = parseInt(objDiscountCode.discountCode);
 
           if (dicountCodeUser != discountCodeEntered) {
             alert("Incorrect code");
           } else {
             alert("Applied code");
+            //I make a request to inform that the code was applied
+            const responseCode = await fetch("/api/users/codeUserAplicated", {
+              method: "PUT",
+              body: JSON.stringify(objDiscountCode),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            const responseCodeData = await responseCode.json();
+            if (responseCodeData.status === "Success") {
+              localStorage.setItem(
+                "active",
+                JSON.stringify({ status: "Active" })
+              );
+            }
             const priceTicket = document.getElementById("ticketTotalPrice");
             const price = totalPricePurchase;
             const discount = 15;
@@ -371,7 +410,7 @@ if (productsCart.length >= 1) {
                 };
               });
               localStorage.setItem("cart", JSON.stringify(listProductsCart));
-              location.reload()
+              location.reload();
             }
           }
         });

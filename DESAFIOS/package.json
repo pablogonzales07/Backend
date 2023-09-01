@@ -4,7 +4,9 @@
   "description": "backend proyect",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "mocha test/Carts/CartsDao.test.js"
   },
   "author": "",
   "license": "ISC",
@@ -34,5 +36,10 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.8",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
   }
 }

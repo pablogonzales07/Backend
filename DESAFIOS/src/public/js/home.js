@@ -17,12 +17,12 @@ const categoriesProducts = [
   },
   {
     id: 2,
-    title: "Machines",
+    title: "Machine",
     img: "https://stylelovely.com/wp-content/uploads/2020/01/gym-abdominales.jpg",
   },
   {
     id: 3,
-    title: "T-shirts",
+    title: "T-shirt",
     img: "https://img.freepik.com/fotos-premium/pareja-tiro-completo-haciendo-ejercicios-entrenamiento_23-2150470977.jpg?w=360",
   },
   {
@@ -42,10 +42,14 @@ const categoriesProducts = [
   },
   {
     id: 7,
-    title: "Training Accessories",
+    title: "Gym-accesories",
     img: "https://m.media-amazon.com/images/I/61oXKgwQ4tL._AC_UF350,350_QL80_.jpg",
   },
 ];
+
+document.getElementById("hambButton").addEventListener("click", function() {
+  document.querySelector(".horizontalMenu").classList.toggle("active");
+});
 
 //I scroll through my array and insert each item in a div to display it in the view.
 categoriesProducts.forEach((category) => {
@@ -56,7 +60,9 @@ categoriesProducts.forEach((category) => {
                                 <img src="${category.img}"/>
                             </figure>
                             <h3>${category.title}</h3>
-                            <button>know more</button>
+                            <button>
+                              <a href="/categories/${category.title}">know more</a>
+                            </button>
                            `;
   servicesContainer.append(boxCategory);
 });
@@ -109,7 +115,7 @@ buttonLogout.addEventListener("click", async () => {
 //I bring user tickets for show in the view
 const getInfoUser = async () => {
   //I bring the user Data
-  const responseUser = await fetch("/api/sessions/userProfile", {
+  const responseUser = await fetch("/api/users/userProfile", {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -155,7 +161,7 @@ const getInfoUser = async () => {
     const buttonPremiumUser = document.getElementById("goPremium");
     buttonPremiumUser.addEventListener("click", async () => {
       const responsePremiumUser = await fetch(
-        `/api/sessions/premium/${userId}`,
+        `/api/users/premium/${userId}`,
         {
           method: "PUT",
           headers: {

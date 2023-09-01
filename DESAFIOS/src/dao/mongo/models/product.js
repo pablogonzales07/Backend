@@ -14,6 +14,10 @@ const schema = new mongoose.Schema(
       default: true,
     },
     stock: Number,
+    sizes:{
+      type: Array,
+      default: []
+    },
     category: String,
     img: String,
     thumbnails: [],

@@ -3,7 +3,7 @@ import productsModel from "../models/product.js";
 export default class ProductsManager {
 
     //Method to get all products
-    get = (filterCategory, filterDisponibility, anyFilter, limitProducts=10, pageProducts=1,orderPrice) => {
+    get = (filterCategory, filterDisponibility, anyFilter, limitProducts=40, pageProducts=1,orderPrice) => {
         if(filterCategory) return productsModel.paginate({category: filterCategory}, {limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true} )
         if(filterDisponibility) return productsModel.paginate({status: filterDisponibility}, {limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true} )   
         if(filterCategory && filterDisponibility) return productsModel.paginate({category: filterCategory, status: filterDisponibility}, {limit: limitProducts, page: pageProducts, sort: {price: orderPrice}, lean: true} )

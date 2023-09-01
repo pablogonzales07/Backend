@@ -6,6 +6,6 @@ export default class TokenDTO {
         this.email = user.email,
         this.cart = user.cartId,
         this.id = user.id,
-        this.dicountCode = user.discountCode
+        this.discountCode = user.discountCode
     }
 }

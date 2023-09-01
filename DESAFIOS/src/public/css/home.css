@@ -26,15 +26,19 @@
         align-items: center;
     }
 
-        .topBox .container .networks svg{
-            color: #9BABB8;
-            margin-right: 10px;
+        .topBox .container .networks a {
+            text-decoration: none;
         }
 
-        .topBox .container .networks svg:hover {
-            opacity: 0.7;
-            cursor: pointer;
-        }
+            .topBox .container .networks a svg{
+                color: #9BABB8;
+                margin-right: 10px;
+            }
+
+            .topBox .container .networks a svg:hover {
+                opacity: 0.7;
+                cursor: pointer;
+            }
         
         .topBox .container .logo  img{
             width: 60px;
@@ -84,6 +88,22 @@ nav {
     width: 100%;
     border-bottom: solid #9BABB8 1px;
 }
+
+    nav .mobileMenuButton {
+        display: none;
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+        margin: 10px auto; 
+    }
+
+    nav .mobileMenuButton span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        margin: 2px auto; /* Espaciado entre las líneas */
+    }
 
     nav .horizontalMenu {
         display: flex;
@@ -343,6 +363,17 @@ nav {
          opacity: 0.7;
     }
 
+    #closeButton {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        color: #fff;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+      }
+
     
 
 /* diseño del header */ 
@@ -352,17 +383,6 @@ nav {
     height: 80vh;
     overflow: hidden;
 }
-
-#closeButton {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    color: #fff;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-  }
 
     .sliderFrame ul{
         display: flex;
@@ -415,7 +435,7 @@ nav {
 .salesHome .salesProducts {
     width: 70%;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px;
     display: flex;
     align-items: center;
@@ -575,6 +595,11 @@ nav {
                 font-size: 1.2em;
                 padding: 5px 5px;
                 opacity: 0.7;
+            }
+
+            .servicesHome .servicesList .boxService button a {
+                text-decoration: none;
+                color: #F1F6F9;
             }
 
             .servicesHome .servicesList .boxService button:hover {
@@ -915,9 +940,193 @@ footer {
                 pointer-events: none;
             }
 
-    
+@media(max-width: 1250px) {
+
+/* nav style */
+
+nav .horizontalMenu li{
+    list-style: none;
+    width: 15%;  
+}
+
+/* diseño box sales */
 
 
+.salesHome h2 {
+    font-size: 3.5em;
+    letter-spacing: 5px;
+
+}
+
+.salesHome .salesProducts {
+    width: 90%;
+    justify-content: center;
+}
+
+    .salesHome .salesProducts .productSale {
+        margin-right: 5px;    
+    }
+
+/* diseño box services */
+
+.servicesHome{
+    height: 200vh;
+}
+
+    .servicesHome h2 {
+        font-size: 3em;
+    }
+
+    .servicesHome .servicesList {
+        width: 90%;
+        margin-top: 20px;
+    }
+
+/* diseño box nosotros */
+
+.aboutUsHome {
+    height: 130vh; 
+}
+    .aboutUsHome h2{
+        font-size: 3.6em;
+    }
+
+    .aboutUsHome .boxes {
+        width: 80%;
+        height: 40%;
+        margin: 0 auto;
+        margin-top: 60px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .aboutUsHome .boxes .boxTexts {
+        width: 65%;
+    }
+        
+        .aboutUsHome .boxes .boxTexts .boxTitle{
+            background-color: #000000;
+            width: 60%;
+            padding: 5px;
+        }
+
+            .aboutUsHome .boxes .boxTexts .boxTitle h3{
+                font-size: 3em;
+            }
+
+        .aboutUsHome .boxes .boxTexts p {
+            font-size: 1.5em;
+            margin-top: 5px;
+        }
+
+
+
+    .aboutUsHome .boxes img {
+        width: 300px;
+        height: 370px;
+        border-radius: 20px;
+        padding: 10px;
+        background-color: #000000;
+        pointer-events: none;
+    }
+}
+
+@media(max-width: 1025px) {
+
+nav{
+    padding: 4px;
+}
+    nav .mobileMenuButton {
+        display: block;
+        width: 20px;
+        height: 25px;
+        cursor: pointer;
+        margin: 10px auto; 
+    }
+
+    nav .mobileMenuButton span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #fff;
+        margin: 5px auto; 
+    }
+
+    nav .horizontalMenu {
+            display: none;
+            list-style: none;
+            background-color: #000000;
+            top: 100;
+            width: 100%;
+            z-index: 1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            opacity: 0; 
+            transform: translateY(-10px); 
+            transition: opacity 0.3s ease, transform 0.3s ease; 
+    }
+
+    nav .horizontalMenu.active {
+        display: flex;
+        opacity: 1; 
+        transform: translateY(0); 
+      }
+
+/* diseño box services */
+
+.servicesHome{
+    height: 260vh;
+}
+
+    .servicesHome h2 {
+        font-size: 3em;
+    }
+
+    .servicesHome .servicesList {
+        width: 90%;
+        margin-top: 20px;
+    }
+
+/* diseño box nosotros */
+
+.aboutUsHome {
+    height: 130vh; 
+}
+    .aboutUsHome h2{
+        font-size: 3.3em;
+    }
+
+    .aboutUsHome .boxes .boxTexts {
+        width: 60%;
+        padding: 7px;
+    }
+        
+        .aboutUsHome .boxes .boxTexts .boxTitle{
+            width: 80%;
+        }
+
+            .aboutUsHome .boxes .boxTexts .boxTitle h3{
+                font-size: 2.7em;
+            }
+
+        .aboutUsHome .boxes .boxTexts p {
+            font-size: 1.5em;
+            margin-top: 5px;
+        }
+
+        .aboutUsHome .boxes .boxTexts .buttonContainer {
+            width: 40%;        
+        }
+
+/* diseño carousel companies */
+
+  .carouselCompanies .carouselContainer .carouselList .carouselElement img{
+            height: 120px;
+        }        
+
+}
 
     
 

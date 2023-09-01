@@ -21,6 +21,7 @@ import MockingRouter from "./routes/mocking.router.js";
 import config from "./config/config.js";
 import errorHandler from "./middlewares/error.js";
 import attachLogger from "./middlewares/logger.js";
+import UsersRouter from "./routes/users.router.js";
 
 //I start the server and make it listen for changes in the selected port according to the environment.
 const app = express();
@@ -72,6 +73,7 @@ app.use(attachLogger);
 
 //Config the routes
 const sessionsRouter = new SessionsRouter();
+const usersRouter = new UsersRouter()
 const productsRouter = new ProductsRouter();
 const cartsRouter = new CartsRouter();
 const viewsRouter = new ViewsRouter();
@@ -81,6 +83,7 @@ const mocksRouter = new MockingRouter();
 app.use("/api/products", productsRouter.getRouter());
 app.use("/api/carts", cartsRouter.getRouter());
 app.use("/api/sessions", sessionsRouter.getRouter());
+app.use("/api/users", usersRouter.getRouter());
 app.use("/api/tickets", ticketsRouter.getRouter());
 app.use("/", viewsRouter.getRouter());
 app.use("/mockingproducts", mocksRouter.getRouter());

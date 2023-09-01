@@ -20,10 +20,10 @@ const initializePassportStrategies = () => {
       async (req, email, password, done) => {
         try {
           //i capture the user's fields
-          const { first_name, last_name, age, confirmPassword } = req.body;
+          const { first_name, last_name, age} = req.body;
           
           //i valid if the all fields are complete
-          if (!first_name || !last_name || !email || !password || !age || !confirmPassword)
+          if (!first_name || !last_name || !email || !password || !age )
             return done(null, false, { message: "Incomplete Fields" });
 
           //i valid if the user's email is not exist in the database
@@ -36,13 +36,20 @@ const initializePassportStrategies = () => {
           //I hashed the password
           const hashedPassword = await createHash(password);
 
-          //I create a cart user
+          //I verify that the entered password contains enough to be safe
+          const haveCapitalLetter = /[A-Z]/.test(password);
+          const haveSpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+          const haveNumber = /[0-9]/.test(password);          
+          
+          if(!haveCapitalLetter) return done(null, false, {message: "The password must include at least one capital letter"});
+          if(!haveSpecialCharacter) return done(null, false, {message: "the password must include at least one special character"});
+          if(!haveNumber) return done(null, false, {message: "The password must include at least one number"});
 
+          //I create a cart user
           const cartUser = await cartsService.addCart();
           
           //If the user is new, i create a discount code
           const codeDiscount = Math.round(Math.random()*999999);
-
 
           //I create the user
           const user = {
