@@ -44,7 +44,7 @@ body{
         color: #fff;
     }
 
-    .formRegisterStyle p{
+    .formRegisterStyle .linksForm{
         height: 40px;
         text-align: center;
         font-size: 18px;
@@ -83,9 +83,77 @@ body{
     }
 
     .formRegisterStyle .errorMessageStyle{
-        color: red;
-        font-size: 1.8em;
+        color: #B04759;
+        text-align: center;
+        font-size: 1.2em;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+@media(max-width: 600px) {
+
+.formRegisterStyle {
+    width: 350px;
+}
+    
+    .formRegisterStyle h2 {
         letter-spacing: 2px;
     }
 
+    .formRegisterStyle .controls {
+        font-size: 1em;
+    }
+    
+    .formRegisterStyle .controls {
+        width: 100%;
+        padding: 7px;
+    }
+    
+    .formRegisterStyle .linksForm{
+        font-size: 1.1em;
+
+    }
+    
+    .formRegisterStyle .formButtonStyle {
+        padding: 10px;
+        margin: 16px 0;
+        letter-spacing: 2px;
+    }
+    
+    .formRegisterStyle .errorMessageStyle{
+        font-size: 1.1em;
+    }
+
+    
+}
+
+@media(max-width: 470px) {
+
+.formRegisterStyle {
+    width: 320px;
+}
+          
+    .formRegisterStyle .controls {
+        padding: 5px;
+    }
+
+    .formRegisterStyle .linksForm{
+        font-size: 1em;
+    }
+        
+    .formRegisterStyle .formButtonStyle {
+        padding: 10px;
+        margin: 16px 0;
+        letter-spacing: 2px;
+    }
+        
+    .formRegisterStyle .errorMessageStyle{
+        font-size: 1.1em;
+    }
+
+    .formRegisterStyle .formButtonStyle {
+        padding: 10px;
+        font-size: 1.3em;
+        letter-spacing: 2px;
+    }
+}
 

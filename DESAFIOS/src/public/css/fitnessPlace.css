@@ -9,6 +9,7 @@
 }
 
 /* top text style */
+
 .topText{
     width: 100%;
     padding: 4px;
@@ -43,15 +44,19 @@
         align-items: center;
     }
 
-        .topBox .container .networks svg{
-            color: #9BABB8;
-            margin-right: 10px;
+        .topBox .container .networks a {
+            text-decoration: none;
         }
 
-        .topBox .container .networks svg:hover {
-            opacity: 0.7;
-            cursor: pointer;
-        }
+            .topBox .container .networks a svg{
+                color: #9BABB8;
+                margin-right: 10px;
+            }
+
+            .topBox .container .networks a svg:hover {
+                opacity: 0.7;
+                cursor: pointer;
+            }
         
         .topBox .container .logo  img{
             width: 60px;
@@ -99,8 +104,23 @@
 nav {
     background-color: #000000;
     width: 100%;
-    border-bottom: solid #9BABB8 1px;
 }
+
+    nav .mobileMenuButton {
+        display: none;
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+        margin: 10px auto; 
+    }
+
+    nav .mobileMenuButton span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        margin: 2px auto; /* Espaciado entre las líneas */
+    }
 
     nav .horizontalMenu {
         display: flex;
@@ -156,140 +176,55 @@ nav {
             text-decoration: underline;
         }
 
-/* list categories style */
 
-.listCategories {
-    width: 70%;
-    margin: 0 auto;
-    margin-top: 60px;
-    display: flex;
-}
+/* main style */
 
-    .listCategories a {
-        text-decoration: none;
-        color: #000000;
+.shopPresent {
+    background-color: #54595F;
+} 
+
+    .shopPresent .boxOne {
+        width: 60%;
+        margin: 0 auto;
+        height: 100vh;
     }
 
-    .listCategories .box {
-        width: 160px;
-        height: 211px;
-        padding: 5px;
-        margin-left: 15px;
-    }
-
-    .listCategories .box:hover {
-        cursor: pointer;
-    }
-
-        .listCategories .box img {
-            width: 100%;
-            height: 80%;
-        }
-
-        .listCategories .box h3 {
-            font-size: 1.4em;
-            font-family: 'Bebas Neue', sans-serif;
-            letter-spacing: 2px;
+        .shopPresent .boxOne h1 {
+            font-size: 3.2em;
+            color: #ffffff;
             text-align: center;
-        }
-
-/* list of products style */
-
-.productsContainer {
-    width: 70%;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    margin-top: 30px;
-}
-
-    .productsContainer .item {
-        width: 250px;
-        height: 400px;
-        margin-top: 25px;
-        border-radius: 4px;
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-        justify-content: space-between;
-        box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.50);
-        margin-right: 15px;
-    }
-
-        .productsContainer .item img {
-            width: 100%;
-            height: 50%;
-        }
-
-        .productsContainer .item .itemText {
-            height: 35%;
-            width: 100%;
-        }
-
-            .productsContainer .item .itemText h3 {
-                font-family: 'Bebas Neue', sans-serif;
-                text-align: center;
-                height: 60%;
-                padding: 5px;
-                margin-top: 5px;
-                font-size: 1.2em;
-                color: #000000;
-                font-weight: 900;
-            }
-
-            .productsContainer .item .itemText b {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 1.8em;
-                height: 40%;
-                color: #000000;
-                font-weight: 900;
-            }
-
-        .productsContainer .item button {
-            width: 100%;
-            background-color: #000000;
-            border: none;
-            font-size: 1.7em;
-            letter-spacing: 4px;
-            padding: 5px;
+            padding-top: 65px;
+            letter-spacing: 6px;
             font-family: 'Bebas Neue', sans-serif;
+            font-weight: 600;
         }
 
-        .productsContainer .item button:hover{
-            cursor: pointer;
-            background-color: #F1F6F9;
+        .shopPresent .boxOne p {
+            font-size: 1.1em;
+            font-family: 'Poppins', sans-serif;
+            margin-top: 30px;
+            color: #ffffff;
         }
 
-        .productsContainer .item button:hover a {
-            color: #000000;
-        }
 
-            .productsContainer .item button a {
-                text-decoration: none;
-                color: #F1F6F9;
-            }
-
-
-/* footer style */
+/* style footer */
 
 footer {
     background-color: #000000;
     height: 70vh;
-    margin-top: 100px;
     padding-top: 50px;
+    border-top: solid 3px #ffffff;
+    
 }
-
-    footer .rowOne{
-        width: 70%;
-        height: 20vh;
-        margin: 0 auto;
-        display: flex;
-        border-bottom: #9BA4B5 solid 1px;
-    }
-
+        
+footer .rowOne{
+    width: 70%;
+    height: 20vh;
+    margin: 0 auto;
+    display: flex;
+    border-bottom: #9BA4B5 solid 1px;
+}
+        
     footer .itemsList{
         width: 70%;
         height: 70%;
@@ -298,55 +233,55 @@ footer {
         justify-content: center;
         border-right: #9BA4B5 solid 1px;
     }
-
+        
         footer .itemsList .items{
             width: 30%;
             height: 100%;
             display: flex;
         }
-
+        
             footer .itemsList .items svg{
                 color: #fff;
                 width: 50px;
                 height: 50px;
             }
-
+        
             footer .itemsList .items .boxText{
                 width: 90%;
                 margin-left: 15px;
             }
-
+        
                 footer .itemsList .items .boxText h5{
                     color: #9BA4B5;
                     font-size: 1.4em;
                     font-family: 'Bebas Neue', sans-serif;
                 }
-
+        
                 footer .itemsList .items .boxText p{
                     color: #fff;
                     font-size: 1.2em;
                     width: 60%;
                     height: 100%;
                     opacity: 0.7;
-                    
+                            
                 }
-
+        
         footer .rowOne .formFooter{
             padding: 10px;
             width: 30%;
         }
-
+        
             footer .rowOne .formFooter h4{
                 color: #9BA4B5;
                 font-size: 1.3em;
                 font-family: 'Bebas Neue', sans-serif;
                 letter-spacing: 2px;   
             }
-
+        
             footer .rowOne .formFooter form{
                 width: 100%;
             }
-
+        
                 footer .rowOne .formFooter form .control{
                     width: 65%;
                     height: 35px;
@@ -358,7 +293,7 @@ footer {
                     border: #9BA4B5 1px soli;
                     font-family: 'Bebas Neue', sans-serif;  
                 }
-
+        
                 footer .rowOne .formFooter form .submitButton{
                     width: 20%;
                     height: 35px;
@@ -366,13 +301,13 @@ footer {
                     font-size: 1.1em;
                     font-family: 'Bebas Neue', sans-serif;  
                 }
-
+        
                 footer .rowOne .formFooter form .submitButton:hover{
                     background-color: #B04759;
                     transition: 1.5s;
                     cursor: pointer;
                 }
-    
+            
     footer .rowTwo {
         padding-top: 30px;
         padding-left: 30px;
@@ -382,26 +317,26 @@ footer {
         display: flex;
         border-bottom: #9BA4B5 solid 1px;
     }
-
+        
         footer .rowTwo .boxOne{
             width: 33%;
         }
-
+        
             footer .rowTwo .boxOne h4{
                 font-size: 2em;
                 color: #fff;
                 font-family: 'Bebas Neue', sans-serif;
                 letter-spacing: 3px;  
             }
-
+        
             footer .rowTwo .boxOne ul{
                 list-style: none;
             }
-
+        
                 footer .rowTwo .boxOne ul li{
                     margin-top: 7px;
                 }
-
+        
                     footer .rowTwo .boxOne ul li a{
                         text-decoration: none;
                         font-size: 1.3em;
@@ -409,30 +344,30 @@ footer {
                         margin-top: 5px;
                         font-family: 'Bebas Neue', sans-serif;
                     }
-
+        
                     footer .rowTwo .boxOne ul li a:hover{
                         text-decoration: underline;
                     }
-
+        
         footer .rowTwo .boxTwo{
             width: 33%;
         }
-
+        
             footer .rowTwo .boxTwo h4{
                 font-size: 2em;
                 color: #fff;
                 font-family: 'Bebas Neue', sans-serif;
                 letter-spacing: 3px;  
             }
-
+        
             footer .rowTwo .boxTwo ul{
                 list-style: none;
             }
-
+        
                 footer .rowTwo .boxTwo ul li{
                     margin-top: 7px;
                 }
-
+        
                     footer .rowTwo .boxTwo ul li a{
                         text-decoration: none;
                         font-size: 1.3em;
@@ -440,36 +375,36 @@ footer {
                         margin-top: 5px;
                         font-family: 'Bebas Neue', sans-serif;
                     }
-
+        
                     footer .rowTwo .boxTwo ul li a:hover{
                         text-decoration: underline;
                     }
-
+        
             footer .rowTwo .boxTwo .networksList svg{
                 color: #9BABB8;
                 margin-top: 30px;
                 margin-right: 15px;
             }
-
+        
         footer .rowTwo .boxThree{
             width: 33%;
         }
-
+        
             footer .rowTwo .boxThree h4 {
                 font-size: 2em;
                 color: #fff;
                 font-family: 'Bebas Neue', sans-serif;
                 letter-spacing: 3px;  
             }
-
+        
             footer .rowTwo .boxThree .boxTexts p {
                 font-size: 1.3em;
                 color: #9BA4B5;
                 margin-top: 5px;
                 font-family: 'Bebas Neue', sans-serif;
             }
-
-    
+        
+            
     footer .rowThree{
         padding-top: 50px;
         width: 70%;
@@ -478,13 +413,13 @@ footer {
         justify-content: center;
         align-items: center;
     }
-
+        
         footer .rowThree h5{
             width: 70%;
             font-size: 2em;
             color: #9BABB8;
         }
-        
+                
             footer .rowThree .methodsToPay img{
                 width: 46px;
                 height: 35px;

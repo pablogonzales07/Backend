@@ -10,6 +10,12 @@ export default class ViewsRouter extends BaseRouter {
 
     this.get("/", ["NO_AUTH"], viewsController.viewProductsRealTime);
 
+    this.get("/ourShops", ["AUTH"], viewsController.viewOurShops);
+
+    this.get("/shopGymnasium", ["AUTH"], viewsController.viewShopGymnasium);
+
+    this.get("/shopFitnessPlace", ["AUTH"], viewsController.viewShopFitnessPlace);
+
     this.get("/chat", ["NO_AUTH"], viewsController.viewChat);
 
     this.get("/products", ["PUBLIC"], privacy("PRIVATE"), viewsController.viewProducts);
@@ -24,7 +30,7 @@ export default class ViewsRouter extends BaseRouter {
 
     this.get("/restorePassword", ["NO_AUTH"], viewsController.viewRestorePassword);
 
-    this.get("/categories/:category", ["AUTH"], viewsController.viewCategoryProducts)
+    this.get("/categories/:category", ["AUTH"], viewsController.viewCategoryProducts);
 
   }
 }

@@ -39,8 +39,10 @@ const initializePassportStrategies = () => {
           //I verify that the entered password contains enough to be safe
           const haveCapitalLetter = /[A-Z]/.test(password);
           const haveSpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-          const haveNumber = /[0-9]/.test(password);          
+          const haveNumber = /[0-9]/.test(password);
+
           
+          if(password.length <9) return done(null, false, {message: "The password must contain at least 8 digits"});
           if(!haveCapitalLetter) return done(null, false, {message: "The password must include at least one capital letter"});
           if(!haveSpecialCharacter) return done(null, false, {message: "the password must include at least one special character"});
           if(!haveNumber) return done(null, false, {message: "The password must include at least one number"});
@@ -91,7 +93,7 @@ const initializePassportStrategies = () => {
         user = await usersService.getUserBy({ email: email });
         if (!user)
           return done(null, false, {
-            message: "there is not user registered with that email",
+            message: "There is not user registered with that email",
           });
 
         //I verify the encrypted password

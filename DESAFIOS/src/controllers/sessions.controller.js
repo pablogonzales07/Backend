@@ -8,9 +8,6 @@ import MailingService from "../services/mailingService.js";
 import DTemplates from "../constants/DTemplates.js";
 
 
-
-
-
 //Controller for regist a new user
 const registUser = async (req, res) => {
   res.sendSuccess("User registered correctly");

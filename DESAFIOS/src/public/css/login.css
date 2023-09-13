@@ -14,7 +14,7 @@ body{
 
 .formLoginStyle{
     width: 400px;
-    height: 450px;
+    height: 480px;
     background: #000000;
     margin: auto;
     margin-top: 180px;
@@ -77,10 +77,11 @@ body{
     }
 
     .formLoginStyle .errorMessageStyle {
-        font-size: 1.3em;
-        color: red;
-        letter-spacing: 2px;
+        font-size: 1.2em;
         font-family: 'Bebas Neue', sans-serif;
+        color: #B04759;
+        margin-top: 5px;
+        letter-spacing: 3px;
         text-align: center;
     }
 
@@ -171,8 +172,8 @@ body{
 
     .modal .modalContainer .modalText {
         font-size: 1.3em;
-        font-family: 'Poppins', sans-serif;
-        color: #fff;
+        font-family: 'Bebas Neue', sans-serif;
+        color: #fff014;
         text-align: center;
         letter-spacing: 2px;
     }
@@ -197,14 +198,14 @@ body{
        
         .modal .modalContainer .formModal .buttonModal {
             display: flex;
-            width: 40%;
+            width: 70%;
             align-items: center;
             justify-content: center;
             margin: 0 auto;
             border: none;
             border-radius: 3px;
             font-size: 1.6em;
-            padding: 5px;
+            padding: 3px;
             background-color: #9BA4B5;
             color: #fff;
             letter-spacing: 3px;
@@ -234,8 +235,112 @@ body{
         font-size: 1.2em;
         font-family: 'Bebas Neue', sans-serif;
         letter-spacing: 6px;
-        color: aqua;
+        color: #9BA4B5;
+        text-align: center;
     }
+
+
+@media(max-width:750px) {
+    .formLoginStyle{
+        width: 350px;
+        height: 460px;
+    }
+    
+        .formLoginStyle h2 {
+            font-size: 1.3em;
+        }
+        
+        .formLoginStyle .errorMessageStyle {
+            font-size: 1.1em;
+            margin-top: 3px;
+            letter-spacing: 2px;
+        }
+
+    .modal .modalContainer {
+        width: 70%;
+        height: 55%;
+    }
+
+        .modal .modalContainer .modalTitle {
+            font-size: 2.1em;
+            letter-spacing: 3px;
+        }
+
+        .modal .modalContainer .formModal {
+            margin: auto;
+            width: 80%;
+        }
+
+            .modal .modalContainer .formModal .controls {
+                font-size: 1em;
+            }
+
+            .modal .modalContainer .formModal .buttonModal {
+                font-size: 1.4em;
+                padding: 3px;
+                letter-spacing: 2px;
+            }
+   
+        .modal .modalContainer .errorResetPass {
+            font-size: 1.1em;
+        }
+}
+
+
+@media(max-width:560px) {
+    .formLoginStyle{
+        width: 320px;
+        height: 460px;
+    }
+    
+        .formLoginStyle h2 {
+            font-size: 1.2em;
+        }
+        
+        .formLoginStyle .errorMessageStyle {
+            font-size: 1.1em;
+            margin-top: 3px;
+            letter-spacing: 2px;
+        }
+   
+    .modal .modalContainer .modalTitle {
+        font-size: 1.7em;
+        letter-spacing: 2px;
+    }
+
+    .modal .modalContainer .modalText {
+        font-size: 1.1em;
+        letter-spacing: 2px;
+    }
+    
+    .modal .modalContainer .formModal {
+        width: 90%;
+    }
+
+    .modal .modalContainer .modalClose {
+        font-size: 1.3em;
+        Letter-spacing: 2px;
+        margin-top: 10px;   
+    }
+}
+
+@media(max-width:530px) {
+
+    .modal .modalContainer .modalTitle {
+        font-size: 1.6em;
+    }
+
+    .modal .modalContainer .modalText {
+        font-size: 1em;
+    }
+}
+
+@media(max-width:460px) {
+    .modal .modalContainer .modalTitle {
+        font-size: 1.2em;
+        letter-spacing: 3px;
+    }
+}
 
 
 

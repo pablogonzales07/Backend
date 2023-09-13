@@ -41,7 +41,7 @@
       </a>
     </div>
     <div class="cart">
-      <b>{{totalPrice}}</b>
+      <b>{{totalPriceCart}}</b>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-euro"
         viewBox="0 0 16 16">
         <path
@@ -55,7 +55,7 @@
         </svg>
       </a>
       <div class="cartCount">
-        <p>{{countCart}}</p>
+        <p>{{totalCountCart}}</p>
       </div>
     </div>
   </div>
@@ -106,24 +106,6 @@
   </ul>
 </nav>
 
-<header class="sliderFrame">
-  <ul>
-    <li>
-      <img src={{header}} alt="">
-    </li>
-    <li>
-      <img src={{headerTwo}} alt="">
-    </li>
-    <li>
-      <img src={{headerThree}} alt="">
-    </li>
-    <li>
-      <img src={{headerFour}} alt="">
-    </li>
-  </ul>
-
-</header>
-
 <div class="sideBar" id="sidebar">
   <button id="closeButton">X</button>
   <div class="perfilUser">
@@ -156,115 +138,37 @@
 </div>
 
 <main>
-  <div class="salesHome">
-    <h2>Top sales</h2>
-    <div class="salesProducts">
-      {{#each products}}
-      <div class="productSale">
-        <img src={{this.img}} alt="">
-        <div class="textProductSale">
-          <h3>{{this.title}}</h3>
-          <b>{{this.price}} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-currency-euro" viewBox="0 0 16 16">
-              <path
-                d="M4 9.42h1.063C5.4 12.323 7.317 14 10.34 14c.622 0 1.167-.068 1.659-.185v-1.3c-.484.119-1.045.17-1.659.17-2.1 0-3.455-1.198-3.775-3.264h4.017v-.928H6.497v-.936c0-.11 0-.219.008-.329h4.078v-.927H6.618c.388-1.898 1.719-2.985 3.723-2.985.614 0 1.175.05 1.659.177V2.194A6.617 6.617 0 0 0 10.341 2c-2.928 0-4.82 1.569-5.244 4.3H4v.928h1.01v1.265H4v.928z" />
-            </svg>
-          </b>
-        </div>
-        <button>
-          <a href="/detail/{{this.id}}">Details</a>
-        </button>
+  <section class="shopsContainer">
+    <article class="boxShop">
+      <div class="boxImage">
+        <img src="{{logoFitnessPlace}}" alt="">
       </div>
-      {{/each}}
-    </div>
-  </div>
-
-  <div class="servicesHome">
-    <h2>Our products</h2>
-    <div id="servicesContainer" class="servicesList"></div>
-  </div>
-
-  <section class="ourShops">
-    <h2>Where to find us?</h2>
-    <article class="boxes">
-      <div class="boxTexts">
-        <div class="boxTitle">
-          <h3>Fitness Place</h3>
-        </div>
-        <b>Store located in the mall of madrid</b>
+      <div class="boxTitle">
+        <h2>Fitness Place</h2>
+      </div>
+      <div class="boxBody">
+        <h4>Store located in the mall of madrid</h4>
         <p>In this store you will find everything you need to set up your gym or even if you want to train from your own
           home. If you are not from the area, do not worry, from this site you could purchase any of our products as if
           you were here</p>
-        <div class="buttonContainer">
-          <button><a href="/shopFitnessPlace">Learn more</a></button>
-        </div>
       </div>
-      <img src={{pictureOne}} alt="">
+      <button><a href="">Learn more</a></button>
     </article>
-
-    <article class="boxes">
-      <img src={{pictureTwo}} alt="">
-      <div class="boxTexts">
-        <div class="boxTitle">
-          <h3>Gymnasium</h3>
-        </div>
-        <b>Store located in the center of bern (switzerland)</b>
+    <article class="boxShop">
+      <div class="boxImage">
+        <img src="{{logoGymnasium}}" alt="">
+      </div>
+      <div class="boxTitle">
+        <h2>Gymnasium</h2>
+      </div>
+      <div class="boxBody">
+        <h4>Store located in the center of bern (switzerland)</h4>
         <p>If you are looking for the best training clothing you have to visit our Gymnasium store located in the center
           of Bern. I discovered from this site everything you can find in our local. We will wait for you</p>
-        <div class="buttonContainer">
-          <button><a href="/shopGymnasium">Learn more</a></button>
-        </div>
       </div>
+      <button><a href="/shopGymnasium">Learn more</a></button>
     </article>
   </section>
-
-  <div class="separator"></div>
-
-  <div class="carouselCompanies">
-    <h3>Collaborating companies</h3>
-    <div class="carouselContainer">
-      <div class="carouselList">
-        <div class="carouselElement">
-          <img src="https://www.svgrepo.com/show/353655/discord-icon.svg" alt="">
-        </div>
-        <div class="carouselElement">
-          <img src="https://seeklogo.com/images/N/nike-logo-47A65A59D5-seeklogo.com.png" alt="">
-        </div>
-        <div class="carouselElement">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Brubank_logo.png/2560px-Brubank_logo.png"
-            alt="">
-        </div>
-        <div class="carouselElement">
-          <img src="https://logowik.com/content/uploads/images/playstation1990.jpg" alt="">
-        </div>
-        <div class="carouselElement">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Intel_logo_%282006-2020%29.svg" alt="">
-        </div>
-        <div class="carouselElement">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Spotify_logo_without_text.svg/2048px-Spotify_logo_without_text.svg.png"
-            alt="">
-        </div>
-        <div class="carouselElement">
-          <img src="https://www.svgviewer.dev/static-svgs/34566/mongodb.svg" alt="">
-        </div>
-        <div class="carouselElement">
-          <img src="https://cdn.worldvectorlogo.com/logos/javascript-1.svg" alt="">
-        </div>
-        <div class="carouselElement">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Windows_logo_-_2012_derivative.svg/1200px-Windows_logo_-_2012_derivative.svg.png"
-            alt="">
-        </div>
-        <div class="carouselElement">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1667px-Apple_logo_black.svg.png"
-            alt="">
-        </div>
-      </div>
-    </div>
-    <div role="tablist" class="carouselIndicators"></div>
-  </div>
 </main>
 
 <footer>
@@ -387,7 +291,3 @@
     </div>
   </div>
 </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/glider-js@1.7.8/glider.min.js"></script>
-<script src="/js/home.js"></script>
