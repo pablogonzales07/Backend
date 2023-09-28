@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "backend proyect",
   "main": "index.js",
+  "engines": {
+    "node": ">=14 <17"
+  },
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
