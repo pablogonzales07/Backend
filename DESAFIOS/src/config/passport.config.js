@@ -11,7 +11,6 @@ import config from "../config/config.js";
 
 const LocalStrategy = local.Strategy;
 
-
 const initializePassportStrategies = () => {
   passport.use(
     "register",
@@ -19,14 +18,18 @@ const initializePassportStrategies = () => {
       { passReqToCallback: true, usernameField: "email" },
       async (req, email, password, done) => {
         try {
-          //i capture the user's fields
+          //I get the user's fields
           const { first_name, last_name, age} = req.body;
           
-          //i valid if the all fields are complete
+          //I verify if the all fields are complete
           if (!first_name || !last_name || !email || !password || !age )
             return done(null, false, { message: "Incomplete Fields" });
 
-          //i valid if the user's email is not exist in the database
+          //I verify if the email sent is a valid email
+          const correctCredentials = /^[A-Za-z0-9._%+-]+@(gmail\.com|hotmail\.com|yahoo\.com|outlook\.com)$/.test(email);
+          if(!correctCredentials) return done(null, false, { message: "The email sent is invalid" })
+
+          //I verify if the user's email is exist in the database
           const userExist = await usersService.getUserBy({ email: email });
           if (userExist)
             return done(null, false, {
@@ -36,18 +39,17 @@ const initializePassportStrategies = () => {
           //I hashed the password
           const hashedPassword = await createHash(password);
 
-          //I verify that the entered password contains enough to be safe
+          //I verify that the password is secure
           const haveCapitalLetter = /[A-Z]/.test(password);
           const haveSpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/.test(password);
           const haveNumber = /[0-9]/.test(password);
 
-          
           if(password.length <9) return done(null, false, {message: "The password must contain at least 8 digits"});
           if(!haveCapitalLetter) return done(null, false, {message: "The password must include at least one capital letter"});
-          if(!haveSpecialCharacter) return done(null, false, {message: "the password must include at least one special character"});
+          if(!haveSpecialCharacter) return done(null, false, {message: "The password must include at least one special character"});
           if(!haveNumber) return done(null, false, {message: "The password must include at least one number"});
 
-          //I create a cart user
+          //I create a cart for the user
           const cartUser = await cartsService.addCart();
           
           //If the user is new, i create a discount code
@@ -64,7 +66,7 @@ const initializePassportStrategies = () => {
             discountCode: codeDiscount
           };
 
-          //add the user
+          //I add the user
           const userAdded = await usersService.addUser(user);
           done(null, userAdded);
         } catch (error) {
@@ -88,8 +90,9 @@ const initializePassportStrategies = () => {
           };
           return done(null, user);     
         }
+
         let user;
-        //I valid if the user exist
+        //I verify if the user exist
         user = await usersService.getUserBy({ email: email });
         if (!user)
           return done(null, false, {
@@ -97,13 +100,18 @@ const initializePassportStrategies = () => {
           });
 
         //I verify the encrypted password
-
         const passwordValid = await validatePassword(password, user.password);
         if (!passwordValid)
           return done(null, false, { message: "Incorrect Password" });
 
-        //I create the user and send it
+        //I save the user's login time
+        const currentDate = new Date();
+        const date = currentDate.toDateString();        
+        const time = currentDate.toTimeString();
+        user.last_connection = `${date}: ${time}`;
+        await usersService.updateUser(user._id, user);
 
+        //I create the user and send it
         user = {
           id: user._id,
           name: `${user.first_name} ${user.last_name}`,
@@ -130,7 +138,7 @@ const initializePassportStrategies = () => {
           //I capture the user info I need
           const { name, email } = profile._json;
   
-          //if the user is not registered, I add it to the database; otherwise I create the session
+          //If the user is not registered, I add it to the database; otherwise I create the session
           const userExist = await usersService.getUserBy({ email: email });
           if (!userExist) {
             const newUser = {

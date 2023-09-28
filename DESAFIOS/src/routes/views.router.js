@@ -1,8 +1,5 @@
-import { privacy } from "../middlewares/auth.js";
 import BaseRouter from "./router.js";
 import viewsController from "../controllers/views.controller.js";
-
-
 
 export default class ViewsRouter extends BaseRouter {
   init() {
@@ -16,9 +13,7 @@ export default class ViewsRouter extends BaseRouter {
 
     this.get("/shopFitnessPlace", ["AUTH"], viewsController.viewShopFitnessPlace);
 
-    this.get("/chat", ["NO_AUTH"], viewsController.viewChat);
-
-    this.get("/products", ["PUBLIC"], privacy("PRIVATE"), viewsController.viewProducts);
+    this.get("/chat", ["AUTH"], viewsController.viewChat);
 
     this.get("/carts/:cid", ["AUTH"], viewsController.viewCart);
 
@@ -31,6 +26,10 @@ export default class ViewsRouter extends BaseRouter {
     this.get("/restorePassword", ["NO_AUTH"], viewsController.viewRestorePassword);
 
     this.get("/categories/:category", ["AUTH"], viewsController.viewCategoryProducts);
+
+    this.get("/admnistrationUsers", ["ADMIN"], viewsController.viewAdministrationUser);
+
+    this.get("/error404", ["AUTH"], viewsController.viewError404);
 
   }
 }

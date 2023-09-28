@@ -8,6 +8,10 @@ const totalPriceTop = document.getElementById("totalPriceTop");
 const totalCountTop = document.getElementById("totalCountCart");
 const buttonFinishPurchase = document.getElementById("buttonFinishPurchase");
 
+document.getElementById("hambButton").addEventListener("click", function() {
+  document.querySelector(".horizontalMenu").classList.toggle("active");
+});
+
 let productsCart = JSON.parse(localStorage.getItem("cart")) || [];
 if (productsCart.length >= 1) {
   productsCart.map((item) => {
@@ -70,8 +74,15 @@ if (productsCart.length >= 1) {
             (acc += currentValue.price * currentValue.quantity),
           0
         );
+        const newCount = productsCart.reduce(
+          (acc, currentValue) =>
+            (acc += currentValue.quantity),
+          0
+        );
+        console.log(productsCart);
         totalPrice.innerHTML = newPrice;
         totalPriceTop.innerHTML = newPrice;
+        totalCountTop.innerHTML = newCount
       }
     });
   });

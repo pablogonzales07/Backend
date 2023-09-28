@@ -20,6 +20,10 @@ const schema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Carts",
     },
+    last_connection: {
+        type: String,
+        default: "Never logged in"
+    },
     documents:{
         type: [
             {

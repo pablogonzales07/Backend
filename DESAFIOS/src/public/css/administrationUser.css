@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* top text style */
+
+.topText{
+    width: 100%;
+    padding: 4px;
+    background-color: #ff9900;
+}
+
+    .topText p {
+        text-align: center;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1.4em;
+        color: #000000;
+        letter-spacing: 4px;
+        font-weight: 600;
+    }
+
+
+/* Top box style */
+
+.topBox {
+    width: 100%;
+    padding: 5px;
+    background-color: #000000;
+    border-bottom: solid #9BABB8 1px;
+    display: flex;
+}
+
+    .topBox .container {
+        width: 65%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .topBox .container .networks a {
+            text-decoration: none;
+        }
+
+            .topBox .container .networks a svg{
+                color: #9BABB8;
+                margin-right: 10px;
+            }
+
+            .topBox .container .networks a svg:hover {
+                opacity: 0.7;
+                cursor: pointer;
+            }
+        
+        .topBox .container .logo  img{
+            width: 60px;
+            height: 60px;
+        }
+
+        .topBox .container .cart {
+            border: white solid 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 40px;
+            padding: 5px;
+            position: relative;
+        }
+
+            .topBox .container .cart b{
+                color: #9BABB8;
+            }
+
+            .topBox .container .cart svg {
+                color: #9BABB8;
+            }
+
+            .topBox .container .cart .cartCount{
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #B04759;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+                .topBox .container .cart .cartCount p {
+                    font-size: 1em;
+                    color: #000000;
+                }
+/* nav style */
+
+nav {
+    background-color: #000000;
+    width: 100%;
+    border-bottom: solid #9BABB8 1px;
+}
+
+    nav .mobileMenuButton {
+        display: none;
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+        margin: 10px auto; 
+    }
+
+    nav .mobileMenuButton span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        margin: 2px auto;
+    }
+
+    nav .horizontalMenu {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        nav .horizontalMenu li{
+            list-style: none;
+            width: 10%;  
+        }
+
+        nav .horizontalMenu li:hover{
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        nav .horizontalMenu li:hover a{
+           color: #000000;
+        }
+
+        nav .horizontalMenu li:hover .verticalMenu{
+            display: block;
+        }
+
+            nav .horizontalMenu li a{
+                text-align: center;
+                text-decoration: none;
+                font-size: 2em;
+                font-family: 'Bebas Neue', sans-serif;
+                color: #F1F6F9;
+                display: block;
+                padding: 20px;
+            }
+
+            nav .horizontalMenu li svg{
+                color: #fff;
+            }
+
+    nav .verticalMenu {
+        position: absolute;
+        display: none;
+        width: 10%;
+        background-color: #fff;
+    }
+
+        nav .verticalMenu li a:hover {
+            text-decoration: underline;
+            letter-spacing: 3px;
+        }
+    
+        nav .verticalMenu li a:hover {
+            text-decoration: underline;
+        }
+
+/* style mainContent */
+
+.usersContent h1 {
+    text-align: center;
+    color: #000000;
+    margin-top: 60px;
+    font-size: 3.2em;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 6px;
+}
+
+.usersContent .boxesUsers {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+    .usersContent .boxesUsers .boxUser {
+        width: 400px;
+        height: 400px;
+        margin: 20px;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.50);
+        padding-top: 7px;
+    }
+
+    .usersContent .boxesUsers .boxUser .boxText {
+        padding: 6px;
+    }
+
+            .usersContent .boxesUsers .boxUser .boxText h3{
+                font-size: 1.8em;
+                font-family: 'Bebas Neue', sans-serif;
+                text-align: center;
+                margin-bottom: 15px;
+            }
+
+            .usersContent .boxesUsers .boxUser .boxText p {
+                font-family: 'Bebas Neue', sans-serif;
+                font-size: 1.3em;
+                margin-bottom: 7px;
+                margin-left: 5px;
+                font-weight: 600;
+               
+            }
+
+                .usersContent .boxesUsers .boxUser .boxText p b {
+                    font-family: 'reboto', sans-serif;
+                    
+                }
+
+        .usersContent .boxesUsers .boxesUser .buttonContainer {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+            .usersContent .boxesUsers .boxUser .buttonContainer button {
+                width: 100%;
+                background-color: #000000;
+                color: #fff;
+                padding: 4px;
+                font-family: 'Bebas Neue', sans-serif;
+                font-size: 1.6em;
+                letter-spacing: 6px;
+                border: solid 1px #fff;
+            }
+
+            .usersContent .boxesUsers .boxUser .buttonContainer button:hover {
+                opacity: 0.7;
+                cursor: pointer;
+            }
+
+
+.usersContent .boxesUsers .boxUser .formStyleContainer{
+    display: none;
+    
+}
+
+
+    

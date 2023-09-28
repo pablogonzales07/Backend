@@ -13,6 +13,13 @@ export const productsErrorIncompleteData = (product) => {
             `
 };
 
+//Error stock product
+export const negativeStock = (stock) => {
+    return `The user sent a stock less than 0
+            The stock shipped was ${stock}
+           `
+}
+
 //Error when the code entered is match whit some product in the data base
 export const productsErrorCodeExist = (code) => {
     return `The product code matches one in the database
@@ -48,9 +55,24 @@ export const notProductUser = (emailUser, emailProduct) => {
            `
 }
 
-//error when the user did not send the email when creating a product
+//Error when the user did not send the email when creating a product
 export const notProductEmail = (emailUser) => {
     return `the user did not send the email in the product
             the user was expected to enter the email in the "owner" field of the product: ${emailUser}
            `
 }
+
+//Error when user tries to enter an invalid owner email
+export const anyEmilOwner = (emailUser, emailRequired) => {
+    return `The email of the product owner must match the email of the current session of the person who created it.
+            the email entered ${emailUser}, must match ${emailRequired}
+            `
+}
+
+//Error when a user premium try change the product owner field
+export const changeOwnerPremium = (owner, ownerTry) => {
+    return `You cannot modify the owner field as a premium user. The owner is ${owner}
+            An attempt was made to change the owner to ${ownerTry}
+            `
+}
+ 

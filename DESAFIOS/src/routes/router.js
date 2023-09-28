@@ -54,9 +54,8 @@ export default class BaseRouter{
             if(policies[0] === "NO_AUTH" && !user) return next();
 
             if(policies[0] === "AUTH" && user) return next();
-            if(policies[0] === "AUTH" && !user) return res.redirect("/login")
+            if(policies[0] === "AUTH" && !user) return res.redirect("/login");
 
-            console.log("fewfwefwefwef");
             if(!user) return res.status(401).send({status: "Error", error: req.error});
             if(!policies.includes(user.role.toUpperCase())) return res.status(403).send({status:"Error", error: "The user is not authorized for enter in this view"})
             next();

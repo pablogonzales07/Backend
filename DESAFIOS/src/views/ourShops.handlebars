@@ -41,7 +41,7 @@
       </a>
     </div>
     <div class="cart">
-      <b>{{totalPriceCart}}</b>
+      <b id="totalPriceCart">{{totalCartPrice}}</b>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-euro"
         viewBox="0 0 16 16">
         <path
@@ -55,11 +55,10 @@
         </svg>
       </a>
       <div class="cartCount">
-        <p>{{totalCountCart}}</p>
+        <p id="countCart">{{countProductsCart}}</p>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 <nav>
@@ -89,10 +88,10 @@
       <a href="">Services</a>
     </li>
     <li>
-      <a href="/ourShops">Our shops</a>
+      <a href="">About Us</a>
       <ul class="verticalMenu">
-        <li><a href="#">Fitness Place</a></li>
-        <li><a href="#">Gymnasium</a></li>
+        <li><a href="#">Why chooose us</a></li>
+        <li><a href="#">Who we are</a></li>
       </ul>
     </li>
     <li>
@@ -152,7 +151,7 @@
           home. If you are not from the area, do not worry, from this site you could purchase any of our products as if
           you were here</p>
       </div>
-      <button><a href="">Learn more</a></button>
+      <button><a href="/shopFitnessPlace">Learn more</a></button>
     </article>
     <article class="boxShop">
       <div class="boxImage">
@@ -291,3 +290,5 @@
     </div>
   </div>
 </footer>
+
+<script src="/js/ourShops.js"></script>

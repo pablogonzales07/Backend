@@ -20,5 +20,15 @@ export default {
                 cid:"banner"
             }
         ]
+    },
+    purchaseTicket: {
+        subject: "Thank's for your purchase",
+        attachments: [
+            {
+                filename:"banner.png",
+                path:`${__dirname}/public/img/logo.png`,
+                cid:"banner"
+            }
+        ]
     }
 }

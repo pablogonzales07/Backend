@@ -15,20 +15,20 @@ export default class CartsRouter extends BaseRouter {
     //Route for delete a cart´s product selected
     this.delete("/:cid/product/:pid", ["AUTH"], cartsController.deleteProductCart);
 
-    //Route for change cart's products
+    //Route for change the cart's products
     this.put("/:cid", ["AUTH"], cartsController.changeProductsCart);
 
     //Route for change the product's quantity in the cart selected
-    this.put("/:cid/products/:pid", ["NO_AUTH"], cartsController.changeQuantityProductCart);
+    this.put("/:cid/products/:pid", ["AUTH"], cartsController.changeQuantityProductCart);
 
-    //Route for delete a cart selected
+    //Route for delete the products of the cart selected
     this.delete("/:cid", ["AUTH"], cartsController.deleteCartProducts);
 
-    //Route for obtein all the product´s properties from the cart
+    //Route to get all all the properties of the products in the selected cart
     this.get("/propertiesProducts/:cid", ["AUTH"], cartsController.obteinPropertiesProducts);
     
+    //Route to change the stock of the products involved in the purchase.
     this.put("/:cid/purchase", ["AUTH"], cartsController.purchaseCart)
-
   }
 }
 

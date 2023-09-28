@@ -3,6 +3,7 @@ const servicesContainer = document.getElementById("servicesContainer");
 const buttonLogout = document.getElementById("buttonLogout");
 const purchasesContainer = document.getElementById("purchasesContainer");
 
+
 //I build an array with all categories
 const categoriesProducts = [
   {
@@ -170,6 +171,7 @@ const getInfoUser = async () => {
         }
       );
       const responseDataPremium = await responsePremiumUser.json();
+      console.log(responseDataPremium);
       if (responseDataPremium.status === "Success") {
         const responseLogOut = await fetch("/api/sessions/userLogout", {
           method: "POST",
@@ -180,6 +182,8 @@ const getInfoUser = async () => {
           alert("Now you are a premium user, please login again");
           window.location.replace("/login");
         }
+      } else {
+        alert(`${responseDataPremium.error}`)
       }
     });
   }

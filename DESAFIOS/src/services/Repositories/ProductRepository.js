@@ -4,8 +4,8 @@ export default class ProductRepository {
         this.dao = dao
     }
 
-    getAllProducts = (filterCategory, filterDisponibility, anyFilter, limitProducts=40, pageProducts=1,orderPrice) => {
-        return this.dao.get(filterCategory, filterDisponibility, anyFilter, limitProducts=40, pageProducts=1,orderPrice)
+    getAllProducts = (filterCategory, filterDisponibility, anyFilter, limitProducts, pageProducts, orderPrice) => {
+        return this.dao.get(filterCategory, filterDisponibility, anyFilter, limitProducts, pageProducts, orderPrice)
     }
 
     getProductBy = (param) => {

@@ -10,32 +10,35 @@ formRegister.addEventListener("submit", async (e) => {
   const data = new FormData(formRegister);
   const dataObject = {};
   data.forEach((value, key) => (dataObject[key] = value));
-  //Valid certain fields
+  //I verify certain fields
   if(!dataObject.email || !dataObject.password || !dataObject.first_name || !dataObject.last_name || !dataObject.age || !dataObject.confirmPassword) {
     errorMessage.innerHTML = "";
     errorMessage.innerHTML = "Incomplete fields"
   } else if(dataObject.age < 18){
     errorMessage.innerHTML = "";
     errorMessage.innerHTML = "Sorry, you must be of legal age to register"
-  } else if(dataObject.password != dataObject.confirmPassword ){
+  }else if(!/^[A-Za-z0-9._%+-]+@(gmail\.com|hotmail\.com|yahoo\.com|outlook\.com)$/.test(dataObject.email)) {
+    errorMessage.innerHTML = "";
+    errorMessage.innerHTML = "Please chek if your email is correct"
+  }else if(dataObject.password != dataObject.confirmPassword ){
     errorMessage.innerHTML = "";
     errorMessage.innerHTML = "Passwords not match";
   } else {
     //I make the registration request
-    const response = await fetch("/api/sessions/register", {
+    const responseRegist = await fetch("/api/sessions/register", {
       method: "POST",
       body: JSON.stringify(dataObject),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    const responseData = await response.json();
-    if (responseData.status === "Success") {
+    const responseDataRegist = await responseRegist.json();
+    if (responseDataRegist.status === "Success") {
       window.location.replace("/login");
     }
-    if (responseData.status === "Error") {
+    if (responseDataRegist.status === "Error") {
       errorMessage.innerHTML = "";
-      errorMessage.innerHTML = responseData.error
+      errorMessage.innerHTML = responseDataRegist.error
     }
   }
 });

@@ -8,10 +8,12 @@
     box-sizing: border-box;
 }
 
+/* style body */
 body{
     background-image: url("/img/fondo-login.jpg");
 }
 
+/* style formLogin */
 .formLoginStyle{
     width: 400px;
     height: 480px;
@@ -71,10 +73,10 @@ body{
         letter-spacing: 4px;
     }
 
-    .formLoginStyle .buttonLogin:hover{
-        opacity: 0.7;
-        cursor: pointer;
-    }
+        .formLoginStyle .buttonLogin:hover{
+            opacity: 0.7;
+            cursor: pointer;
+        }
 
     .formLoginStyle .errorMessageStyle {
         font-size: 1.2em;
@@ -108,16 +110,17 @@ body{
         .formLoginStyle a:hover{
             text-decoration: underline;
         }
+
     .formLoginStyle .githubIcon{
         text-align: center;
         padding: 7px;
     }
 
-    .formLoginStyle .githubIcon a:hover {
-        color: #017bab;
-        cursor: pointer;
-        transition: 2s;
-    }
+        .formLoginStyle .githubIcon a:hover {
+            color: #017bab;
+            cursor: pointer;
+            transition: 2s;
+        }
 
 /* style modal */
 

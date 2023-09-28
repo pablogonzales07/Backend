@@ -1,11 +1,13 @@
 
 export default class TokenDTO {
-    constructor(user) {
-        this.name = user.name,
-        this.role = user.role,
-        this.email = user.email,
-        this.cart = user.cartId,
-        this.id = user.id,
-        this.discountCode = user.discountCode
+    static getFrom = (user) => {
+        return {
+            name: user.name,
+            role: user.role,
+            email: user.email,
+            cart: user.cartId,
+            id: user.id,
+            discountCode: user.discountCode
+        }
     }
 }

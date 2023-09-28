@@ -1,6 +1,9 @@
 import { productsService, usersService } from "../services/repositories.js";
 import ErrorService from "../services/errorService.js";
 import {
+  anyEmilOwner,
+  changeOwnerPremium,
+  negativeStock,
   notProductEmail,
   notProductUser,
   productsErrorCodeExist,
@@ -14,7 +17,7 @@ import EErrors from "../constants/EErrors.js";
 //Controller for send the products
 const getProducts = async (req, res) => {
   try {
-    //i catch the params
+    //I take the params
     const limitProducts = req.query.limit;
     const pageProducts = req.query.page;
     const categoryFilter = req.body.category;
@@ -22,7 +25,7 @@ const getProducts = async (req, res) => {
     const filterProducts = req.body;
     let orderPrice = req.query.order;
 
-    //i convert the parameters to sort values
+    //I convert the parameters to values understood by mongoose pagination
     if (orderPrice === "asc") {
       orderPrice = 1;
     } else if (orderPrice === "desc") {
@@ -49,7 +52,7 @@ const getProducts = async (req, res) => {
       orderPrice
     );
 
-    //i answer the request
+    //I answer the request
     res.status(200).send({
       status: "Success",
       payload: docs,
@@ -68,7 +71,7 @@ const getProducts = async (req, res) => {
 //Controller for add product
 const addProduct = async (req, res) => {
   try {
-    //I capture the product properties commanded by query params
+    //I get the product fields sent in the body of the request
     const newProduct = req.body;
     const {
       title,
@@ -82,7 +85,7 @@ const addProduct = async (req, res) => {
       owner,
     } = newProduct;
 
-    //I valid if the all fields product are completed
+    //I verify if the all fields product are completed
     if (
       !title ||
       !description ||
@@ -112,7 +115,19 @@ const addProduct = async (req, res) => {
       });
     }
 
-    //i valid if the the code not match whit any product in the database
+    //I verify if the product stock is greater than 0
+    if(stock <0) {
+      //Shot a error
+      ErrorService.createError({
+        name: "Stock is less than 0",
+        cause: negativeStock(stock),
+        message: "Stock cannot be less than 0",
+        code: EErrors.INCORRECT_DATA,
+        status: 400,
+      });
+    }
+
+    //I verify if the the code not match whit any product in the database
     const codeExist = await productsService.getProductBy({ code: code });
     if (codeExist) {
       //Shot a error
@@ -125,7 +140,7 @@ const addProduct = async (req, res) => {
       });
     }
 
-    //I check if the user is allowed to add a product
+    //Check if the user is allowed to add a product
     const user = req.user;
     if (
       user.role.toUpperCase() !== "PREMIUM" &&
@@ -151,15 +166,26 @@ const addProduct = async (req, res) => {
       });
     }
 
-    //I add the product depending on whether the user entered the owner
+    //Add the product depending on whether the user entered the owner
     if (owner) {
       const userEmail = owner;
-      const user = await usersService.getUserBy({ email: userEmail });
-      if (!user) {
+      const userDB = await usersService.getUserBy({ email: userEmail });
+      if (!userDB) {
         ErrorService.createError({
           name: "Invalid email",
           cause: userProductNotMatch(userEmail),
           message: "The email entered does not match the user",
+          code: EErrors.INCORRECT_DATA,
+          status: 400,
+        });
+      }
+
+      //I valid if the owner's email is not any email
+      if((req.user.email != owner) && user.role.toUpperCase() != "ADMIN") {
+        ErrorService.createError({
+          name: "The owner's email does not match the email of their current session.",
+          cause: anyEmilOwner(owner ,req.user.email),
+          message: "The owner's email cannot be different from that of the user who wants to create the product",
           code: EErrors.INCORRECT_DATA,
           status: 400,
         });
@@ -192,7 +218,6 @@ const addProduct = async (req, res) => {
       res.sendSuccess("The product was added successfully");
     }
   } catch (error) {
-    console.log(error);
     if (error.code === 1) return res.badRequest(error.name);
     if (error.code === 2) return res.badRequest(error.name);
     if (error.code === 4) return res.forbidden(error.name);
@@ -202,12 +227,24 @@ const addProduct = async (req, res) => {
 //Controller for change product´s fields
 const changeFieldProduct = async (req, res) => {
   try {
-    //i capture the product's id and fields to change by parameter
+    //I get the product ID and the fields to change by parameter
     const productId = req.params.pid;
     const productUpdate = req.body;
     const user = req.user;
 
-    //i valid if the product's id it's match whit something product in the database
+    //I verify that the stock field is not negative
+    if(productUpdate.stock<0) {
+      //Shot a error
+      ErrorService.createError({
+        name: "The stock of the product cannot be negative",
+        cause: negativeStock(productUpdate.stock),
+        message: "You cannot change the stock field to a negative number",
+        code: EErrors.INCORRECT_DATA,
+        status: 400,
+      });
+    }
+
+    //I verify if the product's id it's match whit something product in the database
     const products = await productsService.getAllProducts();
     const productsList = products.docs;
     const productExist = productsList.find(
@@ -218,12 +255,13 @@ const changeFieldProduct = async (req, res) => {
       ErrorService.createError({
         name: "Not finded Product whit this id",
         cause: productsErrorIdNotFound(productId),
-        message: "The product id entered matches one in the database",
+        message: "The product ID entered does not match any product in the database",
         code: EErrors.NOT_FIND_DATA,
         status: 404,
       });
     }
 
+    //I verify if the user has the role to modify a product
     if (
       user.role.toUpperCase() !== "PREMIUM" &&
       user.role.toUpperCase() !== "ADMIN"
@@ -238,10 +276,25 @@ const changeFieldProduct = async (req, res) => {
       });
     }
 
+    //If the role is "ADMIN" I modify the product
     if (user.role.toUpperCase() === "ADMIN") {
       await productsService.updateProduct(productId, productUpdate);
       res.sendSuccess("The product was changed correctly");
     }
+
+    //I verify if the field to change it is not a owner field
+    if(productUpdate.owner) {
+      //Shot a error
+      ErrorService.createError({
+        name: "You can't change the owner field",
+        cause: changeOwnerPremium(productExist.owner, productUpdate.owner),
+        message: "The user premium can't change the owner field",
+        code: EErrors.INCORRECT_DATA,
+        status: 403,
+      });
+    }
+
+    //I verify if the user wants to modify a product that does not belong to him
     if (user.email !== productExist.owner) {
       //Shot a error
       ErrorService.createError({
@@ -252,11 +305,12 @@ const changeFieldProduct = async (req, res) => {
         status: 403,
       });
     }
-    //i change the product's fields and i send the response
+
+    //I change the product's fields and i send the response
     await productsService.updateProduct(productId, productUpdate);
     res.sendSuccess("The product was changed correctly");
   } catch (error) {
-    console.log(error);
+    if (error.code === 2) return res.badRequest(error.name)
     if (error.code === 3) return res.notFounded(error.name);
     if (error.code === 4) return res.forbidden(error.name);
     if (error.code === 5) return res.forbidden(error.name);
@@ -266,25 +320,25 @@ const changeFieldProduct = async (req, res) => {
 //Controller for delete a product
 const deleteProduct = async (req, res) => {
   try {
-    //i capture the product's id and i valid if match whit something product in the database
+    //I get the product id and then validate if it matches any product in the database
     const productId = req.params.pid;
     const products = await productsService.getAllProducts();
     const productsList = products.docs;
     const productExist = productsList.find(
       (product) => product.id === productId
     );
-
     if (!productExist) {
       //Shot a error
       ErrorService.createError({
         name: "Not finded Product whit this id",
         cause: productsErrorIdNotFound(productId),
-        message: "The product id entered matches one in the database",
+        message: "The product ID entered does not match any product in the database",
         code: EErrors.NOT_FIND_DATA,
         status: 404,
       });
     }
 
+    //I verify if the user has the role to delete a product
     const user = req.user;
     if (
       user.role.toUpperCase() !== "PREMIUM" &&
@@ -299,12 +353,14 @@ const deleteProduct = async (req, res) => {
         status: 403,
       });
     }
-    /* return res.errorUser("The user cannot delete the product"); */
+
+    //I delete the product if is a ADMIN user
     if (user.role.toUpperCase() === "ADMIN") {
-      //i delete the product in the database
       await productsService.deleteProduct(productId);
       res.sendSuccess("The product was deleted correctly");
     }
+
+    //I verify if the product belongs to the user
     if (user.email !== productExist.owner) {
       //Shot a error
       ErrorService.createError({
@@ -316,11 +372,10 @@ const deleteProduct = async (req, res) => {
       });
     }
     
-    //i delete the product in the database
+    //I delete the product in the database
     await productsService.deleteProduct(productId);
     res.sendSuccess("The product was deleted correctly");
   } catch (error) {
-    console.log(error);
     if (error.code === 3) return res.notFounded(error.name);
     if (error.code === 4) return res.forbidden(error.name);
     if (error.code === 5) return res.forbidden(error.name)

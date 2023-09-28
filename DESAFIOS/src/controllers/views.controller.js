@@ -1,6 +1,13 @@
 import jwt from "jsonwebtoken";
-import { cartsService, productsService } from "../services/repositories.js";
+import {
+  cartsService,
+  productsService,
+  usersService,
+} from "../services/repositories.js";
+import InfoAdmDTO from "../dtos/user/infoAdmDTO.js";
+import config from "../config/config.js"
 
+//Controller for the home´s view
 const viewHome = async (req, res) => {
   //I bring the products
   const productsSale = await productsService.getAllProducts();
@@ -10,25 +17,26 @@ const viewHome = async (req, res) => {
   );
   const productsToShow = onlyAdminProducts.slice(0, 10);
 
-  //I bring all the products in the cart selected
+  //I bring all the products from the selected cart
   const getProductsCart = await cartsService
     .getCartById({ _id: req.user.cart })
     .populate("products.product");
   const listProductsCart = getProductsCart.products;
 
-  //I add the total number of products in the cart
+  //I calculate the total number of products in the cart
   const countProductsCart = listProductsCart.reduce((acc, currentValue) => {
     return (acc += currentValue.quantity);
   }, 0);
 
-  //I add the total price in the cart
+  //I calculate the total price in the cart
   const totalPrice = listProductsCart.reduce((acc, currentValue) => {
     return (acc += currentValue.product.price * currentValue.quantity);
   }, 0);
 
-  //I bring the user
+  //I bring the session user
   const user = req.user;
 
+  //I render the template whit the neccesary info
   res.render("home", {
     css: "home",
     title:
@@ -55,40 +63,9 @@ const viewChat = async (req, res) => {
   res.render("chat");
 };
 
-const viewProducts = async (req, res) => {
-  const {
-    page = 1,
-    limit = 2,
-    order,
-    filterProducts,
-    categoryFilter,
-    statusFilter,
-  } = req.query;
-  const { docs, hasPrevPage, hasNextPage, prevPage, nextPage, ...rest } =
-    await productsService.getAllProducts(
-      categoryFilter,
-      statusFilter,
-      filterProducts,
-      limit,
-      page,
-      order
-    );
-  const products = docs;
-  res.render("products", {
-    products,
-    hasNextPage,
-    hasPrevPage,
-    prevPage,
-    nextPage,
-    page: rest.page,
-    css: "products",
-    user: req.user,
-  });
-};
-
-//controller to display the user's cart view
+//Controller for show the view for user's cart
 const viewCart = async (req, res) => {
-  //I capture the params
+  //I take the params
   const cartId = req.params.cid;
 
   //I bring all the products in the cart selected
@@ -97,12 +74,12 @@ const viewCart = async (req, res) => {
     .populate("products.product");
   const listProductsCart = getProductsCart.products;
 
-  //I add the total number of products in the cart
+  //I calculate the total number of products in the cart
   const countProductsCart = listProductsCart.reduce((acc, currentValue) => {
     return (acc += currentValue.quantity);
   }, 0);
 
-  //I add the total price in the cart
+  //I calculate the total price in the cart
   const totalPrice = listProductsCart.reduce((acc, currentValue) => {
     return (acc += currentValue.product.price * currentValue.quantity);
   }, 0);
@@ -110,6 +87,8 @@ const viewCart = async (req, res) => {
   //I bring the products in the cart along with their properties
   const productsCart = await cartsService.propertiesProductsCart(cartId);
   const listProducts = productsCart.products;
+
+  //I render the template whit the neccesary info
   res.render("carts", {
     logo: "/img/logo.png",
     css: "cart",
@@ -119,24 +98,28 @@ const viewCart = async (req, res) => {
   });
 };
 
+//Controller to show the log view.
 const viewRegist = async (req, res) => {
+  //I render the template whit the neccesary info
   res.render("register", {
     css: "register",
   });
 };
 
+//Controller to show the login view
 const viewLogin = async (req, res) => {
+  //I render the template whit the neccesary info
   res.render("login", {
     css: "login",
   });
 };
 
-//controller to display the product details view
+//Controller to show the product details view
 const viewDetailProduct = async (req, res) => {
-  //I bring the user
+  //I bring the session user
   const user = req.user;
 
-  //I capture the productID sent by parameter
+  //I take the productID sent by parameter
   const productId = req.params.pid;
 
   //I bring the products
@@ -160,12 +143,12 @@ const viewDetailProduct = async (req, res) => {
     .populate("products.product");
   const listProductsCart = getProductsCart.products;
 
-  //I add the total number of products in the cart
+  //I calculate the total number of products in the cart
   const countProductsCart = listProductsCart.reduce((acc, currentValue) => {
     return (acc += currentValue.quantity);
   }, 0);
 
-  //I add the total price in the cart
+  //I calculate the total price in the cart
   const totalPrice = listProductsCart.reduce((acc, currentValue) => {
     return (acc += currentValue.product.price * currentValue.quantity);
   }, 0);
@@ -174,7 +157,7 @@ const viewDetailProduct = async (req, res) => {
   const { title, description, code, img, stock, price, _id, cart, sizes } =
     await productsService.getProductBy({ _id: productId });
 
-  //Render the view whit the properties
+  //I render the template whit the neccesary info
   res.render("detailProduct", {
     css: "detailProduct",
     title,
@@ -194,17 +177,22 @@ const viewDetailProduct = async (req, res) => {
   });
 };
 
+//Controller to show the restore password view
 const viewRestorePassword = (req, res) => {
+  //I take the user token
   const { token } = req.query;
   try {
-    const validToken = jwt.verify(token, "jwtUserSecret");
+    //I verify if the user token is valid
+    const validToken = jwt.verify(token, config.token.SECRET);
+
+    //I render the template whit the neccesary info
     res.render("restorePassword");
   } catch (error) {
     return res.render("invalidToken");
   }
-  res.render("restorePassword");
 };
 
+//Controller to show the view for the categories of the products
 const viewCategoryProducts = async (req, res) => {
   //I bring the neccesary data
   const categoryProducts = req.params.category;
@@ -253,16 +241,17 @@ const viewCategoryProducts = async (req, res) => {
     .populate("products.product");
   const listProductsCart = getProductsCart.products;
 
-  //I add the total number of products in the cart
+  //I calculate the total number of products in the cart
   const countProductsCart = listProductsCart.reduce((acc, currentValue) => {
     return (acc += currentValue.quantity);
   }, 0);
 
-  //I add the total price in the cart
+  //I calculate the total price in the cart
   const totalPrice = listProductsCart.reduce((acc, currentValue) => {
     return (acc += currentValue.product.price * currentValue.quantity);
   }, 0);
 
+  //I render the template whit the neccesary info
   res.render("categoryProducts", {
     css: "categoriesProducts",
     products: productsSelected,
@@ -282,17 +271,18 @@ const viewCategoryProducts = async (req, res) => {
   });
 };
 
+//Controller to show ourShops view
 const viewOurShops = async (req, res) => {
-  //bring the current session user
+  //I bring the current session user
   const user = req.user;
 
-  //bring the cart products
+  //I bring the cart products
   const getProductsCart = await cartsService
     .getCartById({ _id: req.user.cart })
     .populate("products.product");
   const onlyProducts = getProductsCart.products;
 
-  //Calculate the total price of the cart and its quantity
+  //I calculate the total price of the cart and its quantity
   const totalPrice = onlyProducts.reduce((acc, currentValue) => {
     return (acc += currentValue.product.price * currentValue.quantity);
   }, 0);
@@ -301,6 +291,7 @@ const viewOurShops = async (req, res) => {
     return (acc += currentValue.quantity);
   }, 0);
 
+  //I render the template whit the neccesary info
   res.render("ourShops", {
     css: "ourShops",
     logo: "/img/logo.png",
@@ -311,17 +302,18 @@ const viewOurShops = async (req, res) => {
   });
 };
 
+//Controller to show one of the stores(gymnasium)
 const viewShopGymnasium = async (req, res) => {
-  //bring the current session user
+  //I bring the current session user
   const user = req.user;
 
-  //bring the cart products
+  //I bring the cart products
   const getProductsCart = await cartsService
     .getCartById({ _id: req.user.cart })
     .populate("products.product");
   const onlyProducts = getProductsCart.products;
 
-  //Calculate the total price of the cart and its quantity
+  //I calculate the total price of the cart and its quantity
   const totalPrice = onlyProducts.reduce((acc, currentValue) => {
     return (acc += currentValue.product.price * currentValue.quantity);
   }, 0);
@@ -330,6 +322,7 @@ const viewShopGymnasium = async (req, res) => {
     return (acc += currentValue.quantity);
   }, 0);
 
+  //I render the template whit the neccesary info
   res.render("gymnasium", {
     css: "gymnasium",
     logo: "/img/logo.png",
@@ -342,17 +335,18 @@ const viewShopGymnasium = async (req, res) => {
   });
 };
 
+//Controller to show one of the stores(Fitness place)
 const viewShopFitnessPlace = async (req, res) => {
-  //bring the current session user
+  //I bring the current session user
   const user = req.user;
 
-  //bring the cart products
+  //I bring the cart products
   const getProductsCart = await cartsService
     .getCartById({ _id: req.user.cart })
     .populate("products.product");
   const onlyProducts = getProductsCart.products;
 
-  //Calculate the total price of the cart and its quantity
+  //I calculate the total price of the cart and its quantity
   const totalPrice = onlyProducts.reduce((acc, currentValue) => {
     return (acc += currentValue.product.price * currentValue.quantity);
   }, 0);
@@ -360,12 +354,39 @@ const viewShopFitnessPlace = async (req, res) => {
   const totalQuantity = onlyProducts.reduce((acc, currentValue) => {
     return (acc += currentValue.quantity);
   }, 0);
+
+  //I render the template whit the neccesary info
   res.render("fitnessPlace", {
     css: "fitnessPLace",
     logo: "/img/logo.png",
+    imageOne: "img/shop-one.jpg",
     user: user,
     cartPrice: totalPrice,
     cartQuantity: totalQuantity,
+  });
+};
+
+//Controller to show the user administration view
+const viewAdministrationUser = async (req, res) => {
+  //I bring users and turn them into an object with essential information
+  const usersDB = await usersService.getAllUsers();
+  const users = usersDB.map((product) => {
+    return InfoAdmDTO.getFrom(product);
+  });
+
+  //I render the template whit the neccesary info
+  res.render("administrationUser", {
+    css: "administrationUser",
+    logo: "/img/logo.png",
+    users: users,
+  });
+};
+
+//Controller to show the error view
+const viewError404 = (req, res) => {
+  //I render the template whit the neccesary info
+  res.render("error404", {
+    css: "error404",
   });
 };
 
@@ -373,7 +394,6 @@ export default {
   viewHome,
   viewProductsRealTime,
   viewChat,
-  viewProducts,
   viewCart,
   viewRegist,
   viewLogin,
@@ -383,4 +403,6 @@ export default {
   viewOurShops,
   viewShopGymnasium,
   viewShopFitnessPlace,
+  viewAdministrationUser,
+  viewError404,
 };

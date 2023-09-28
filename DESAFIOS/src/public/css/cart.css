@@ -8,6 +8,22 @@
     box-sizing: border-box;
 }
 
+/* top text style */
+.topText{
+    width: 100%;
+    padding: 4px;
+    background-color: #ff9900;
+}
+
+    .topText p {
+        text-align: center;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 1.4em;
+        color: #000000;
+        letter-spacing: 4px;
+        font-weight: 600;
+    }
+
 /* Top box style */
 
 .topBox {
@@ -26,15 +42,19 @@
         align-items: center;
     }
 
-        .topBox .container .networks svg{
-            color: #9BABB8;
-            margin-right: 10px;
+        .topBox .container .networks a {
+            text-decoration: none;
         }
 
-        .topBox .container .networks svg:hover {
-            opacity: 0.7;
-            cursor: pointer;
-        }
+            .topBox .container .networks a svg{
+                color: #9BABB8;
+                margin-right: 10px;
+            }
+
+            .topBox .container .networks a svg:hover {
+                opacity: 0.7;
+                cursor: pointer;
+            }
         
         .topBox .container .logo  img{
             width: 60px;
@@ -84,6 +104,22 @@ nav {
     width: 100%;
     border-bottom: solid #9BABB8 1px;
 }
+
+    nav .mobileMenuButton {
+        display: none;
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+        margin: 10px auto; 
+    }
+
+    nav .mobileMenuButton span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        margin: 2px auto;
+    }
 
     nav .horizontalMenu {
         display: flex;
@@ -328,9 +364,6 @@ nav {
         text-align: center;
     }
         
-
-
-
 /* diseño footer */
 
 footer {
@@ -549,3 +582,655 @@ footer {
                 margin-left: 5px;
                 pointer-events: none;
             }
+
+@media(max-width:1280px) {
+/* style navbar */
+nav .horizontalMenu li{
+    list-style: none;
+    width: 15%;  
+}
+
+/* style cartContainer */
+.cartContainer .cart .cartItem h2{
+    width: 40%;
+    font-size: 1.5em;
+    opacity: 0.7;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+/* style footer */
+footer .rowOne{
+    width: 90%;
+}
+
+    footer .rowOne .formFooter h4{
+        color: #9BA4B5;
+        font-size: 1.2em;
+        letter-spacing: 0;   
+    }
+
+        footer .rowOne .formFooter form .control{
+            height: 30px;
+            margin-top: 20px;
+            font-size: 1.3em;
+            letter-spacing: 2px;
+            padding: 6px;
+        }
+
+        footer .rowOne .formFooter form .submitButton{
+            height: 30px;
+            font-size: 1.1em;
+        }
+
+    footer .rowTwo {
+        padding-left: 100px;
+        width: 90%; 
+    }
+    
+    footer .rowThree{
+        width: 90%; 
+    }
+}
+
+@media(max-width:1020px) {
+/* style navBar */
+nav{
+    padding: 4px;
+}
+    
+    nav .mobileMenuButton {
+        display: block;
+        width: 20px;
+        height: 25px;
+        cursor: pointer;
+        margin: 10px auto; 
+        }
+    
+        nav .mobileMenuButton span {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background-color: #fff;
+            margin: 5px auto; 
+        }
+    
+    nav .horizontalMenu {
+        display: none;
+        list-style: none;
+        background-color: #000000;
+        top: 100;
+        width: 100%;
+        z-index: 1;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+        opacity: 0; 
+        transform: translateY(-10px); 
+        transition: opacity 0.3s ease, transform 0.3s ease; 
+    }
+    
+    nav .horizontalMenu.active {
+        display: flex;
+        opacity: 1; 
+        transform: translateY(0); 
+        }
+
+/* style cartContainer */
+.cartContainer {
+    width: 90%;
+    margin-top: 60px;
+}
+
+    .cartContainer .cart .cartItem h2{
+        font-size: 1.4em;
+    }
+
+         
+/* style footer */
+footer .itemsList{
+    padding: 15px;
+}
+
+    footer .itemsList .items{
+        width: 33%;
+        height: 100%;
+        display: flex;
+    }
+
+        footer .itemsList .items svg{
+            width: 40px;
+            height: 40px;
+        }
+
+        footer .itemsList .items .boxText{
+            margin-left: 10px;
+        }
+
+            footer .itemsList .items .boxText h5{
+                font-size: 1.3em;
+                font-family: 'Bebas Neue', sans-serif;
+            }
+
+            footer .itemsList .items .boxText p{
+                font-size: 1.1em;      
+            }
+
+footer .rowThree{
+    width: 80%;
+}
+
+    footer .rowThree h5{
+        font-size: 1.6em;
+    }
+        
+        footer .rowThree .methodsToPay img{
+            width: 30px;
+            height: 30px;
+            margin-left: 3px;
+        }    
+}
+
+@media(max-width:768px) {
+/* style topText */ 
+.topText p {
+    font-size: 1.2em;
+    letter-spacing: 2px;
+}
+
+/* style topBox */
+.topBox .container {
+    width: 90%;
+}
+
+    .topBox .container .networks a svg{
+        width: 18px;
+        height: 18px;
+    }
+     
+    .topBox .container .logo  img{
+        width: 60px;
+        height: 60px;
+        margin-right: 30px;
+    }
+
+        .topBox .container .cart {
+            width: 85px;
+            height: 35px;
+        }
+
+            .topBox .container .cart svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            .topBox .container .cart .cartCount{
+                right: 0;
+                width: 16px;
+                height: 16px;
+            }
+
+/* style navBar */
+nav .horizontalMenu li{
+    width: 30%;
+    padding-left: 12px;  
+}
+
+    nav .horizontalMenu li:hover{
+        background-color: #000000;
+        cursor: pointer;
+    }
+
+    nav .horizontalMenu li:hover a{
+        color: #ffffff;
+    }
+
+    nav .horizontalMenu li:hover .verticalMenu{
+        display: none;
+    }
+
+    nav .horizontalMenu li a{
+        font-size: 1.8em;
+    }  
+    
+/* style cartContainer   */ 
+.cartContainer {
+    margin-top: 50px;
+}
+
+    .cartContainer .cart .cartItem h2{
+        font-size: 1.2em;
+    }
+
+    .cartContainer .cart h4 {
+        text-align: center;
+        font-family: 'Bebas Neue', sans-serif;
+        font-size: 3em;
+        letter-spacing: 10px;
+        color: #000000;
+    }
+
+    .cartContainer .boxClearCart {
+        width: 50%;
+    }
+
+/* style footer */
+footer .itemsList .items svg{
+    width: 30px;
+    height: 30px;
+}
+
+footer .itemsList .items .boxText h5{
+    font-size: 1.2em;
+}
+
+footer .itemsList .items .boxText p{
+    font-size: 1em;
+}
+
+    footer .rowOne .formFooter h4{
+        font-size: 1.1em;
+    }
+
+        footer .rowOne .formFooter form .control{
+            height: 30px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            padding: 8px;
+        }
+
+        footer .rowOne .formFooter form .submitButton{
+            height: 30px;
+            width: 60px;
+            font-size: 1.1em;
+        }
+
+footer .rowTwo {
+    padding-left: 40px;
+}
+
+
+footer .rowTwo .boxOne h4{
+    font-size: 1.5em;
+}
+
+        footer .rowTwo .boxOne ul li{
+            margin-top: 5px;
+        }
+
+            footer .rowTwo .boxOne ul li a{
+                font-size: 1.2em;
+                margin-top: 4px;
+            }
+
+footer .rowTwo .boxTwo h4{
+    font-size: 1.5em;
+}
+
+        footer .rowTwo .boxTwo ul li{
+            margin-top: 5px;
+        }
+
+            footer .rowTwo .boxTwo ul li a{
+                font-size: 1.2em;
+                margin-top: 4px;
+            }
+
+     footer .rowTwo .boxTwo .networksList svg{
+        color: #9BABB8;
+        margin-top: 20px;
+        margin-right: 10px;
+    }
+
+footer .rowTwo .boxThree h4 {
+    font-size: 1.5em;
+}
+
+    footer .rowTwo .boxThree .boxTexts p {
+        font-size: 1.2em;
+        margin-top: 4px;
+    }
+
+    
+footer .rowThree h5{
+    font-size: 1.2em;
+}
+        
+    footer .rowThree .methodsToPay img{
+        width: 20px;
+        height: 20px;
+        margin-left: 3px;
+    }
+}
+
+
+@media(max-width:650px) {
+
+/* style cartContainer */
+.cartContainer .cart .cartItem{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border-bottom: #333 2px solid;
+}
+
+    .cartContainer .cart .cartItem img{
+        width: 40%;
+    }
+
+    .cartContainer .cart .cartItem h2{
+        width: 40%;
+        font-size: 1.5em;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .cartContainer .cart .cartItem b{
+        width: 40%;
+        font-size: 2em;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .cartContainer .cart .cartItem p{
+        width: 40%;
+        font-size: 2em;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .cartContainer .cart .cartItem button{
+        font-size: 3em;
+        margin-top: 10px;
+        text-align: center;
+
+    }
+
+
+/* style footer */
+footer {
+    height: 140vh;
+    margin-top: 40px;
+}
+
+    footer .rowOne{
+        height: 40vh;
+    }
+
+        footer .rowOne .itemsList{
+            width: 60%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: center;
+        }
+
+            footer .rowOne .itemsList .items{
+                width: 100%;
+                display: flex;
+            }
+
+                footer .rowOne .itemsList .items svg{
+                    width: 50px;
+                    height: 50px;
+                }
+
+                footer .rowOne .itemsList .items .boxText{
+                    width: 100%;
+                    margin-left: 15px;
+                }
+
+                    footer .rowOne .itemsList .items .boxText h5{
+                        font-size: 1.4em;
+                    }
+
+                    footer .rowOne .itemsList .items .boxText p{
+                        font-size: 1em;
+                    }
+
+    footer .rowOne .formFooter{
+        padding: 10px;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+        footer .rowOne .formFooter h4{
+            font-size: 1.6em;
+            text-align: center;
+        }
+
+            footer .rowOne .formFooter form .control{
+                width: 100%;
+                height: 40px;
+                margin-top: 20px;
+                font-size: 1.5em;
+                padding: 2px;
+            }
+
+        footer .rowOne .formFooter form .submitButton{
+            width: 100%;
+            padding: 0 15px;
+            height: 40px;
+            margin-top: 15px;
+            font-size: 1.5em;
+        }
+
+    footer .rowTwo {
+        padding-left: 40px;
+        height: 70vh;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0;
+    }
+
+        footer .rowTwo .boxOne{
+            width: 100%;
+        }
+
+
+            footer .rowTwo .boxOne h4{
+                font-size: 2em;
+                letter-spacing: 2px;
+            }
+
+            footer .rowTwo .boxOne ul li{
+                margin-top: 5px;
+            }
+
+                footer .rowTwo .boxOne ul li a{
+                    font-size: 1.4em;
+                    margin-top: 4px;
+                    
+                }
+
+        footer .rowTwo .boxTwo{
+            width: 100%;
+            margin-top: 15px;
+        }
+
+            footer .rowTwo .boxTwo h4{
+                font-size: 2em;
+            }
+
+            footer .rowTwo .boxTwo ul li{
+                margin-top: 5px;
+            }
+
+                footer .rowTwo .boxTwo ul li a{
+                    font-size: 1.4em;
+                    margin-top: 4px;
+                }
+
+            footer .rowTwo .boxTwo .networksList svg{
+                margin-top: 10px;
+                margin-right: 10px;
+                width: 20px;
+                height: 20px;
+            }
+
+        footer .rowTwo .boxThree {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+            footer .rowTwo .boxThree h4 {
+                font-size: 2em;
+            }
+
+            footer .rowTwo .boxThree .boxTexts p {
+                font-size: 1.4em;
+                margin-top: 5px;
+            }
+
+    footer .rowThree{
+        padding-top: 30px;
+        height: 20vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+        
+        footer .rowThree h5{
+            font-size: 2em;
+            text-align: center;
+        }
+        
+        footer .rowThree .methodsToPay img{
+            width: 30px;
+            height: 30px;
+            margin-top: 15px;
+        }    
+}
+
+@media(max-width:575px) {
+
+/* style footer */
+footer .rowOne .formFooter h4{
+    font-size: 1.4em;
+    text-align: center;
+}
+
+    footer .rowOne .formFooter form .control{
+        font-size: 1.3em;
+    }
+    
+    footer .rowOne .formFooter form .submitButton{
+        font-size: 1.3em;
+    }    
+}
+
+@media(max-width:478px) {
+
+/* style topText */  
+.topText p {
+    font-size: 1.1em;
+}
+    
+/* style topBox */ 
+.topBox .container {
+    width: 95%;
+}
+    
+    .topBox .container .networks a svg{
+        width: 16px;
+        height: 16px;
+    }
+         
+    .topBox .container .logo  img{
+        width: 50px;
+        height: 50px;
+        margin-right: 25px;
+    }
+    
+    .topBox .container .cart {
+        width: 85px;
+        height: 40px;
+    }
+    
+        .topBox .container .cart b{
+            font-size: 1em;
+        }
+    
+        .topBox .container .cart svg {
+            width: 18px;
+            height: 18px;
+        }
+    
+        .topBox .container .cart .cartCount{
+            right: 0;
+            width: 20px;
+            height: 20px;
+        }
+    
+/* style navBar*/
+nav .horizontalMenu li{
+    width: 40%;
+}
+    
+    nav .horizontalMenu li a{
+        font-size: 1.6em;
+    }   
+    
+/* style cartContainer */
+.cartContainer .cart .cartItem h2{
+    font-size: 1.2em;
+}
+
+.cartContainer .cart .cartItem button{
+    font-size: 2em;
+}
+
+.cartContainer h1 {
+    font-size: 3em;
+}
+
+.cartContainer .cart h4 {
+    font-size: 2.4em;
+    letter-spacing: 5px;
+    color: #000000;
+}
+
+.cartContainer .boxClearCart {
+    width: 60%;
+    margin-top: 20px;
+}
+
+    .cartContainer .boxClearCart button {
+        font-size: 1.8em;
+        letter-spacing: 2px;
+
+    }
+}
+
+@media(max-width: 424px){
+    
+/* style footer */         
+footer .rowOne .itemsList .items svg{
+    width: 30px;
+    height: 30px;
+}
+            
+    footer .rowOne .itemsList .items .boxText h5{
+        font-size: 1.2em;
+    }
+            
+    footer .rowOne .itemsList .items .boxText p{
+        font-size: 0.8em;
+    }          
+}
+    
+
+

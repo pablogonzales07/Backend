@@ -1,16 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
 
-*{
+*
+{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* style body */
 body{
     background-image: url("/img/fondo-register.jpg");
 }
 
+/* style formRegister */
 
 .formRegisterStyle {
     width: 400px;
@@ -77,10 +80,11 @@ body{
         font-family: 'Bebas Neue', sans-serif;
     }
 
-    .formRegisterStyle .formButtonStyle:hover{
-        opacity: 0.7;
-        cursor: pointer;
-    }
+        .formRegisterStyle .formButtonStyle:hover{
+            opacity: 0.3;
+            transition: 0.9s;
+            cursor: pointer;
+        }
 
     .formRegisterStyle .errorMessageStyle{
         color: #B04759;
@@ -89,71 +93,15 @@ body{
         font-family: 'Bebas Neue', sans-serif;
     }
 
-@media(max-width: 600px) {
-
-.formRegisterStyle {
-    width: 350px;
-}
-    
-    .formRegisterStyle h2 {
-        letter-spacing: 2px;
-    }
-
-    .formRegisterStyle .controls {
-        font-size: 1em;
-    }
-    
-    .formRegisterStyle .controls {
-        width: 100%;
-        padding: 7px;
-    }
-    
-    .formRegisterStyle .linksForm{
-        font-size: 1.1em;
-
-    }
-    
-    .formRegisterStyle .formButtonStyle {
-        padding: 10px;
-        margin: 16px 0;
-        letter-spacing: 2px;
-    }
-    
-    .formRegisterStyle .errorMessageStyle{
-        font-size: 1.1em;
-    }
-
-    
-}
-
-@media(max-width: 470px) {
+@media(max-width:478px) {
 
 .formRegisterStyle {
     width: 320px;
+    background-color: #000000;
+    padding: 30px;
+    margin: auto;
+    margin-top: 100px;
 }
-          
-    .formRegisterStyle .controls {
-        padding: 5px;
-    }
-
-    .formRegisterStyle .linksForm{
-        font-size: 1em;
-    }
-        
-    .formRegisterStyle .formButtonStyle {
-        padding: 10px;
-        margin: 16px 0;
-        letter-spacing: 2px;
-    }
-        
-    .formRegisterStyle .errorMessageStyle{
-        font-size: 1.1em;
-    }
-
-    .formRegisterStyle .formButtonStyle {
-        padding: 10px;
-        font-size: 1.3em;
-        letter-spacing: 2px;
-    }
+      
 }
 

@@ -1,3 +1,4 @@
+
 export default class RestoreTokenDTO {
     static getFrom = (user) => {
         return {

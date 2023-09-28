@@ -16,13 +16,13 @@ formLogin.addEventListener("submit", async (e) => {
   const dataUser = new FormData(formLogin);
   const objUser = {};
   dataUser.forEach((value, key) => (objUser[key] = value));
-  //Valid if the user entered all fields and if the email has the required data
+  //I verify if the user entered all fields and if the email has the required data
   if (!objUser.email || !objUser.password) {
     errorMessage.innerHTML = "";
     errorMessage.innerHTML = "Incomplete Fields";
-  } else if(!objUser.email.includes("@")){
+  } else if(!/^[A-Za-z0-9._%+-]+@(gmail\.com|hotmail\.com|yahoo\.com|outlook\.com)$/.test(objUser.email)){
     errorMessage.innerHTML = "";
-    errorMessage.innerHTML = "the email entered must include @";
+    errorMessage.innerHTML = "Check the ingresed email";
   } else {
     //User login request
     const response = await fetch("/api/sessions/login", {
@@ -56,7 +56,9 @@ openModal.addEventListener("click", (e) => {
   e.preventDefault();
   modal.classList.add("modalShow");
 });
+
 modalClose.addEventListener("click", (e) => {
+  console.log("ewefwefwef");
   e.preventDefault();
   errorResetPass.innerHTML = "";
   modal.classList.remove("modalShow");
@@ -75,14 +77,14 @@ visibleButton.addEventListener("click", () => {
   }
 });
 
-//Reset password form functionality
+//Password reset form functionality
 formResetPass.addEventListener("submit", async (e) => {
   e.preventDefault();
   //I bring the user data entered and convert it to an object
   const data = new FormData(formResetPass);
   const objData = {};
   data.forEach((value, key) => (objData[key] = value));
-  //Valid if the user entered all fields
+  //I verify if the user entered all fields
   if (!objData.email) {
     errorResetPass.innerHTML = "";
     errorResetPass.innerHTML = "Complete all fields";

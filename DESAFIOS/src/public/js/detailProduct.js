@@ -8,6 +8,10 @@ const countCart = document.getElementById("countCart");
 const priceCart = document.getElementById("totalPriceCart");
 const buttonsSize = document.querySelectorAll(".buttonSize");
 
+document.getElementById("hambButton").addEventListener("click", function() {
+  document.querySelector(".horizontalMenu").classList.toggle("active");
+});
+
 const buttonAddToCart = addToCart[0];
 
 //Functionality to add

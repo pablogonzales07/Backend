@@ -47,7 +47,6 @@ const swaggerOptions = {
 };
 
 const specs = swaggerJSDoc(swaggerOptions);
-
 app.use("/docs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 //I define classic middleware
@@ -73,7 +72,7 @@ app.use(attachLogger);
 
 //Config the routes
 const sessionsRouter = new SessionsRouter();
-const usersRouter = new UsersRouter()
+const usersRouter = new UsersRouter();
 const productsRouter = new ProductsRouter();
 const cartsRouter = new CartsRouter();
 const viewsRouter = new ViewsRouter();

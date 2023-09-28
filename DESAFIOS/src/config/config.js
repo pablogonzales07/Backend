@@ -1,13 +1,3 @@
-import dotenv from 'dotenv';
-import { Command } from 'commander';
-
-const program = new Command();
-program.option("-m, --mode <mode>", "mode to ejecution", "dev" );
-program.parse();
-
-dotenv.config({
-    path:program.opts().mode==="dev"?'./.env.dev':'./.env.prod'
-});
 
 export default {
     app:{

@@ -37,7 +37,7 @@ export default class CartsManager {
     );
   };
 
-  //Method to change de cart´s products quantity
+  //Method to change the quantity of products in the cart
   updateQuantity = (idCart, cart) => {
     return cartsModel.findByIdAndUpdate(idCart, { $set: cart });
   };
@@ -47,7 +47,7 @@ export default class CartsManager {
     return cartsModel.updateOne({ _id: idCart }, { $set: { products: [] } });
   };
 
-  //Method to change cart
+  //Method to change the cart
   update = (idCart, products) => {
     return cartsModel.updateOne(
       { _id: idCart },

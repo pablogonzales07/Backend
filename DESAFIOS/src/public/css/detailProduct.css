@@ -8,7 +8,7 @@
     box-sizing: border-box;
 }
 
-/* top text style */
+/* style topText*/
 
 .topText{
     width: 100%;
@@ -25,13 +25,14 @@
         font-weight: 600;
     }
 
-/* Top box style */
+/*style TopBox */
 
 .topBox {
     width: 100%;
     padding: 5px;
     background-color: #000000;
     border-bottom: solid #9BABB8 1px;
+    display: flex;
 }
 
     .topBox .container {
@@ -42,7 +43,7 @@
         align-items: center;
     }
 
-        .topBox .container .networks a{
+        .topBox .container .networks a {
             text-decoration: none;
         }
 
@@ -96,16 +97,31 @@
                 .topBox .container .cart .cartCount p {
                     font-size: 1em;
                     color: #000000;
-                    font-weight: 900;
                 }
 
-/* nav style */
+/* style navBar*/
 
 nav {
     background-color: #000000;
     width: 100%;
     border-bottom: solid #9BABB8 1px;
 }
+
+    nav .mobileMenuButton {
+        display: none;
+        width: 30px;
+        height: 25px;
+        cursor: pointer;
+        margin: 10px auto; 
+    }
+
+    nav .mobileMenuButton span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background-color: #333;
+        margin: 2px auto;
+    }
 
     nav .horizontalMenu {
         display: flex;
@@ -161,7 +177,7 @@ nav {
             text-decoration: underline;
         }
 
-/* diseño modal user */
+/* style modalUser */
 
 .sideBar{
     width: 400px;
@@ -375,57 +391,63 @@ nav {
       }
 
 
-
-
-/* detail style */
+/* style DetailProduct */
 
 .detailContainer {
-    width: 100%;
-    height: 90vh;
+    width: 60%;
+    height: auto;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 5px;
+    margin-top: 60px;
+    margin-bottom: 60px;
 }
 
-    .detailContainer .imagesDetailProduct .primaryImage{
-        width: 80%;
-        height: 100%;
-        margin-right: 25px;
+    .detailContainer .imagesDetailProduct {
+        width: 50%;
+        margin-right: 35px;
     }
 
-        .detailContainer .imagesDetailProduct .primaryImage img{
+        .detailContainer .imagesDetailProduct .primaryImage{
             width: 100%;
             height: 100%;
+            margin-right: 25px;
         }
 
+            .detailContainer .imagesDetailProduct .primaryImage img{
+                width: 100%;
+                height: 100%;
+            }
+
     .detailContainer .bodyDetailProduct {
-        width: 20%;
+        width: 40%;
         display: flex;
         flex-direction: column;
         margin-top: 25px;
     }
 
-    .detailContainer .bodyDetailProduct h1{
-        font-size: 2.5em;
-        font-family: 'Bebas Neue', sans-serif;
-    }
+        .detailContainer .bodyDetailProduct h1{
+            font-size: 2.5em;
+            font-family: 'Bebas Neue', sans-serif;
+        }
 
-    .detailContainer .bodyDetailProduct b{
-        font-size: 2em;
-        font-family: 'Bebas Neue', sans-serif;
-    }
+        .detailContainer .bodyDetailProduct b{
+            font-size: 2em;
+            font-family: 'Bebas Neue', sans-serif;
+        }
 
-    .detailContainer .bodyDetailProduct .separator {
-        width: 70%;
-        border-bottom: #9BABB8 solid 1px;
-        opacity: 0.7;
-        margin: 10px 0;
-    }
+        .detailContainer .bodyDetailProduct .separator {
+            width: 70%;
+            border-bottom: #9BABB8 solid 1px;
+            opacity: 0.7;
+            margin: 10px 0;
+        }
 
-    .detailContainer .bodyDetailProduct p{ 
-        font-family: 'Poppins', sans-serif;
-        font-size: 1.2em;
-    }
+        .detailContainer .bodyDetailProduct p{ 
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2em;
+        }
 
     .detailContainer .sizesContainer {
        margin-top: 7px;
@@ -449,18 +471,18 @@ nav {
             border: solid 1px #9BA4B5;
         }
         
-        .detailContainer .sizesContainer .buttonSize.clicked {
-            background-color: #B04759;
-        } 
+            .detailContainer .sizesContainer .buttonSize.clicked {
+                background-color: #ff9900;
+            } 
 
-        .detailContainer .sizesContainer .buttonSize:hover {
-            background-color: #000000;
-            cursor: pointer;
-        }
+            .detailContainer .sizesContainer .buttonSize:hover {
+                background-color: #000000;
+                cursor: pointer;
+            }
 
-        .detailContainer .sizesContainer .buttonSize:hover b{
-            color: #fff;
-        }
+            .detailContainer .sizesContainer .buttonSize:hover b{
+                color: #fff;
+            }
 
     .detailContainer .bodyDetailProduct .countDetail{
         display: flex;
@@ -495,54 +517,55 @@ nav {
             width: 100%;
             margin-top: 15px;
             padding: 5px;
+            border: none;
+            border-radius: 4px;
             font-size: 1.6em;
             font-family: 'Bebas Neue', sans-serif;
             background-color: #000000;
-            color: #9BA4B5;
+            color: #ffffff;
+            letter-spacing: 2px;
         }
 
         .detailContainer .bodyDetailProduct .buttonDetailContainer .addToCartButton:hover {
-            opacity: 0.7;
+            background-color: #ffffff;
+            color: #000000;
             cursor: pointer;
+            transition: 0.9s;
         }
-
 
 
         .detailContainer .bodyDetailProduct .buttonDetailContainer .buttonsNextShop button {
             width: 100%;
-            margin-top: 30px;
-            font-size: 2em;
+            margin-top: 15px;
+            font-size: 1.4em;
             font-family: 'Bebas Neue', sans-serif;
-            background-color: #9BABB8;
+            border-radius: 4px;
+            background-color: #000000;
         }
 
             .detailContainer .bodyDetailProduct .buttonDetailContainer .buttonsNextShop button a{
                 text-decoration: none;
-                color: #000000;
+                color: #ffffff;
             }
 
-        
-
-
-
-/* similar productsStyle */
+/* style similarProducts */
 
 .similarProducts{ 
     width: 100%;
-    margin-top: 50px;
     padding: 25px 0;
 }
 
     .similarProducts h2{
         text-align: center;
         color: #000000;
-        font-size: 3.7em;
-        letter-spacing: 4px;
+        font-size: 3em;
+        letter-spacing: 5px;
         font-family: 'Bebas Neue', sans-serif;
     }
 
     .similarProducts .similarProductsContainer {
         display: flex;
+        flex-wrap: nowrap;
         justify-content: center;
         align-items: center;
     }
@@ -553,7 +576,6 @@ nav {
             margin-top: 25px;
             margin-right: 20px;
             border-radius: 4px;
-            border: #000000 solid 1px;
             display: flex;
             align-items: center;
             flex-direction: column;
@@ -594,9 +616,8 @@ nav {
 
             .similarProducts .similarProductsContainer .cartProduct button {
                 width: 100%;
-                background-color: #9BA4B5;
+                background-color: #000000;
                 border: none;
-                border-top: solid 2px #000000;
                 font-size: 1.7em;
                 letter-spacing: 4px;
                 padding: 5px;
@@ -610,231 +631,895 @@ nav {
 
                 .similarProducts .similarProductsContainer .cartProduct button a {
                     text-decoration: none;
-                    color: #000000;
+                    color: #ffffff;
                 }
 
 
-/* diseño footer */
+/* style footer */
 
-footer {
-    background-color: #000000;
-    height: 70vh;
-    padding-top: 50px;
-}
-
-    footer .rowOne{
-        width: 70%;
-        height: 20vh;
-        margin: 0 auto;
-        display: flex;
-        border-bottom: #9BA4B5 solid 1px;
+    footer {
+        background-color: #000000;
+        height: 70vh;
+        padding-top: 50px;
     }
 
+        footer .rowOne{
+            width: 70%;
+            height: 20vh;
+            margin: 0 auto;
+            display: flex;
+            border-bottom: #9BA4B5 solid 1px;
+        }
+
+        footer .itemsList{
+            width: 70%;
+            height: 70%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: #9BA4B5 solid 1px;
+        }
+
+            footer .itemsList .items{
+                width: 30%;
+                height: 100%;
+                display: flex;
+            }
+
+                footer .itemsList .items svg{
+                    color: #fff;
+                    width: 50px;
+                    height: 50px;
+                }
+
+                footer .itemsList .items .boxText{
+                    width: 90%;
+                    margin-left: 15px;
+                }
+
+                    footer .itemsList .items .boxText h5{
+                        color: #9BA4B5;
+                        font-size: 1.4em;
+                        font-family: 'Bebas Neue', sans-serif;
+                    }
+
+                    footer .itemsList .items .boxText p{
+                        color: #fff;
+                        font-size: 1.2em;
+                        width: 60%;
+                        height: 100%;
+                        opacity: 0.7;
+                        
+                    }
+
+            footer .rowOne .formFooter{
+                padding: 10px;
+                width: 30%;
+            }
+
+                footer .rowOne .formFooter h4{
+                    color: #9BA4B5;
+                    font-size: 1.3em;
+                    font-family: 'Bebas Neue', sans-serif;
+                    letter-spacing: 2px;   
+                }
+
+                footer .rowOne .formFooter form{
+                    width: 100%;
+                }
+
+                    footer .rowOne .formFooter form .control{
+                        width: 65%;
+                        height: 35px;
+                        margin-top: 25px;
+                        font-size: 1.5em;
+                        letter-spacing: 4px;
+                        padding: 8px;
+                        border-radius: 4px;
+                        border: #9BA4B5 1px soli;
+                        font-family: 'Bebas Neue', sans-serif;  
+                    }
+
+                    footer .rowOne .formFooter form .submitButton{
+                        width: 20%;
+                        height: 35px;
+                        opacity: 0.7;
+                        font-size: 1.1em;
+                        font-family: 'Bebas Neue', sans-serif;  
+                    }
+
+                    footer .rowOne .formFooter form .submitButton:hover{
+                        background-color: #B04759;
+                        transition: 1.5s;
+                        cursor: pointer;
+                    }
+        
+        footer .rowTwo {
+            padding-top: 30px;
+            padding-left: 30px;
+            width: 70%;
+            height: 30vh;
+            margin: 0 auto;
+            display: flex;
+            border-bottom: #9BA4B5 solid 1px;
+        }
+
+            footer .rowTwo .boxOne{
+                width: 33%;
+            }
+
+                footer .rowTwo .boxOne h4{
+                    font-size: 2em;
+                    color: #fff;
+                    font-family: 'Bebas Neue', sans-serif;
+                    letter-spacing: 3px;  
+                }
+
+                footer .rowTwo .boxOne ul{
+                    list-style: none;
+                }
+
+                    footer .rowTwo .boxOne ul li{
+                        margin-top: 7px;
+                    }
+
+                        footer .rowTwo .boxOne ul li a{
+                            text-decoration: none;
+                            font-size: 1.3em;
+                            color: #9BA4B5;
+                            margin-top: 5px;
+                            font-family: 'Bebas Neue', sans-serif;
+                        }
+
+                        footer .rowTwo .boxOne ul li a:hover{
+                            text-decoration: underline;
+                        }
+
+            footer .rowTwo .boxTwo{
+                width: 33%;
+            }
+
+                footer .rowTwo .boxTwo h4{
+                    font-size: 2em;
+                    color: #fff;
+                    font-family: 'Bebas Neue', sans-serif;
+                    letter-spacing: 3px;  
+                }
+
+                footer .rowTwo .boxTwo ul{
+                    list-style: none;
+                }
+
+                    footer .rowTwo .boxTwo ul li{
+                        margin-top: 7px;
+                    }
+
+                        footer .rowTwo .boxTwo ul li a{
+                            text-decoration: none;
+                            font-size: 1.3em;
+                            color: #9BA4B5;
+                            margin-top: 5px;
+                            font-family: 'Bebas Neue', sans-serif;
+                        }
+
+                        footer .rowTwo .boxTwo ul li a:hover{
+                            text-decoration: underline;
+                        }
+
+                footer .rowTwo .boxTwo .networksList svg{
+                    color: #9BABB8;
+                    margin-top: 30px;
+                    margin-right: 15px;
+                }
+
+            footer .rowTwo .boxThree{
+                width: 33%;
+            }
+
+                footer .rowTwo .boxThree h4 {
+                    font-size: 2em;
+                    color: #fff;
+                    font-family: 'Bebas Neue', sans-serif;
+                    letter-spacing: 3px;  
+                }
+
+                footer .rowTwo .boxThree .boxTexts p {
+                    font-size: 1.3em;
+                    color: #9BA4B5;
+                    margin-top: 5px;
+                    font-family: 'Bebas Neue', sans-serif;
+                }
+
+        
+        footer .rowThree{
+            padding-top: 50px;
+            width: 70%;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            footer .rowThree h5{
+                width: 70%;
+                font-size: 2em;
+                color: #9BABB8;
+            }
+            
+                footer .rowThree .methodsToPay img{
+                    width: 46px;
+                    height: 35px;
+                    margin-left: 5px;
+                    pointer-events: none;
+                }
+
+@media(max-width: 1280px) {
+
+/* style navBar */
+nav .horizontalMenu li{
+    width: 15%;  
+}
+
+/* style footer */
+footer .rowOne{
+    width: 90%;
+}
+
+    footer .rowOne .formFooter h4{
+        color: #9BA4B5;
+        font-size: 1.2em;
+        letter-spacing: 0;   
+    }
+
+        footer .rowOne .formFooter form .control{
+            height: 30px;
+            margin-top: 20px;
+            font-size: 1.3em;
+            letter-spacing: 2px;
+            padding: 6px;
+        }
+
+        footer .rowOne .formFooter form .submitButton{
+            height: 30px;
+            font-size: 1.1em;
+        }
+
+    footer .rowTwo {
+        padding-left: 100px;
+        width: 90%; 
+    }
+    
+    footer .rowThree{
+        width: 90%; 
+    }
+}
+
+@media(max-width: 1020px) {
+
+    /* style navBar */
+    nav{
+        padding: 4px;
+    }
+    
+        nav .mobileMenuButton {
+            display: block;
+            width: 20px;
+            height: 25px;
+            cursor: pointer;
+            margin: 10px auto; 
+        }
+    
+            nav .mobileMenuButton span {
+                display: block;
+                width: 30px;
+                height: 3px;
+                background-color: #fff;
+                margin: 5px auto; 
+            }
+    
+        nav .horizontalMenu {
+            display: none;
+            list-style: none;
+            background-color: #000000;
+            top: 100;
+            width: 100%;
+            z-index: 1;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 0;
+            opacity: 0; 
+            transform: translateY(-10px); 
+            transition: opacity 0.3s ease, transform 0.3s ease; 
+        }
+    
+        nav .horizontalMenu.active {
+            display: flex;
+            opacity: 1; 
+            transform: translateY(0); 
+          }    
+
+    /* style detailProducts */
+
+    .detailContainer {
+        width: 80%;
+    }
+
+    /* style similarProducts */
+    .similarProducts{ 
+        width: 100%;
+        padding: 25px 0;
+        margin-top: 0;
+    }
+
+    /* style footer */
+
     footer .itemsList{
-        width: 70%;
-        height: 70%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-right: #9BA4B5 solid 1px;
+        padding: 15px;
     }
 
         footer .itemsList .items{
-            width: 30%;
+            width: 33%;
             height: 100%;
             display: flex;
         }
 
             footer .itemsList .items svg{
-                color: #fff;
-                width: 50px;
-                height: 50px;
+                width: 40px;
+                height: 40px;
             }
 
             footer .itemsList .items .boxText{
-                width: 90%;
-                margin-left: 15px;
+                margin-left: 10px;
             }
 
                 footer .itemsList .items .boxText h5{
-                    color: #9BA4B5;
-                    font-size: 1.4em;
+                    font-size: 1.3em;
                     font-family: 'Bebas Neue', sans-serif;
                 }
 
                 footer .itemsList .items .boxText p{
-                    color: #fff;
-                    font-size: 1.2em;
-                    width: 60%;
-                    height: 100%;
-                    opacity: 0.7;
-                    
+                    font-size: 1.1em;      
                 }
 
-        footer .rowOne .formFooter{
-            padding: 10px;
-            width: 30%;
-        }
-
-            footer .rowOne .formFooter h4{
-                color: #9BA4B5;
-                font-size: 1.3em;
-                font-family: 'Bebas Neue', sans-serif;
-                letter-spacing: 2px;   
-            }
-
-            footer .rowOne .formFooter form{
-                width: 100%;
-            }
-
-                footer .rowOne .formFooter form .control{
-                    width: 65%;
-                    height: 35px;
-                    margin-top: 25px;
-                    font-size: 1.5em;
-                    letter-spacing: 4px;
-                    padding: 8px;
-                    border-radius: 4px;
-                    border: #9BA4B5 1px soli;
-                    font-family: 'Bebas Neue', sans-serif;  
-                }
-
-                footer .rowOne .formFooter form .submitButton{
-                    width: 20%;
-                    height: 35px;
-                    opacity: 0.7;
-                    font-size: 1.1em;
-                    font-family: 'Bebas Neue', sans-serif;  
-                }
-
-                footer .rowOne .formFooter form .submitButton:hover{
-                    background-color: #B04759;
-                    transition: 1.5s;
-                    cursor: pointer;
-                }
-    
-    footer .rowTwo {
-        padding-top: 30px;
-        padding-left: 30px;
-        width: 70%;
-        height: 30vh;
-        margin: 0 auto;
-        display: flex;
-        border-bottom: #9BA4B5 solid 1px;
-    }
-
-        footer .rowTwo .boxOne{
-            width: 33%;
-        }
-
-            footer .rowTwo .boxOne h4{
-                font-size: 2em;
-                color: #fff;
-                font-family: 'Bebas Neue', sans-serif;
-                letter-spacing: 3px;  
-            }
-
-            footer .rowTwo .boxOne ul{
-                list-style: none;
-            }
-
-                footer .rowTwo .boxOne ul li{
-                    margin-top: 7px;
-                }
-
-                    footer .rowTwo .boxOne ul li a{
-                        text-decoration: none;
-                        font-size: 1.3em;
-                        color: #9BA4B5;
-                        margin-top: 5px;
-                        font-family: 'Bebas Neue', sans-serif;
-                    }
-
-                    footer .rowTwo .boxOne ul li a:hover{
-                        text-decoration: underline;
-                    }
-
-        footer .rowTwo .boxTwo{
-            width: 33%;
-        }
-
-            footer .rowTwo .boxTwo h4{
-                font-size: 2em;
-                color: #fff;
-                font-family: 'Bebas Neue', sans-serif;
-                letter-spacing: 3px;  
-            }
-
-            footer .rowTwo .boxTwo ul{
-                list-style: none;
-            }
-
-                footer .rowTwo .boxTwo ul li{
-                    margin-top: 7px;
-                }
-
-                    footer .rowTwo .boxTwo ul li a{
-                        text-decoration: none;
-                        font-size: 1.3em;
-                        color: #9BA4B5;
-                        margin-top: 5px;
-                        font-family: 'Bebas Neue', sans-serif;
-                    }
-
-                    footer .rowTwo .boxTwo ul li a:hover{
-                        text-decoration: underline;
-                    }
-
-            footer .rowTwo .boxTwo .networksList svg{
-                color: #9BABB8;
-                margin-top: 30px;
-                margin-right: 15px;
-            }
-
-        footer .rowTwo .boxThree{
-            width: 33%;
-        }
-
-            footer .rowTwo .boxThree h4 {
-                font-size: 2em;
-                color: #fff;
-                font-family: 'Bebas Neue', sans-serif;
-                letter-spacing: 3px;  
-            }
-
-            footer .rowTwo .boxThree .boxTexts p {
-                font-size: 1.3em;
-                color: #9BA4B5;
-                margin-top: 5px;
-                font-family: 'Bebas Neue', sans-serif;
-            }
-
-    
     footer .rowThree{
-        padding-top: 50px;
-        width: 70%;
-        margin: 0 auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        width: 80%;
     }
 
         footer .rowThree h5{
-            width: 70%;
-            font-size: 2em;
-            color: #9BABB8;
+            font-size: 1.6em;
         }
         
             footer .rowThree .methodsToPay img{
-                width: 46px;
-                height: 35px;
-                margin-left: 5px;
-                pointer-events: none;
+                width: 30px;
+                height: 30px;
+                margin-left: 3px;
             }
 
+}
+
+@media(max-width:768px) {
+
+/* style topText */ 
+
+.topText p {
+    font-size: 1.2em;
+    letter-spacing: 2px;
+}
+
+/* style topBox */
+
+.topBox .container {
+    width: 90%;
+}
+
+    .topBox .container .networks a svg{
+        width: 18px;
+        height: 18px;
+    }
+     
+    .topBox .container .logo  img{
+        width: 60px;
+        height: 60px;
+        margin-right: 30px;
+    }
+
+        .topBox .container .cart {
+            width: 85px;
+            height: 35px;
+        }
+
+            .topBox .container .cart svg {
+                width: 14px;
+                height: 14px;
+            }
+
+            .topBox .container .cart .cartCount{
+                right: 0;
+                width: 16px;
+                height: 16px;
+            }
+
+/* style nav */
+
+nav .horizontalMenu li{
+    width: 30%;
+    padding-left: 12px;  
+}
+
+    nav .horizontalMenu li:hover{
+        background-color: #000000;
+        cursor: pointer;
+    }
+
+    nav .horizontalMenu li:hover a{
+        color: #ffffff;
+    }
+
+    nav .horizontalMenu li:hover .verticalMenu{
+        display: none;
+    }
+
+    nav .horizontalMenu li a{
+        font-size: 1.8em;
+    }
+
+/* style detailProducts */
+
+.detailContainer {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+    .detailContainer .imagesDetailProduct {
+        margin-bottom: 15px;
+        width: 70%;
+        margin-right: 0;
+    }
+
+        .detailContainer .imagesDetailProduct .primaryImage{
+            width: 100%;
+            height: 100%;
+        }
+
+    .detailContainer .bodyDetailProduct {
+        width: 100%;
+        height: 50%;
+    }
+
+    .detailContainer .bodyDetailProduct h1{
+        font-size: 2.3em;
+        text-align: center;
+    }
+
+    .detailContainer .bodyDetailProduct b{
+        font-size: 2.3em;
+        text-align: center;
+        font-family: 'Bebas Neue', sans-serif;
+    }
+
+    .detailContainer .bodyDetailProduct p{
+        text-align: center;
+    }
+
+    .detailContainer .bodyDetailProduct .separator {
+        width: 70%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
+
+    .detailContainer .sizesContainer {
+       margin-top: 7px;
+       margin: 0 auto;
+    }
+
+        .detailContainer .sizesContainer h3{
+            text-align: center;
+            font-size: 2em;
+            margin-top: 15px;
+        }
 
 
+    .detailContainer .bodyDetailProduct .countDetail{
+        justify-content: center;
+        margin-top: 20px;
+    }
 
+    .detailContainer .bodyDetailProduct .buttonDetailContainer {
+        width: 60%;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+
+        .detailContainer .bodyDetailProduct .buttonDetailContainer .addToCartButton {
+            width: 100%;
+            margin-top: 20px;
+            font-size: 1.4em;
+        }
+
+
+        .detailContainer .bodyDetailProduct .buttonDetailContainer .buttonsNextShop button {
+            width: 100%;
+            margin-top: 10px;
+            font-size: 1.4em;
+        }
+
+/* style footer */
+
+footer .itemsList .items svg{
+    width: 30px;
+    height: 30px;
+}
+
+footer .itemsList .items .boxText h5{
+    font-size: 1.2em;
+}
+
+footer .itemsList .items .boxText p{
+    font-size: 1em;
+}
+
+    footer .rowOne .formFooter h4{
+        font-size: 1.1em;
+    }
+
+        footer .rowOne .formFooter form .control{
+            height: 30px;
+            margin-top: 20px;
+            font-size: 1.2em;
+            padding: 8px;
+        }
+
+        footer .rowOne .formFooter form .submitButton{
+            height: 30px;
+            width: 60px;
+            font-size: 1.1em;
+        }
+
+footer .rowTwo {
+    padding-left: 40px;
+}
+
+
+footer .rowTwo .boxOne h4{
+    font-size: 1.5em;
+}
+
+        footer .rowTwo .boxOne ul li{
+            margin-top: 5px;
+        }
+
+            footer .rowTwo .boxOne ul li a{
+                font-size: 1.2em;
+                margin-top: 4px;
+            }
+
+footer .rowTwo .boxTwo h4{
+    font-size: 1.5em;
+}
+
+        footer .rowTwo .boxTwo ul li{
+            margin-top: 5px;
+        }
+
+            footer .rowTwo .boxTwo ul li a{
+                font-size: 1.2em;
+                margin-top: 4px;
+            }
+
+     footer .rowTwo .boxTwo .networksList svg{
+        color: #9BABB8;
+        margin-top: 20px;
+        margin-right: 10px;
+    }
+
+footer .rowTwo .boxThree h4 {
+    font-size: 1.5em;
+}
+
+    footer .rowTwo .boxThree .boxTexts p {
+        font-size: 1.2em;
+        margin-top: 4px;
+    }
+
+    
+footer .rowThree h5{
+    font-size: 1.2em;
+}
+        
+    footer .rowThree .methodsToPay img{
+        width: 20px;
+        height: 20px;
+        margin-left: 3px;
+    }
+
+}
+
+
+@media(max-width:650px){ 
+    /* style footer */
+    footer {
+        height: 140vh;
+        margin-top: 40px;
+    }
+    
+        footer .rowOne{
+            height: 40vh;
+        }
+    
+            footer .rowOne .itemsList{
+                width: 60%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                justify-content: center;
+            }
+    
+                footer .rowOne .itemsList .items{
+                    width: 100%;
+                    display: flex;
+                }
+    
+                    footer .rowOne .itemsList .items svg{
+                        width: 50px;
+                        height: 50px;
+                    }
+    
+                    footer .rowOne .itemsList .items .boxText{
+                        width: 100%;
+                        margin-left: 15px;
+                    }
+    
+                        footer .rowOne .itemsList .items .boxText h5{
+                            font-size: 1.4em;
+                        }
+    
+                        footer .rowOne .itemsList .items .boxText p{
+                            font-size: 1em;
+                        }
+    
+        footer .rowOne .formFooter{
+            padding: 10px;
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    
+            footer .rowOne .formFooter h4{
+                font-size: 1.6em;
+                text-align: center;
+            }
+    
+                footer .rowOne .formFooter form .control{
+                    width: 100%;
+                    height: 40px;
+                    margin-top: 20px;
+                    font-size: 1.5em;
+                    padding: 2px;
+                }
+    
+            footer .rowOne .formFooter form .submitButton{
+                width: 100%;
+                padding: 0 15px;
+                height: 40px;
+                margin-top: 15px;
+                font-size: 1.5em;
+            }
+    
+        footer .rowTwo {
+            padding-left: 40px;
+            height: 70vh;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            margin: 0 0;
+        }
+    
+            footer .rowTwo .boxOne{
+                width: 100%;
+            }
+    
+    
+                footer .rowTwo .boxOne h4{
+                    font-size: 2em;
+                    letter-spacing: 2px;
+                }
+    
+                footer .rowTwo .boxOne ul li{
+                    margin-top: 5px;
+                }
+    
+                    footer .rowTwo .boxOne ul li a{
+                        font-size: 1.4em;
+                        margin-top: 4px;
+                        
+                    }
+    
+            footer .rowTwo .boxTwo{
+                width: 100%;
+                margin-top: 15px;
+            }
+    
+                footer .rowTwo .boxTwo h4{
+                    font-size: 2em;
+                }
+    
+                footer .rowTwo .boxTwo ul li{
+                    margin-top: 5px;
+                }
+    
+                    footer .rowTwo .boxTwo ul li a{
+                        font-size: 1.4em;
+                        margin-top: 4px;
+                    }
+    
+                footer .rowTwo .boxTwo .networksList svg{
+                    margin-top: 10px;
+                    margin-right: 10px;
+                    width: 20px;
+                    height: 20px;
+                }
+    
+            footer .rowTwo .boxThree {
+                width: 100%;
+                margin-top: 15px;
+            }
+    
+                footer .rowTwo .boxThree h4 {
+                    font-size: 2em;
+                }
+    
+                footer .rowTwo .boxThree .boxTexts p {
+                    font-size: 1.4em;
+                    margin-top: 5px;
+                }
+    
+        footer .rowThree{
+            padding-top: 30px;
+            height: 20vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+            
+            footer .rowThree h5{
+                font-size: 2em;
+                text-align: center;
+            }
+            
+            footer .rowThree .methodsToPay img{
+                width: 30px;
+                height: 30px;
+                margin-top: 15px;
+            }
+    }
+    
+@media(max-width:575px) {
+
+/* style detailProducts */
+
+.detailContainer .imagesDetailProduct {
+    width: 90%;
+}
+
+
+.similarProducts h2 {
+   font-size: 2.5em;
+}
+
+/* style similarProducts */
+
+.similarProducts .similarProductsContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* style footer */
+
+    footer .rowOne .formFooter h4{
+        font-size: 1.4em;
+        text-align: center;
+    }
+
+        footer .rowOne .formFooter form .control{
+            font-size: 1.3em;
+        }
+
+    footer .rowOne .formFooter form .submitButton{
+        font-size: 1.3em;
+    }
+}
+
+@media(max-width:478px) {
+/* style topText */
+
+.topText p {
+    font-size: 1.1em;
+}
+
+/* style topBox */
+
+.topBox .container {
+    width: 95%;
+}
+
+    .topBox .container .networks a svg{
+        width: 16px;
+        height: 16px;
+    }
+     
+    .topBox .container .logo  img{
+        width: 50px;
+        height: 50px;
+        margin-right: 25px;
+    }
+
+        .topBox .container .cart {
+            width: 85px;
+            height: 40px;
+        }
+
+            .topBox .container .cart b{
+                font-size: 1em;
+            }
+
+            .topBox .container .cart svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .topBox .container .cart .cartCount{
+                right: 0;
+                width: 20px;
+                height: 20px;
+            }
+
+/* style nav */
+
+nav .horizontalMenu li{
+    width: 40%;
+}
+
+    nav .horizontalMenu li a{
+        font-size: 1.6em;
+    }
+       
+}
+
+@media(max-width: 424px){
+
+    /* style footer */
+    
+    footer .rowOne .itemsList .items svg{
+        width: 30px;
+        height: 30px;
+    }
+    
+    footer .rowOne .itemsList .items .boxText h5{
+        font-size: 1.2em;
+    }
+    
+    footer .rowOne .itemsList .items .boxText p{
+        font-size: 0.8em;
+    }
+    
+}
 
 
 
