@@ -8,6 +8,7 @@
     box-sizing: border-box;
 }
 
+
 /* top text style */
 .topText{
     width: 100%;
@@ -97,8 +98,7 @@
                     font-size: 1em;
                     color: #000000;
                 }
-/* nav style */
-
+/* style navBar */
 nav {
     background-color: #000000;
     width: 100%;
@@ -177,8 +177,7 @@ nav {
     
         
 
-/* diseño modal user */
-
+/* style modalUser */
 .sideBar{
     width: 400px;
     height: 100vh;
@@ -414,10 +413,7 @@ nav {
         cursor: pointer;
       }
 
-    
-
-/* diseño del header */ 
-
+/* style Header*/ 
 .sliderFrame {
     width: 100%;
     height: 80vh;
@@ -457,31 +453,30 @@ nav {
     95% {margin-left: -300%;}
 }
 
-/* diseño box sales */
-
+/* style boxSales */
 .salesHome {
     padding: 20px 0;
 }
 
-.salesHome h2 {
-    font-size: 4em;
-    font-family: 'Bebas Neue', sans-serif;
-    text-align: center;
-    letter-spacing: 7px;
-    border-radius: 2px;
-    color: #000000;
-}
+    .salesHome h2 {
+        font-size: 4em;
+        font-family: 'Bebas Neue', sans-serif;
+        text-align: center;
+        letter-spacing: 7px;
+        border-radius: 2px;
+        color: #000000;
+    }
 
-.salesHome .salesProducts {
-    width: 70%;
-    margin: 0 auto;
-    margin-top: 10px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-}
+    .salesHome .salesProducts {
+        width: 70%;
+        margin: 0 auto;
+        margin-top: 10px;
+        padding: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
 
     .salesHome .salesProducts .productSale {
         width: 250px;
@@ -1006,59 +1001,14 @@ footer {
 @media(max-width: 1280px) {
 
 /* style navBar */
-
 nav .horizontalMenu li{
     list-style: none;
     width: 15%;  
 }
 
-/* style boxSales */
-
-.salesHome h2 {
-    font-size: 3.5em;
-    letter-spacing: 5px;
-}
-
-    .salesHome .salesProducts {
-        width: 90%;
-    }
-
-        .salesHome .salesProducts .productSale {
-            width: 200px;
-            height: 350px;
-            margin-top: 20px;
-        }
-
-            .salesHome .salesProducts .productSale button {
-                width: 100%;
-                background-color: #000000;
-                border: none;
-                font-size: 1.4em;
-                letter-spacing: 4px;
-                padding: 5px;
-                font-family: 'Bebas Neue', sans-serif;
-                
-            }
-
-            .salesHome .salesProducts .productSale button:hover{
-                background-color: #F1F6F9;
-                cursor: pointer;
-            }
-
-            .salesHome .salesProducts .productSale button:hover a{
-                color: #000000;
-            }
-
-                .salesHome .salesProducts .productSale button a{
-                    text-decoration: none;
-                    color: #F1F6F9;
-                }
-
-
  /* style ourProducts*/
-
  .servicesHome{
-    height: 120vh;
+    height: auto;
 }
 
     .servicesHome h2 {
@@ -1070,14 +1020,7 @@ nav .horizontalMenu li{
         margin-top: 20px;
     }
 
-        .servicesHome .servicesList .boxService{
-            width: 220px;
-            height: 400px;
-        }
-
-
 /* style ourShops */
-
 .ourShops {
     width: 80%;
 }
@@ -1119,7 +1062,6 @@ nav .horizontalMenu li{
     }
 
 /* style carouselCompanies */
-
 .carouselCompanies {
     width: 80%;
     margin: 0 auto;
@@ -1135,43 +1077,44 @@ nav .horizontalMenu li{
 
 
 /* style footer */
+footer .rowOne{
+    width: 90%;
+}
 
-    footer .rowOne{
-        width: 90%;
-    }
+        footer .rowOne .formFooter h4{
+            color: #9BA4B5;
+            font-size: 1.2em;
+            letter-spacing: 0;   
+        }
 
-            footer .rowOne .formFooter h4{
-                color: #9BA4B5;
-                font-size: 1.2em;
-                letter-spacing: 0;   
+            footer .rowOne .formFooter form .control{
+                height: 30px;
+                margin-top: 20px;
+                font-size: 1.3em;
+                letter-spacing: 2px;
+                padding: 6px;
             }
 
-                footer .rowOne .formFooter form .control{
-                    height: 30px;
-                    margin-top: 20px;
-                    font-size: 1.3em;
-                    letter-spacing: 2px;
-                    padding: 6px;
+            footer .rowOne .formFooter form .submitButton{
+                height: 30px;
+                font-size: 1.1em;
                 }
 
-                footer .rowOne .formFooter form .submitButton{
-                    height: 30px;
-                    font-size: 1.1em;
-                }
+footer .rowTwo {
+    padding-left: 100px;
+    width: 90%;
+}
 
-    footer .rowTwo {
-        padding-left: 100px;
-        width: 90%;
-    }
-
-    footer .rowThree{
-        width: 90%;
-    }
+footer .rowThree{
+    width: 90%;
+}
 
 }
 
 
 @media(max-width: 1020px) {
+
+/* style navBar */
 nav{
     padding: 4px;
 }
@@ -1215,66 +1158,23 @@ nav{
       }
 
 /* style header */
-
 .sliderFrame {
     height: 70vh;
 }
 
 /* style boxSales */
-
-.salesHome .salesProducts .productSale .textProductSale h3 {
-    height: 50%;
-    padding: 5px;
-    font-size: 1.1em;
-    color: #000000;
-    font-weight: 900;
-    margin-bottom: 10px;
-    
-}
-
 .salesHome .salesProducts {
-    justify-content: center;
+    width: 90%;
 }
-
-    .salesHome .salesProducts .productSale {
-        margin: 10px;
-    }
-
-
 
 /* style ourProducts */
-
-.servicesHome{
-    height: 170vh;
+.servicesHome h2 {
+    font-size: 3em;
 }
 
-    .servicesHome h2 {
-        font-size: 3em;
-    }
-
-        .servicesHome .servicesList .boxService{
-            width: 230px;
-            height: 400px;
-        }
-
-        .servicesHome .servicesList .boxService figure {
-            height: 450px;
-        }
-
-        .servicesHome .servicesList .boxService h3 {
-            font-size: 1.8em;
-            letter-spacing: 2px;
-        }
-
-        .servicesHome .servicesList .boxService button {
-            font-size: 1.1em;
-        }
-
-
 /* style ourShops */
-
 .ourShops {
-    height: 100vh;
+    height: auto;
 }
 
     .ourShops h2{
@@ -1312,13 +1212,11 @@ nav{
     }
 
 /* style carouselCompanies */
-
 .carouselCompanies .carouselContainer .carouselList .carouselElement img{
     height: 80px;
 }
 
 /* style footer */
-
 footer .itemsList{
     padding: 15px;
 }
@@ -1366,15 +1264,13 @@ footer .rowThree{
 
 @media(max-width:768px) {
 
-/* style topText */
-    
+/* style topText */ 
 .topText p {
     font-size: 1.2em;
     letter-spacing: 2px;
 }
 
 /* style topBox */
-
 .topBox .container {
     width: 75%;
 }
@@ -1407,7 +1303,6 @@ footer .rowThree{
             }
 
 /* style nav */
-
 nav .horizontalMenu li{
     width: 30%;
     padding-left: 12px;  
@@ -1437,29 +1332,12 @@ nav .horizontalMenu li{
 }
 
 /* style boxSales */
-
 .salesHome h2 {
     font-size: 3em;
     letter-spacing: 3px;
 }
 
-/* style ourProducts */
-
-.servicesHome{
-    height: 220vh;
-}
-
-    .servicesHome h2 {
-        font-size: 2.5em;
-    }
-
-    .servicesHome .servicesList .boxService h3 {
-        font-size: 1.6em;
-        letter-spacing: 2px;
-    }
-
 /* style ourShops */
-
 .ourShops {
     height: 170vh;
     margin-top: 20px;
@@ -1641,28 +1519,7 @@ footer .rowThree h5{
 }
 
 @media(max-width:650px){
-
-/* style ourProducts */
-
-.servicesHome{
-    height: 220vh;
-}
-
-    .servicesHome .servicesList {
-        width: 90%;
-    }
-
-        .servicesHome .servicesList .boxService{
-            width: 200px;
-            height: 400px;
-        }
-
 /* style ourShops */
-
-.ourShops {
-    height: 200vh;
-}
-
 .ourShops .boxes .boxTexts b {
     font-size: 1.2em;
     display: flex;
@@ -1671,155 +1528,204 @@ footer .rowThree h5{
     margin-top: 15px;
 }
 
-
 /* style footer */
-footer .itemsList .items svg{
-    width: 20px;
-    height: 20px;
+footer {
+    height: 140vh;
+    margin-top: 40px;
 }
 
-footer .itemsList .items .boxText h5{
-    font-size: 1em;
-}
+    footer .rowOne{
+        height: 40vh;
+    }
 
-    footer .rowOne .formFooter form{
+        footer .rowOne .itemsList{
+            width: 60%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: start;
+            justify-content: center;
+        }
+
+            footer .rowOne .itemsList .items{
+                width: 100%;
+                display: flex;
+            }
+
+                footer .rowOne .itemsList .items svg{
+                    width: 50px;
+                    height: 50px;
+                }
+
+                footer .rowOne .itemsList .items .boxText{
+                    width: 100%;
+                    margin-left: 15px;
+                }
+
+                    footer .rowOne .itemsList .items .boxText h5{
+                        font-size: 1.4em;
+                    }
+
+                    footer .rowOne .itemsList .items .boxText p{
+                        font-size: 1em;
+                    }
+
+    footer .rowOne .formFooter{
+        padding: 10px;
+        width: 40%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
     }
 
-    footer .rowOne .formFooter h4{
-        font-size: 1em;
-    }
-
-        footer .rowOne .formFooter form .control{
-            width: 100%;
-            height: 30px;
-            margin-top: 15px;
-            font-size: 1em;
-            padding: 6px;
+        footer .rowOne .formFooter h4{
+            font-size: 1.3em;
+            text-align: center;
         }
+
+            footer .rowOne .formFooter form .control{
+                width: 100%;
+                height: 30px;
+                margin-top: 20px;
+                font-size: 1.2em;
+                padding: 2px;
+            }
 
         footer .rowOne .formFooter form .submitButton{
-            height: 20px;
-            width: 60px;
-            font-size: 1em;
-            margin-top: 10px;
+            width: 65%;
+            height: 40px;
+            margin-top: 15px;
+            font-size: 1.5em;
         }
 
-footer .rowTwo {
-    padding-left: 40px;
-}
-
-
-footer .rowTwo .boxOne h4{
-    font-size: 1.2em;
-}
-
-        footer .rowTwo .boxOne ul li{
-            margin-top: 10px;
-        }
-
-            footer .rowTwo .boxOne ul li a{
-                font-size: 1.1em;
-                margin-top: 4px;
-            }
-
-footer .rowTwo .boxTwo h4{
-    font-size: 1.2em;
-}
-
-        footer .rowTwo .boxTwo ul li{
-            margin-top: 10px;
-        }
-
-            footer .rowTwo .boxTwo ul li a{
-                font-size: 1.1em;
-                margin-top: 4px;
-            }
-
-     footer .rowTwo .boxTwo .networksList svg{
-        color: #9BABB8;
-        margin-top: 20px;
-        margin-right: 10px;
+    footer .rowTwo {
+        padding-left: 40px;
+        height: 70vh;
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0;
     }
 
-footer .rowTwo .boxThree h4 {
-    font-size: 1.2em;
-}
+        footer .rowTwo .boxOne{
+            width: 100%;
+        }
 
-    footer .rowTwo .boxThree .boxTexts p {
-        font-size: 1.1em;
-        margin-top: 10px;
+
+            footer .rowTwo .boxOne h4{
+                font-size: 2em;
+                letter-spacing: 2px;
+            }
+
+            footer .rowTwo .boxOne ul li{
+                margin-top: 5px;
+            }
+
+                footer .rowTwo .boxOne ul li a{
+                    font-size: 1.4em;
+                    margin-top: 4px;
+                    
+                }
+
+        footer .rowTwo .boxTwo{
+            width: 100%;
+            margin-top: 15px;
+        }
+
+            footer .rowTwo .boxTwo h4{
+                font-size: 2em;
+            }
+
+            footer .rowTwo .boxTwo ul li{
+                margin-top: 5px;
+            }
+
+                footer .rowTwo .boxTwo ul li a{
+                    font-size: 1.4em;
+                    margin-top: 4px;
+                }
+
+            footer .rowTwo .boxTwo .networksList svg{
+                margin-top: 10px;
+                margin-right: 10px;
+                width: 20px;
+                height: 20px;
+            }
+
+        footer .rowTwo .boxThree {
+            width: 100%;
+            margin-top: 15px;
+        }
+
+            footer .rowTwo .boxThree h4 {
+                font-size: 2em;
+            }
+
+            footer .rowTwo .boxThree .boxTexts p {
+                font-size: 1.4em;
+                margin-top: 5px;
+            }
+
+    footer .rowThree{
+        padding-top: 30px;
+        height: 20vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
-
-    
-footer .rowThree h5{
-    font-size: 1em;
-}
         
-    footer .rowThree .methodsToPay img{
-        width: 20px;
-        height: 20px;
-        margin-left: 3px;
-    }
+        footer .rowThree h5{
+            font-size: 2em;
+            text-align: center;
+        }
+        
+        footer .rowThree .methodsToPay img{
+            width: 30px;
+            height: 30px;
+            margin-top: 15px;
+        }
 
 }
     
 
 @media(max-width:575px) {
-
-/* style ourProducts */
-
-.servicesHome{
-    height: 220vh;
-}
-    
-    .servicesHome .servicesList {
-        width: 100%;
-    }
-    
-        .servicesHome .servicesList .boxService{
-            width: 180px;
-            height: 380px;
-        }
-        
+     
 /* style ourShops */
-
-.ourShops {
-    height: 200vh;
+.ourShops h2{
+    font-size: 2.3em;
+    margin-bottom: 8px;
 }
-    .ourShops h2{
-        font-size: 2.3em;
-        margin-bottom: 8px;
-    }
 
-    .ourShops .boxes {
-        height: 45%;
+.ourShops .boxes {
+    height: 45%;
+    margin-top: 5px;
+}
+
+.ourShops .boxes .boxTexts {
+    margin-top: 10px;
+}
+        
+    .ourShops .boxes .boxTexts .boxTitle{
         margin-top: 5px;
     }
+        
+    .ourShops .boxes .boxTexts b {
+        font-size: 1.1em;
+        margin-top: 15px;
+    }
 
-    .ourShops .boxes .boxTexts {
-        margin-top: 10px;
+    .ourShops .boxes .boxTexts p {
+        font-size: 1.2em;
     }
         
-        .ourShops .boxes .boxTexts .boxTitle{
-            margin-top: 5px;
-        }
-        
-        .ourShops .boxes .boxTexts b {
-            font-size: 1.1em;
-            margin-top: 15px;
-        }
-
-        .ourShops .boxes .boxTexts p {
-            font-size: 1.2em;
-        }
-        
-        .ourShops .boxes .boxTexts .buttonContainer {
-            width: 60%;     
-        }
+    .ourShops .boxes .boxTexts .buttonContainer {
+        width: 60%;     
+    }
 
     .ourShops .boxes img {
         margin-top: 5px;
@@ -1827,7 +1733,6 @@ footer .rowThree h5{
 
 
 /* style carouselCompanies */
-
 .carouselCompanies h3 {
     font-size: 2em;
     margin-top: 25px;
@@ -1866,13 +1771,11 @@ footer .itemsList .items .boxText p{
 @media(max-width:478px) {
 
 /* style topText */
-
 .topText p {
     font-size: 1.1em;
 }
 
 /* style topBox */
-
 .topBox .container {
     width: 95%;
 }
@@ -1908,8 +1811,7 @@ footer .itemsList .items .boxText p{
                 height: 20px;
             }
 
-/* style nav */
-
+/* style navBar */
 nav .horizontalMenu li{
     width: 40%;
 }
@@ -1920,9 +1822,8 @@ nav .horizontalMenu li{
     
     
 /* style header */
-
 .sliderFrame {
-    height: 40vh;
+    height: 60vh;
 }
 
 /* style boxSales */
@@ -1959,7 +1860,7 @@ nav .horizontalMenu li{
 /* style ourProducts */
 
 .servicesHome{
-    height: 500vh;
+    height: auto;
     padding: 10px;
 }
 
@@ -1993,10 +1894,11 @@ nav .horizontalMenu li{
 /* style ourShops */
 
 .ourShops {
-    height: 180vh;
+    height: auto;
     width: 100%;
     margin: 0 0;
     margin-top: 40px;
+    margin-bottom: 40px;
 
 }
     .ourShops h2{

@@ -9,7 +9,6 @@
 }
 
 /* style topText*/
-
 .topText{
     width: 100%;
     padding: 4px;
@@ -26,7 +25,6 @@
     }
 
 /*style TopBox */
-
 .topBox {
     width: 100%;
     padding: 5px;
@@ -100,7 +98,6 @@
                 }
 
 /* style navBar*/
-
 nav {
     background-color: #000000;
     width: 100%;
@@ -177,10 +174,7 @@ nav {
             text-decoration: underline;
         }
     
-        
-
-/* diseño modal user */
-
+/* style modalUser */
 .sideBar{
     width: 400px;
     height: 100vh;
@@ -203,12 +197,13 @@ nav {
         justify-content: center;
     }
 
-        .perfilUser svg {
-            color: #fff;
+        .perfilUser i {
+            color: #333333;
+            font-size: 2em;
         }
 
         .perfilUser b {
-            color: #B04759;
+            color: #ff9900;
             font-family: 'Bebas Neue', sans-serif;
             font-size: 1.5em;
             margin-left: 10px;
@@ -224,7 +219,7 @@ nav {
 
         .sideBar .infoUser h5{
             font-size: 2.3em;
-            color: #9BA4B5;
+            color: #ff9900;
             font-family: 'Bebas Neue', sans-serif;
             margin-bottom: 15px;
         }
@@ -236,19 +231,39 @@ nav {
 
             .sideBar .infoUser span b{
                 font-size: 1.5em;
-                color: #9BA4B5;
+                color: #ff9900;
                 font-family: 'Bebas Neue', sans-serif;
                 margin-right: 15px;
             }
 
             .sideBar .infoUser span p{
                 font-size: 1.2em;
-                color: #B04759;
+                color: #ffffff;
                 font-family: 'Poppins', sans-serif;
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
+
+            .sideBar .infoUser button{
+                width: 70%;
+                margin: 0 auto;
+                border: solid 2px #ffffff;
+                margin-top: 10px;
+                background-color: #000000;
+            }
+
+                .sideBar .infoUser button:hover{
+                    opacity: 0.7;
+                    cursor: pointer;
+                }
+
+                .sideBar .infoUser button a{
+                    color: #ffffff;
+                    text-decoration: none;
+                    font-size: 1.8em;
+                    font-family: 'Bebas Neue', sans-serif;
+                }
 
     .sideBar .premiumUser {
         margin-top: 40px;
@@ -256,7 +271,7 @@ nav {
 
         .sideBar .premiumUser h4 {
             font-size: 1.4em;
-            color: #9BA4B5;
+            color: #ff9900;
             font-family: 'Bebas Neue', sans-serif;
             margin-bottom: 15px;
         }
@@ -268,11 +283,12 @@ nav {
 
             .sideBar .premiumUser .buttonPremiumContainer button {
                 width: 100%;
-                border-radius: 4px;
                 font-size: 1.1em;
                 font-family: 'Bebas Neue', sans-serif;
                 letter-spacing: 3px;
-                background-color: aquamarine;
+                background-color: #000000;
+                color: #ffffff;
+                border: 2px solid #ffffff;
                 padding: 5px;
                 cursor: pointer;
                 overflow: hidden;
@@ -307,7 +323,7 @@ nav {
 
             .sideBar .userPurchases h5 {
                 font-size: 2.3em;
-                color: #9BA4B5;
+                color: #ff9900;
                 font-family: 'Bebas Neue', sans-serif;
                 margin-bottom: 15px;
             }
@@ -321,13 +337,16 @@ nav {
             }
 
                 .sideBar .userPurchases span p {
-                    color: #B04759;
+                    color: #ffffff;
+                    font-weight: 600;
                     font-size: 1.1em;
+                    margin-right: 30px;
                 }
 
                     .sideBar .userPurchases span p b{
                         font-size: 1.1em;
-                        color: #9BA4B5;
+                        color: #ffffff;
+                        font-weight: lighter;
                     }
 
             .sideBar .userPurchases .notPurchases {
@@ -346,14 +365,14 @@ nav {
                 .sideBar .userPurchases .notPurchases button {
                     width: 70%;
                     margin: 0 auto;
-                    border-radius: 4px;
-                    background-color: #9BA4B5;
+                    border: solid 2px #ffffff;
                     margin-top: 10px;
+                    background-color: #000000;
                 }
 
                 .sideBar .userPurchases .notPurchases button a {
                     text-decoration: none;
-                    color: #000000;
+                    color: #ffffff;
                     font-size: 1.8em;
                     font-family: 'Bebas Neue', sans-serif;
 
@@ -365,21 +384,20 @@ nav {
                 }
 
     .sideBar .buttonLogout {
-        width: 70%;
-        margin: 0 auto;
-        border-radius: 4px;
+        width: 100%;
         background-color: #B04759;
-        color: #000000;
+        font-weight: 600;
         font-size: 1.8em;
+        letter-spacing: 3px;
         font-family: 'Bebas Neue', sans-serif;
         margin-top: 10px;
         bottom: 0;
     }
 
-    .sideBar .buttonLogout:hover{
-        cursor: pointer;
-         opacity: 0.7;
-    }
+        .sideBar .buttonLogout:hover{
+            cursor: pointer;
+            opacity: 0.7;
+        }
 
     #closeButton {
         position: absolute;
@@ -392,9 +410,7 @@ nav {
         cursor: pointer;
       }
 
-
 /* style main */
-
 .shopsContainer {
     width: 80%;
     margin: 0 auto;

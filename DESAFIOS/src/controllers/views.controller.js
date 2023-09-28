@@ -299,6 +299,7 @@ const viewOurShops = async (req, res) => {
     totalCountCart: totalQuantity,
     logoGymnasium: "/img/logo-gymnasium.png",
     logoFitnessPlace: "/img/logo-fitness-place.png",
+    user: user
   });
 };
 

@@ -167,6 +167,33 @@
   </a>
 </div>
 
+<div class="sideBar" id="sidebar">
+  <button id="closeButton">X</button>
+  <div class="perfilUser">
+    <i class="fa-solid fa-circle-user"></i>
+    <b>{{user.name}}</b>
+  </div>
+  <div class="infoUser">
+    <h5>My details:</h5>
+    <span><b>Email:</b>
+      <p>{{user.email}}</p>
+    </span>
+    <span><b>User:</b>
+      <p>{{user.role}}</p>
+    </span>
+    <span><b>Discount Code:</b>
+      <p>{{user.discountCode}}</p>
+    </span>
+    <button><a href="">Change my data</a></button>
+  </div>
+  <div class="userPurchases">
+    <h5>My purchases</h5>
+    <div class="purchasesContainer" id="purchasesContainer"></div>
+  </div>
+  <div class="premiumUser" id="premiumUser"></div>
+  <button class="buttonLogout" id="buttonLogout">log out</button>
+</div>
+
 <main>
   <div class="productsContainer">
     {{#each products}}
