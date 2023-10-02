@@ -273,7 +273,7 @@ En el curso se nos enseño a crear un middleware para el manejo de errores, no e
 | -  | Consume el codigo de descuento del usuario y lo cambia a uno nuevo|
 
 #### VALIDACIONES:
-- El codigo debe coincidir con campo "discountCode" del user
+- El codigo debe coincidir con el campo "discountCode" del user
 
 ```http
   POST /api/users/:uid/documents
