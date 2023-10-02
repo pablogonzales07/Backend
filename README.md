@@ -40,7 +40,7 @@ A lo largo del curso se nos enseñaron muchas herrmientas mas, como herramientas
 A continuacion dejo una breve descripcion de cada ruta que inclui en el proyecto con el fin de hacer sencilla su revisión:
 
 ### PRODUCTS:
-En el curso se nos enseño a crear un middleware para el manejo de errores, no era obligacion integrarlo pero decidi implementarlo en estos endpoints con el fin de ponerlo en practica y ya que tambien me parecio una forma de mejorar la performance de mi sitio por lo que mi idea es poder incluirlas en todo el proyecto a fututp
+En el curso se nos enseño a crear un middleware para el manejo de errores, no era obligacion integrarlo pero decidi implementarlo en estos endpoints con el fin de ponerlo en practica y ya que tambien me parecio una forma de mejorar la performance de mi sitio por lo que mi idea es poder incluirlas en todo el proyecto a futuro 
 
 ```http
   GET /api/products
