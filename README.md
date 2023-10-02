@@ -389,3 +389,5 @@ En el curso se nos enseño a crear un middleware para el manejo de errores, no e
 
 ## CONCLUSION:
 En el curso se nos enseñaron muchas herramientas que llevan a construir una API lo mas solida posible. Este fue mi primer proyecto de backend, por lo que se que aun me queda mucho por aprender. Antes de este curso tenia pensado seguir mi carrera como frontend ya que no tenia conocimiento alguno sobre el back. Gracias a este curso me pude dar cuenta que el backend me llama mucho mas la atencion por lo que este proyecto va a ser el inicio de mi carrera como backend ya que pienso aumentar aun mas mis conociemientos y este proyecto lo voy a usar para poder aplicar todo lo que aprenda. Espero que les guste :)
+
+### LINK RENDER: https://fitness-place-2f3o.onrender.com
