@@ -80,7 +80,7 @@ En el curso se nos enseño a crear un middleware para el manejo de errores, no e
 
 | Parametro | Description                       |
 | :-------- | :-------------------------------- |
-| -pid: ID del producto(obligatorio)          | Actuliza el producto seleccionado |
+| -pid: ID del producto(obligatorio)          | Actualiza el producto seleccionado |
 
 #### VALIDACIONES:
 - El ID del producto enviado debe coincidir con un producto existente
