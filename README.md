@@ -97,7 +97,7 @@ En el curso se nos enseño a crear un middleware para el manejo de errores, no e
 
 #### VALIDACIONES:
 - El ID del producto enviado debe coincidir con un producto existente
-- Usuarios de rol "premium" solo pueden eliminar productos que le pertencen
+- Usuarios de rol "premium" solo pueden eliminar productos que le pertenecen
 - Usuarios de rol "user" no pueden eliminar productos
 
 ### CARTS:
