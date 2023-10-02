@@ -1,6 +1,6 @@
 # PROYECTO BACKEND CODERHOUSE
 
-Bienvenidos al proyecto final que realice para el curso de backend de coderhouse en donde se nos pidio desarrollar un servidor de un e-commerce. Al ser un curso de backend el foco esta puesto en en back, por lo que el codigo hecho de front tiene muchos detalles para corregir en cuanto a optimizacion y escabilidad.
+Bienvenidos al proyecto final que realice para el curso de backend de coderhouse en donde se nos pidio desarrollar un servidor de un e-commerce. Al ser un curso de backend el foco esta puesto en el back, por lo que el codigo hecho de front tiene muchos detalles para corregir en cuanto a optimizacion y escabilidad.
 
 ## OBJETIVOS:
 
@@ -18,7 +18,7 @@ Bienvenidos al proyecto final que realice para el curso de backend de coderhouse
 
 - mongoose V:7.1.1: Al usar mongoDB como base de datos para mi proyecto, necesite mongoose para poder conectarme con la misma
 
-- mongoose-paginate-v2: V: 1.7.1: Cuando se nos enseño mongoose se nos enseñaron muchas funcionalidades que ofrece el mismo, entre ellas la PAGINATION, la cual me parecion muy util por lo que la incui en mi ruta de productos
+- mongoose-paginate-v2: V: 1.7.1: Cuando se nos enseño mongoose se nos enseñaron muchas funcionalidades que ofrece el mismo, entre ellas la PAGINACION, la cual me parecion muy util por lo que la incui en mi ruta de productos
 
 - multer: V: 1.4.5-lts.1: La utilice para poder manejar archivos en las peticiones
 
