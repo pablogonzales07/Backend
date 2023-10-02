@@ -6,5 +6,9 @@
     </div>
     <h2 style="color: aqua;"></h2>
     <p>Please do not enter the password you currently have</p>
-    <p>Restablece tu contraseña en <a href="http://localhost:8080/restorePassword?token={{restoreToken}}">Este enalce</a></p>
+    {{#if around}}
+        <p>You can change your password in <a href="http://localhost:8080/restorePassword?token={{restoreToken}}">this link</a></p>
+    {{else}}
+        <p>You can change your password in <a href="https://fitness-place-2f3o.onrender.com/restorePassword?token={{restoreToken}}">this link</a></p>
+    {{/if}}
 </div>

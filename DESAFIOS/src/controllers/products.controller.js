@@ -279,7 +279,7 @@ const changeFieldProduct = async (req, res) => {
     //If the role is "ADMIN" I modify the product
     if (user.role.toUpperCase() === "ADMIN") {
       await productsService.updateProduct(productId, productUpdate);
-      res.sendSuccess("The product was changed correctly");
+      return res.sendSuccess("The product was changed correctly");
     }
 
     //I verify if the field to change it is not a owner field
@@ -357,7 +357,7 @@ const deleteProduct = async (req, res) => {
     //I delete the product if is a ADMIN user
     if (user.role.toUpperCase() === "ADMIN") {
       await productsService.deleteProduct(productId);
-      res.sendSuccess("The product was deleted correctly");
+      return res.sendSuccess("The product was deleted correctly");
     }
 
     //I verify if the product belongs to the user

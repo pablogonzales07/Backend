@@ -46,7 +46,6 @@ const getTicketsUser = async (req, res) => {
       purchaser: user.email,
     });
 
-    if (!tickets) return res.badRequest("The user hasn't tickets");
     res.sendPayload(tickets);
   } catch (error) {
     return res.errorServer(error);

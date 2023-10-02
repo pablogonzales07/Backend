@@ -8,6 +8,12 @@ const modal = document.getElementById("modal");
 const closeModal = document.getElementById("modalClose");
 const passwordInput = document.getElementById("password");
 const visibleButton = document.getElementById("visiblePass");
+const buttonGitHub = document.getElementById("githubIcon")
+
+//I delete the "active" field from localStorage
+buttonGitHub.addEventListener("click", () => {
+  localStorage.removeItem("active");
+})
 
 //Login form functionality
 formLogin.addEventListener("submit", async (e) => {

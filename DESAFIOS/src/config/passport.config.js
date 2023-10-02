@@ -25,6 +25,8 @@ const initializePassportStrategies = () => {
           if (!first_name || !last_name || !email || !password || !age )
             return done(null, false, { message: "Incomplete Fields" });
 
+          if(age<18) return done(null, false, {message: "The user must be of legal age"})
+
           //I verify if the email sent is a valid email
           const correctCredentials = /^[A-Za-z0-9._%+-]+@(gmail\.com|hotmail\.com|yahoo\.com|outlook\.com)$/.test(email);
           if(!correctCredentials) return done(null, false, { message: "The email sent is invalid" })

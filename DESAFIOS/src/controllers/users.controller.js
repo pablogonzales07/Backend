@@ -59,7 +59,7 @@ const changeRoleUserPremium = async (req, res) => {
     if (!userExist) return res.badRequest("The user isn't exist");
 
     //I verify if the user is already a premium user
-    if (userExist.role === "Premium")
+    if (userExist.role === "Premium" || userExist.role === "PREMIUM")
       return res.badRequest("The user is already premium");
 
     //I verify if the user has the necessary documents

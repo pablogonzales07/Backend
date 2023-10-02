@@ -212,7 +212,7 @@ if (productsCart.length >= 1) {
           });
           const responseDataTicket = await responseTicket.json();
           if (responseDataTicket.status === "Success") {
-            alert("ticket generado");
+            alert("generated ticket");
             const listProductsCart = productsNotAvailable.map((item) => {
               return {
                 title: item.product.title,
@@ -410,7 +410,7 @@ if (productsCart.length >= 1) {
             });
             const responseDataTicket = await responseTicket.json();
             if (responseDataTicket.status === "Success") {
-              alert("ticket generado");
+              alert("generated ticket");
               const listProductsCart = productsNotAvailable.map((item) => {
                 return {
                   title: item.product.title,

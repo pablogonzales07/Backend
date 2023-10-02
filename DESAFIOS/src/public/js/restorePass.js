@@ -16,10 +16,13 @@ formRestorePassword.addEventListener("submit", async (e) => {
     data.forEach((value, key) => (objData[key] = value));
     //I introduce the user´s token in the object
     objData.token = urlParams.token
-    //Valid if the password field is complete
+    //I verify certain fields
     if (!objData.password) {
       errorResetPass.innerHTML = "";
       errorResetPass.innerHTML = "Complete all fields";
+    } else if(objData.password !== objData.confirmPass) {
+      errorResetPass.innerHTML = "";
+      errorResetPass.innerHTML = "Passwords not match";
     } else {
       //Generate a request to change the user's password
       const response = await fetch("/api/sessions/restorePassword", {

@@ -45,6 +45,7 @@ const addProductsCart = async (req, res) => {
 
     //I get the product that the customer wants to add
     const product = await productsService.getProductBy({ _id: productId });
+    if(!product) return res.badRequest("Product not found")
     if (user.email === product.owner)
       return res.forbidden(
         "The user cannot add a product that belongs to him/her"
@@ -160,7 +161,6 @@ const changeQuantityProductCart = async (req, res) => {
 //Controller for delete a cart products selected
 const deleteCartProducts = async (req, res) => {
   try {
-    console.log("fwefwfwef");
     //I get the required data
     const cartId = req.params.cid;
 

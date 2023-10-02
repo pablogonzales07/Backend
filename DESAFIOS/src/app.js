@@ -9,9 +9,7 @@ import swaggerUiExpress from "swagger-ui-express";
 
 //My dependencies
 import __dirname from "./utils.js";
-import { productsService } from "./services/repositories.js";
 import initializePassportStrategies from "./config/passport.config.js";
-import registerChatHandler from "./listeners/chatHandle.js";
 import SessionsRouter from "./routes/sessions.router.js";
 import ProductsRouter from "./routes/productsMongo.js";
 import CartsRouter from "./routes/cartsMongo.js";
@@ -90,10 +88,4 @@ app.use("/mockingproducts", mocksRouter.getRouter());
 //I capture any errors that occur
 app.use(errorHandler);
 
-//Message config
-io.on("connection", async (socket) => {
-  console.log("new client coneccting");
-  const products = await productsService.getProducts();
-  socket.emit("changeListProducts", products);
-  registerChatHandler(io, socket);
-});
+

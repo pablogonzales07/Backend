@@ -5,7 +5,7 @@ import {
   usersService,
 } from "../services/repositories.js";
 import InfoAdmDTO from "../dtos/user/infoAdmDTO.js";
-import config from "../config/config.js"
+import config from "../config/config.js";
 
 //Controller for the home´s view
 const viewHome = async (req, res) => {
@@ -53,14 +53,6 @@ const viewHome = async (req, res) => {
     totalPrice: totalPrice,
     user: user,
   });
-};
-
-const viewProductsRealTime = async (req, res) => {
-  res.render("chat");
-};
-
-const viewChat = async (req, res) => {
-  res.render("chat");
 };
 
 //Controller for show the view for user's cart
@@ -181,12 +173,16 @@ const viewDetailProduct = async (req, res) => {
 const viewRestorePassword = (req, res) => {
   //I take the user token
   const { token } = req.query;
+  const around = config.app.AROUND === "dev" || null;
   try {
     //I verify if the user token is valid
     const validToken = jwt.verify(token, config.token.SECRET);
 
     //I render the template whit the neccesary info
-    res.render("restorePassword");
+    res.render("restorePassword", {
+      around: around,
+      css: "restorePassword",
+    });
   } catch (error) {
     return res.render("invalidToken");
   }
@@ -299,7 +295,7 @@ const viewOurShops = async (req, res) => {
     totalCountCart: totalQuantity,
     logoGymnasium: "/img/logo-gymnasium.png",
     logoFitnessPlace: "/img/logo-fitness-place.png",
-    user: user
+    user: user,
   });
 };
 
@@ -393,8 +389,6 @@ const viewError404 = (req, res) => {
 
 export default {
   viewHome,
-  viewProductsRealTime,
-  viewChat,
   viewCart,
   viewRegist,
   viewLogin,

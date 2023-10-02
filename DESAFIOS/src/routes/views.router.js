@@ -13,8 +13,6 @@ export default class ViewsRouter extends BaseRouter {
 
     this.get("/shopFitnessPlace", ["AUTH"], viewsController.viewShopFitnessPlace);
 
-    this.get("/chat", ["AUTH"], viewsController.viewChat);
-
     this.get("/carts/:cid", ["AUTH"], viewsController.viewCart);
 
     this.get("/register" , ["NO_AUTH"] ,viewsController.viewRegist);
